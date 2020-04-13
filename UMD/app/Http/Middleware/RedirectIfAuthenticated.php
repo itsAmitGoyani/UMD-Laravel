@@ -18,6 +18,21 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        if ($guard == "admin" && Auth::guard($guard)->check()) {
+            return redirect('/admin');
+        }
+        if ($guard == "donator" && Auth::guard($guard)->check()) {
+            return redirect('/donator');
+        }
+        if ($guard == "manager" && Auth::guard($guard)->check()) {
+            return redirect('/manager');
+        }
+        if ($guard == "pickupman" && Auth::guard($guard)->check()) {
+            return redirect('/pickupman');
+        }
+        if ($guard == "verifier" && Auth::guard($guard)->check()) {
+            return redirect('/verifier');
+        }
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }

@@ -46,6 +46,26 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'donator' => [
+            'driver' => 'session',
+            'provider' => 'donators',
+        ],
+        'manager' => [
+            'driver' => 'session',
+            'provider' => 'Managers',
+        ],
+        'pickupman' => [
+            'driver' => 'session',
+            'provider' => 'pickupmen',
+        ],
+        'verifier' => [
+            'driver' => 'session',
+            'provider' => 'verifiers',
+        ],
     ],
 
     /*
@@ -70,6 +90,27 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        'donators' => [
+            'driver' => 'eloquent',
+            'model' => App\Donator::class,
+        ],
+        'managers' => [
+            'driver' => 'eloquent',
+            'model' => App\Manager::class,
+        ],
+        'pickupmen' => [
+            'driver' => 'eloquent',
+            'model' => App\Pickupman::class,
+        ],
+        'verifiers' => [
+            'driver' => 'eloquent',
+            'model' => App\Verifier::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',

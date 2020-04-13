@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Admin;
+use App\Donator;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Manager;
+use App\Pickupman;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use App\Verifier;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -39,6 +45,11 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:admin');
+        $this->middleware('guest:donators');
+        $this->middleware('guest:manager');
+        $this->middleware('guest:pickupman');
+        $this->middleware('guest:verifier');
     }
 
     /**
@@ -69,5 +80,95 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    //This is admin register functionality
+
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['url' => 'admin']);
+    }
+
+    protected function createAdmin(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $admin = Admin::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/admin');
+    }
+
+    //This is donator functinality
+
+    public function showDonatorRegisterForm()
+    {
+        return view('auth.register', ['url' => 'donator']);
+    }
+
+    protected function createDonator(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $donator = Donator::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/donator');
+    }
+
+    //This is Manager functinality
+
+    public function showManagerRegisterForm()
+    {
+        return view('auth.register', ['url' => 'manager']);
+    }
+
+    protected function createManager(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $manager = Manager::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/manager');
+    }
+
+    //this is pickerman funcationality
+
+    public function showPickermanRegisterForm()
+    {
+        return view('auth.register', ['url' => 'pickerman']);
+    }
+
+    protected function createPickerman(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $pickerman = Pickupman::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/pickerman');
+    }
+
+    //This is verifier funcationality
+
+    public function showVerifierRegisterForm()
+    {
+        return view('auth.register', ['url' => 'verifier']);
+    }
+
+    protected function createVerifier(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $verifier = Verifier::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/verifier');
     }
 }

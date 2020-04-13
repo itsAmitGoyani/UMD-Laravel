@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,115 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:donator')->except('logout');
+        $this->middleware('guest:manager')->except('logout');
+        $this->middleware('guest:pickupman')->except('logout');
+        $this->middleware('guest:verifier')->except('logout');
+    }
+
+    //This is admin login functionality
+
+    public function showAdminLoginForm()
+    {
+        return view('auth.login', ['url' => 'admin']);
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/admin');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    //This is donator login functionality
+
+    public function showDonatorLoginForm()
+    {
+        return view('auth.login', ['url' => 'donator']);
+    }
+
+    public function donatorLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('donator')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/donator');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    //This is manager functionality
+
+    public function showManagerLoginForm()
+    {
+        return view('auth.login', ['url' => 'manager']);
+    }
+
+    public function managerLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('managers')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/manager');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    //This is pickupman functionality
+
+    public function showPickupmanLoginForm()
+    {
+        return view('auth.login', ['url' => 'pickupman']);
+    }
+
+    public function pickupmanLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('pickupman')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/pickupman');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    //This is verifier functionality
+
+    public function showVerifierLoginForm()
+    {
+        return view('auth.login', ['url' => 'verifier']);
+    }
+
+    public function verifierLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('verifier')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/verifier');
+        }
+        return back()->withInput($request->only('email', 'remember'));
     }
 }

@@ -20,8 +20,7 @@ class CreateNgosTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('pincode');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

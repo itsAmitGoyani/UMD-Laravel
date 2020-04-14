@@ -46,7 +46,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:admin');
-        $this->middleware('guest:donators');
+        $this->middleware('guest:donator');
         $this->middleware('guest:manager');
         $this->middleware('guest:pickupman');
         $this->middleware('guest:verifier');
@@ -63,7 +63,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -84,21 +84,26 @@ class RegisterController extends Controller
 
     //This is admin register functionality
 
-    public function showAdminRegisterForm()
-    {
-        return view('auth.register', ['url' => 'admin']);
-    }
+    // public function showAdminRegisterForm()
+    // {
+    //     return view('auth.register', ['url' => 'admin']);
+    // }
 
-    protected function createAdmin(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        $admin = Admin::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
-        return redirect()->intended('login/admin');
-    }
+    // protected function createAdmin(Request $request)
+    // {
+    //     //$this->validator($request->all())->validate();
+    //     Validator::make($request->all(), [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //     ])->validate();
+    //     $admin = Admin::create([
+    //         'name' => $request['name'],
+    //         'email' => $request['email'],
+    //         'password' => Hash::make($request['password']),
+    //     ]);
+    //     return redirect()->intended('login/admin');
+    // }
 
     //This is donator functinality
 
@@ -109,11 +114,27 @@ class RegisterController extends Controller
 
     protected function createDonator(Request $request)
     {
-        $this->validator($request->all())->validate();
+        //$this->validator($request->all())->validate();
+        Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'contact' => ['required', 'string', 'max:10', 'unique:donators'], 
+                'address' => ['required', 'string', 'max:255'], 
+                'city' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'pincode' => ['required', 'string', 'max:6'],
+            ])->validate();
+
         $donator = Donator::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'contact' => $request['contact'],
+            'address' => $request['address'],
+            'city' => $request['city'],
+            'state' => $request['state'],
+            'pincode' => $request['pincode'],
         ]);
         return redirect()->intended('login/donator');
     }
@@ -127,11 +148,18 @@ class RegisterController extends Controller
 
     protected function createManager(Request $request)
     {
-        $this->validator($request->all())->validate();
+        //$this->validator($request->all())->validate();
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'ngo_id' => ['required'],
+        ])->validate();
         $manager = Manager::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'ngo_id' => $request['ngo_id'],
         ]);
         return redirect()->intended('login/manager');
     }
@@ -145,11 +173,20 @@ class RegisterController extends Controller
 
     protected function createPickerman(Request $request)
     {
-        $this->validator($request->all())->validate();
+        //$this->validator($request->all())->validate();
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'contact' => ['required', 'string', 'max:10', 'unique:donators'],
+            'ngo_id' => ['required'],
+        ])->validate();
         $pickerman = Pickupman::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'contact' => $request['contact'],
+            'ngo_id' => $request['ngo_id'],
         ]);
         return redirect()->intended('login/pickerman');
     }
@@ -163,11 +200,18 @@ class RegisterController extends Controller
 
     protected function createVerifier(Request $request)
     {
-        $this->validator($request->all())->validate();
+        //$this->validator($request->all())->validate();
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'ngo_id' => ['required'],
+        ])->validate();
         $verifier = Verifier::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'ngo_id' => $request['ngo_id'],
         ]);
         return redirect()->intended('login/verifier');
     }

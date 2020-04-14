@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Donator extends Model
+class Donator extends Authenticatable
 {
     use Notifiable;
 
@@ -17,7 +17,14 @@ class Donator extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 
+        'email', 
+        'password', 
+        'contact', 
+        'address', 
+        'city',
+        'state',
+        'pincode',
     ];
 
     /**
@@ -34,7 +41,7 @@ class Donator extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 }

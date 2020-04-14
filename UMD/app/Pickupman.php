@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Pickupman extends Model
+class Pickupman extends Authenticatable
 {
     use Notifiable;
 
@@ -17,7 +17,7 @@ class Pickupman extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'contact', 'ngo_id',
     ];
 
     /**
@@ -34,7 +34,7 @@ class Pickupman extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 }

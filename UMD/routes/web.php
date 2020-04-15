@@ -36,7 +36,7 @@ Route::get('/register/manager', 'Auth\RegisterController@showManagerRegisterForm
 Route::get('/register/pickupman', 'Auth\RegisterController@showPickupmanRegisterForm');
 Route::get('/register/verifier', 'Auth\RegisterController@showVerifierRegisterForm');
 
-Route::post('/adminlogin', 'Auth\LoginController@adminLogin')->name('adminlgn');
+Route::post('/adminlogin', 'Auth\LoginController@adminLogin')->name('adminlogin');
 Route::post('/login/donator', 'Auth\LoginController@donatorLogin');
 Route::post('/login/manager', 'Auth\LoginController@managerLogin');
 Route::post('/login/pickerman', 'Auth\LoginController@pickermanLogin');
@@ -49,7 +49,11 @@ Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
 
 //Route::view('/home', 'home')->middleware('auth');
 
-Route::view('/admin', 'admin.dashboard');
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin-ngo', 'AdminController@showNGOForm');
+Route::get('/admin-displayngo', 'AdminController@show');
+
+
 Route::view('/donator', 'donator');
 Route::view('/manager', 'manager');
 Route::view('/pickupman', 'pickupman');

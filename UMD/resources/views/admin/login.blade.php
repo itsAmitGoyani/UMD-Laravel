@@ -24,7 +24,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Admin Login</h4>
-                                    <form method="POST" action="{{ route('adminlgn') }}">
+                                    <form method="POST" action="{{ route('adminlogin') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>

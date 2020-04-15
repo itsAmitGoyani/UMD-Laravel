@@ -28,12 +28,27 @@
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                            <div class="col-md-6">
+                                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
+                                            <div class="col-md-6">
                                             <input type="password" name="password" class="form-control" value="">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                            </div>
                                         </div>
+                                        
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
                                                 <div class="form-check ml-2">
@@ -48,6 +63,7 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                                         </div>
+                                        
                                     </form>
                                     <!-- <div class="new-account mt-3">
                                         <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
@@ -69,7 +85,6 @@
     <script src="{{ asset('vendor/global/global.min.js') }}"></script>
     <script src="{{ asset('js/quixnav-init.js') }}"></script>
     <script src="{{ asset('js/custom.min.js') }}"></script>
-
 </body>
 
 

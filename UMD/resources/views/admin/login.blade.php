@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from demo.themefisher.com/focus/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:51 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,15 +24,15 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Admin Login</h4>
-                                    <form method="POST" action="{{ route('adminlogin') }}">
+                                    <form method="POST" action="{{ route('adminlgn') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" class="form-control" value="{{ old('email') }}">
+                                            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <input type="password" class="form-control" value="">
+                                            <input type="password" name="password" class="form-control" value="">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
@@ -73,4 +74,5 @@
 
 
 <!-- Mirrored from demo.themefisher.com/focus/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:51 GMT -->
+
 </html>

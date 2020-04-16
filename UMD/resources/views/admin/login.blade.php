@@ -18,37 +18,45 @@
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="authincation-content">
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Admin Login</h4>
+                                    @error('errmsg')
+                                    <div class="alert alert-dismissable alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                                <li><strong>{!! $message !!}</strong></li>
+                                        </div>
+                                    @enderror
+                                    
                                     <form method="POST" action="{{ route('adminlogin') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <div class="col-md-6">
-                                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                                <input type="email" name="email" 
+                                                        class="form-control @error('email') is-invalid @enderror" 
+                                                        value="{{ old('email') }}" required autocomplete="email">
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <div class="col-md-6">
-                                            <input type="password" name="password" class="form-control" value="">
+                                            <input type="password" name="password" 
+                                                    class="form-control @error('password') is-invalid @enderror" 
+                                                    value="" required >
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
-                                            </div>
                                         </div>
-                                        
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
                                                 <div class="form-check ml-2">

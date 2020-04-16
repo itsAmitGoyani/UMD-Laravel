@@ -47,6 +47,8 @@ Route::post('/register/manager', 'Auth\RegisterController@createManager');
 Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
 Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
 
+Route::get('/admin-logout', 'Auth\LogoutController@adminLogout');
+
 //Route::view('/home', 'home')->middleware('auth');
 
 Route::get('/admin', 'AdminController@index');

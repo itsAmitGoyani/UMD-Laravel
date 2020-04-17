@@ -25,7 +25,7 @@ class AdminController extends Controller
 
     public function showManagerForm()
     {
-        return view('admin.createmanager');
+        return view('admin.registermanager');
     }
 
     public function createManager(Request $request)
@@ -68,7 +68,7 @@ class AdminController extends Controller
     public function show(Admin $admin)
     {
         //
-        
+
     }
 
     /**

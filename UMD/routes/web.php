@@ -54,6 +54,8 @@ Route::get('/admin-logout', 'Auth\LogoutController@adminLogout');
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin-ngo', 'AdminController@showNGOForm');
 Route::get('/admin-displayngo', 'AdminController@show');
+Route::get('/admin-manager', 'AdminController@showManagerForm');
+Route::post('/admin-createmanager', 'AdminController@createManager')->name('addmanager');
 
 
 Route::view('/donator', 'donator');

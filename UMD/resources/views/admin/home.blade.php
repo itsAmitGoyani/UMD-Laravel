@@ -189,6 +189,12 @@
                             <li><a href="/admin-displayngo">{{ __('Display All NGO') }}</a></li>
                         </ul>
                     </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manager') }}</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin-manager">{{ __('Create Manager') }}</a></li>
+                            <li><a href="/admin-displayngo">{{ __('Display All Manager') }}</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">
@@ -301,17 +307,7 @@
         ***********************************-->
 
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
+
 
         <!--**********************************
            Support ticket button start

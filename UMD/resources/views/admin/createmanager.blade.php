@@ -29,7 +29,7 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form method="POST" action="{{ route('addmanager') }}">
+                            <form method="POST" action="{{ route('admin-registermanager') }}">
                                 @csrf
                                 <div class="form-group">
                                     <input class="form-control form-control-lg" name="name" type="text" placeholder="Enter a name">

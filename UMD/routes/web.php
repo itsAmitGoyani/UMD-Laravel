@@ -42,6 +42,7 @@ Route::post('/login/manager', 'Auth\LoginController@managerLogin');
 Route::post('/login/pickerman', 'Auth\LoginController@pickermanLogin');
 Route::post('/login/verifier', 'Auth\LoginController@verifierLogin');
 
+Route::post('/admin-registerngo', 'NgosController@store')->name('admin-registerngo');
 Route::post('/register/donator', 'Auth\RegisterController@createDonator');
 Route::post('/register/manager', 'Auth\RegisterController@createManager');
 Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
@@ -52,8 +53,8 @@ Route::get('/admin-logout', 'Auth\LogoutController@adminLogout');
 //Route::view('/home', 'home')->middleware('auth');
 
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin-ngo', 'AdminController@showNGOForm');
-Route::get('/admin-displayngo', 'AdminController@show');
+Route::get('/admin-registerngo', 'AdminController@showNGORegistrationForm');
+Route::get('/admin-displayngos', 'AdminController@show');
 
 
 Route::view('/donator', 'donator');

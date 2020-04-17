@@ -22,9 +22,9 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function showNGOForm()
+    public function showNGORegistrationForm()
     {
-        return view('admin.createngo');
+        return view('admin.registerNGO');
     }
     /**
      * Show the form for creating a new resource.
@@ -56,7 +56,7 @@ class AdminController extends Controller
     public function show(Admin $admin)
     {
         //
-        return view('admin.displayngo');
+        return view('admin.displayngos');
     }
 
     /**

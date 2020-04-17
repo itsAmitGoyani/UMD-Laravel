@@ -15,7 +15,7 @@ class NgosController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.displayngos');
     }
 
     /**
@@ -25,7 +25,7 @@ class NgosController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.registerNGO');
     }
 
     /**
@@ -57,7 +57,6 @@ class NgosController extends Controller
             }
             return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
         }
-        return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Password']);
     }
 
     /**

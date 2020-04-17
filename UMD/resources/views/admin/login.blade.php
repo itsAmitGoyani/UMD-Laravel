@@ -33,7 +33,7 @@
                                         </div>
                                     @enderror
                                     
-                                    <form method="POST" action="{{ route('adminlogin') }}">
+                                    <form method="POST" action="{{ route('admin-login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>

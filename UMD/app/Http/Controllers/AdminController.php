@@ -23,11 +23,6 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function showNGORegistrationForm()
-    {
-        return view('admin.registerNGO');
-    }
-
     public function showManagerForm()
     {
         return view('admin.createmanager');
@@ -73,7 +68,7 @@ class AdminController extends Controller
     public function show(Admin $admin)
     {
         //
-        return view('admin.displayngos');
+        
     }
 
     /**

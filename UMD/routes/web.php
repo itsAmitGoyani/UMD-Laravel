@@ -20,3 +20,48 @@ Route::get('/', function () {
 })->name('welcome');
 
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+//Route::resource('admin','AdminsController');
+//multimuthenticate route
+Route::view('/donator', 'donator');
+Route::view('/manager', 'manager');
+Route::view('/pickupman', 'pickupman');
+Route::view('/verifier', 'verifier');
+
+Route::get('/login/donator', 'Auth\LoginController@showDonatorLoginForm');
+Route::get('/login/manager', 'Auth\LoginController@showManagerLoginForm');
+Route::get('/login/pickerman', 'Auth\LoginController@showPickermanLoginForm');
+Route::get('/login/verifier', 'Auth\LoginController@showVerifierLoginForm');
+
+Route::get('/register/donator', 'Auth\RegisterController@showDonatorRegisterForm');
+Route::get('/register/pickupman', 'Auth\RegisterController@showPickupmanRegisterForm');
+Route::get('/register/verifier', 'Auth\RegisterController@showVerifierRegisterForm');
+
+Route::post('/login/donator', 'Auth\LoginController@donatorLogin');
+Route::post('/login/manager', 'Auth\LoginController@managerLogin');
+Route::post('/login/pickerman', 'Auth\LoginController@pickermanLogin');
+Route::post('/login/verifier', 'Auth\LoginController@verifierLogin');
+
+Route::post('/register/donator', 'Auth\RegisterController@createDonator');
+Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
+Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
+
+Route::get('/admin-logout', 'Auth\LogoutController@adminLogout');
+
+//Route::view('/home', 'home')->middleware('auth');
+
+// All routes with admin prefix and uses by admin only
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin-dashboard', 'AdminController@index');
+
+Route::get('/admin-login', 'Auth\LoginController@showAdminLoginForm');
+Route::post('/admin-login', 'Auth\LoginController@adminLogin')->name('admin-login');
+
+Route::get('/admin-registerngo', 'NgosController@create');
+Route::post('/admin-registerngo', 'NgosController@store')->name('admin-registerngo');
+Route::get('/admin-displayngos', 'NgosController@index');
+
+Route::get('/admin-registermanager', 'AdminController@showManagerForm');
+Route::post('/admin-registermanager', 'AdminController@createManager')->name('admin-registermanager');
+//Route::get('/admin-displaymanagers', '');

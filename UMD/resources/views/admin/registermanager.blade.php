@@ -1,55 +1,82 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<!--**********************************
-            Content body start
-        ***********************************-->
 <div class="content-body">
+    <!-- row -->
     <div class="container-fluid">
-        <div class="row page-titles mx-0">
-            <div class="col-sm-6 p-md-0">
-                <div class="welcome-text">
-                    <h4>Hi, welcome back!</h4>
-                    <span class="ml-1">Create Manager</span>
-                </div>
-            </div>
-            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Manager</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Manager</a></li>
-                </ol>
-            </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-            <div class="col-xl-6 col-xxl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">NGO Manager</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="basic-form">
-                            <form method="POST" action="{{ route('admin-registermanager') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <input class="form-control form-control-lg" name="name" type="text" placeholder="Enter a name">
+        <div class="authincation h-100">
+            <div class="container-fluid h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                    <div class="col-md-9">
+                        <div class="authincation-content">
+                            <div class="row no-gutters">
+                                <div class="col-xl-12">
+                                    <div class="auth-form">
+                                        <h4 class="text-center mb-4">Manager Registration</h4>
+                                        @error('errmsg')
+                                        <div class="alert alert-dismissable alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <li><strong>{!! $message !!}</strong></li>
+                                        </div>
+                                        @enderror
+
+                                        <form method="POST" action="{{ route('admin-registermanager') }}">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label><strong>Name</strong></label>
+                                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name">
+                                                @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Email</strong></label>
+                                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email">
+                                                @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Password</strong></label>
+                                                <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password">
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>NGO Branch</strong></label>
+                                                <select class="form-control @error('ngo_id') is-invalid @enderror" id="ngo_id" name="ngo_id" required>
+
+                                                    <option value="">--select city--</option>
+                                                    @foreach($ngos as $ngo)
+                                                    <option value="{!!$ngo->id!!}">{!!$ngo->name!!}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('ngo_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                            </div>
+
+                                        </form>
+                                        <!-- <div class="new-account mt-3">
+                                        <p>Already have an account? <a class="text-primary" href="page-login.html">Sign in</a></p>
+                                    </div> -->
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control form-control-lg" name="email" type="text" placeholder="Enter a Email">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control form-control-lg" name="password" type="text" placeholder="Enter a Password">
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg" name="ngo_id">
-                                        <option value="1">Surat</option>
-                                        <option value="2">Mumbai</option>
-                                        <option value="3">Vadodra</option>
-                                        <option value="4">Ahmedabad</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-2">Add</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +85,11 @@
     </div>
 </div>
 <!--**********************************
-            Content body end
-***********************************-->
+        Scripts
+    ***********************************-->
+<!-- Required vendors -->
+<script src="vendor/global/global.min.js"></script>
+<script src="js/quixnav-init.js"></script>
+<!--endRemoveIf(production)-->
 
 @endsection

@@ -8,6 +8,7 @@ use App\Donator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Manager;
+use App\Ngo;
 use App\Pickupman;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -44,8 +45,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
-        $this->middleware('guest:admin');
+        // $this->middleware('guest');
+        //$this->middleware('guest:admin');
         $this->middleware('guest:donator');
         $this->middleware('guest:manager');
         $this->middleware('guest:pickupman');
@@ -116,15 +117,15 @@ class RegisterController extends Controller
     {
         //$this->validator($request->all())->validate();
         Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'contact' => ['required', 'string', 'max:10', 'unique:donators'], 
-                'address' => ['required', 'string', 'max:255'], 
-                'city' => ['required', 'string', 'max:255'],
-                'state' => ['required', 'string', 'max:255'],
-                'pincode' => ['required', 'string', 'max:6'],
-            ])->validate();
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'contact' => ['required', 'string', 'max:10', 'unique:donators'],
+            'address' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+            'pincode' => ['required', 'string', 'max:6'],
+        ])->validate();
 
         $donator = Donator::create([
             'name' => $request['name'],
@@ -143,7 +144,8 @@ class RegisterController extends Controller
 
     public function showManagerRegisterForm()
     {
-        return view('auth.register', ['url' => 'manager']);
+        $ngo = Ngo::all();
+        return view('admin.registermanager', ['ngos' => $ngo]);
     }
 
     protected function createManager(Request $request)
@@ -152,7 +154,7 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required'],
         ])->validate();
         $manager = Manager::create([
@@ -161,7 +163,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
             'ngo_id' => $request['ngo_id'],
         ]);
-        return redirect()->intended('login/manager');
+        return redirect()->intended('/admin-registermanager');
     }
 
     //this is pickerman funcationality

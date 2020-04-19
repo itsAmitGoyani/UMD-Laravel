@@ -44,7 +44,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Pincode</strong></label>
-                                                <input type="number" name="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ old('pincode') }}" required autocomplete="pincode">
+                                                <input type="number" name="pincode" id="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ old('pincode') }}" required autocomplete="pincode">
+                                                <span role="alert"><strong id="errpncd" style="Color:red"></strong></span>
                                                 @error('pincode')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -52,6 +53,24 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
+                                                <label><strong>State</strong></label>
+                                                <input type="text" name="state" id="state1" class="form-control @error('state') is-invalid @enderror" value="{{ old('state') }}" required autocomplete="pincode">
+                                                @error('state')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>City</strong></label>
+                                                <input type="text" name="city" id="city1" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" required autocomplete="pincode">
+                                                @error('city')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <!-- <div class="form-group">
                                                 <label><strong>State</strong></label>
                                                 <select class="form-control @error('state') is-invalid @enderror" id="state" name="state" required>
                                                     <option value="">--select state--</option>
@@ -78,7 +97,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
-                                            </div>
+                                            </div> -->
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                                             </div>
@@ -97,10 +116,47 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#pincode").change(function() {
+            var pincode = $(this).val();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "https://api.postalpincode.in/pincode/" + pincode,
+                success: function(data) {
+
+                    if (data[0]["Status"] == "Success") {
+                        var err = null;
+                        document.getElementById("errpncd").innerText = err;
+                        var state = data[0]["PostOffice"][0]["Circle"];
+                        var district = data[0]["PostOffice"][0]["District"];
+                        document.getElementById("state1").value = state;
+                        document.getElementById("city1").value = district;
+                    } else {
+                        //console.log(data);
+                        var err = "Pincode is not Valid";
+                        document.getElementById("errpncd").innerText = err;
+                        var state = null
+                        var district = null;
+                        document.getElementById("state1").value = state;
+                        document.getElementById("city1").value = district;
+                    }
+
+
+
+                    // console.log(data[0]["PostOffice"][0]["Circle"]);
+                    // console.log(data[0]["PostOffice"][0]["District"]);
+                },
+            });
+        });
+    });
+</script>
 <!--**********************************
         Scripts
     ***********************************-->
 <!-- Required vendors -->
+
 <script src="vendor/global/global.min.js"></script>
 <script src="js/quixnav-init.js"></script>
 <!--endRemoveIf(production)-->

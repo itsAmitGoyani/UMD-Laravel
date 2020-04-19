@@ -79,7 +79,7 @@ class NgosController extends Controller
      */
     public function edit($id)
     {
-        $ngo=Ngo::where('id',$id)->get();
+        $ngo=Ngo::find($id);
         if($ngo) {
             return view('admin.ngo.edit',['ngo'=>$ngo]);
         }
@@ -93,9 +93,21 @@ class NgosController extends Controller
      * @param  \App\Ngo  $ngo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ngo $ngo)
+    public function update(Request $request,$id)
     {
-        //
+        $ngoUpdate=Ngo::where('id',$id)
+                ->update([
+                    'name'=>$request->input('name'),
+                    'address'=>$request->input('address'),
+                    'pincode'=>$request->input('pincode'),
+                    'city'=>$request->input('city'),
+                    'state'=>$request->input('state'),
+                ]);
+        if($ngoUpdate)
+        {
+            return redirect()->route('admin-displayngos')->with('success','NGO Updated Successfully');
+        }
+        return back()->withInput()->withErrors(['errmsg'=>'Unknown Error']);
     }
 
     /**
@@ -104,8 +116,13 @@ class NgosController extends Controller
      * @param  \App\Ngo  $ngo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ngo $ngo)
+    public function destroy($id)
     {
-        //
+        $findngo = Ngo::find($id);
+        if($findngo->delete()){
+            return redirect()->route('admin-displayngos')
+                            ->with('success' , 'NGO deleted successfully');
+        }
+        return back()->withErrors('errmsg' , 'NGO could not be deleted');
     }
 }

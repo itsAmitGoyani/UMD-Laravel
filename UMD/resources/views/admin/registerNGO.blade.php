@@ -35,7 +35,9 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>NGO Name</strong></label>
-                                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name">
+                                                <input type="text" name="name" 
+                                                        class="form-control @error('name') is-invalid @enderror" 
+                                                        value="{{ old('name') }}" required autocomplete="name">
                                                 @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -44,7 +46,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Address</strong></label>
-                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" rows="2" required cols="20" value="{{ old('address') }}" autocomplete="address"></textarea>
+                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" 
+                                                        rows="2" required cols="20" value="{{ old('address') }}" 
+                                                        autocomplete="address"></textarea>
                                                 @error('address')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -53,7 +57,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Pincode</strong></label>
-                                                <input type="number" name="pincode" id="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ old('pincode') }}" required autocomplete="pincode">
+                                                <input type="number" name="pincode" id="pincode" 
+                                                        class="form-control @error('pincode') is-invalid @enderror" 
+                                                        value="{{ old('pincode') }}" required autocomplete="pincode">
                                                 <span role="alert"><strong id="errpncd" style="Color:red"></strong></span>
                                                 @error('pincode')
                                                 <span class="invalid-feedback" role="alert">
@@ -62,23 +68,28 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label><strong>State</strong></label>
-                                                <input type="text" name="state" id="state1" class="form-control @error('state') is-invalid @enderror" value="{{ old('state') }}" required autocomplete="pincode">
-                                                @error('state')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
                                                 <label><strong>City</strong></label>
-                                                <input type="text" name="city" id="city1" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" required autocomplete="pincode">
+                                                <input type="text" name="city" id="city" 
+                                                        class="form-control @error('city') is-invalid @enderror" 
+                                                        value="{{ old('city') }}" disabled required autocomplete="city">
                                                 @error('city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group">
+                                                <label><strong>State</strong></label>
+                                                <input type="text" name="state" id="state" 
+                                                        class="form-control @error('state') is-invalid @enderror" 
+                                                        value="{{ old('state') }}" disabled required autocomplete="state">
+                                                @error('state')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            
                                             <!-- <div class="form-group">
                                                 <label><strong>State</strong></label>
                                                 <select class="form-control @error('state') is-invalid @enderror" id="state" name="state" required>
@@ -140,16 +151,16 @@
                         document.getElementById("errpncd").innerText = err;
                         var state = data[0]["PostOffice"][0]["Circle"];
                         var district = data[0]["PostOffice"][0]["District"];
-                        document.getElementById("state1").value = state;
-                        document.getElementById("city1").value = district;
+                        document.getElementById("state").value = state;
+                        document.getElementById("city").value = district;
                     } else {
                         //console.log(data);
                         var err = "Pincode is not Valid";
                         document.getElementById("errpncd").innerText = err;
                         var state = null
                         var district = null;
-                        document.getElementById("state1").value = state;
-                        document.getElementById("city1").value = district;
+                        document.getElementById("state").value = state;
+                        document.getElementById("city").value = district;
                     }
 
 

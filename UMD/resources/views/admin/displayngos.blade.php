@@ -38,8 +38,15 @@
                                     <p class="card-text text-dark d-inline">{{ $ngo->city }}, {{ $ngo->state }}</p>
                                 </div>
                                 <div>
-                                <a href="/admin-ngos/{{$ngo->id}}/edit" > <img class="logo-abbr" src="{{ asset('icons/icons/delete.png')}}"></a>
+                                <a href="#" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                                    <img class="logo-abbr" src="{{ asset('icons/icons/delete.png')}}">
+                                </a>
                                 <a href="/admin-ngos/{{$ngo->id}}/edit" class="btn btn-primary">Edit</a>
+                                <form id="delete-form" action="/admin-ngos/{{$ngo->id}}" 
+                                        method="POST" style="display: none;">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
                                 </div>
                                 
                             </div>

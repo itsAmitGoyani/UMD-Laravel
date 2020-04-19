@@ -12,7 +12,7 @@
                             <div class="row no-gutters">
                                 <div class="col-xl-12">
                                     <div class="auth-form">
-                                        <h4 class="text-center mb-4">Manager Registration</h4>
+                                        <h4 class="text-center mb-4">NGO Manager Registration</h4>
                                         @error('errmsg')
                                         <div class="alert alert-dismissable alert-danger">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -21,7 +21,16 @@
                                             <li><strong>{!! $message !!}</strong></li>
                                         </div>
                                         @enderror
-
+                                        @if (session()->has('success'))
+                                            <div class="alert alert-dismissable alert-success">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <strong>
+                                                    {!! session()->get('success') !!}
+                                                </strong>
+                                            </div>
+                                        @endif
                                         <form method="POST" action="{{ route('admin-registermanager') }}">
                                             @csrf
                                             <div class="form-group">
@@ -44,7 +53,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Password</strong></label>
-                                                <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password">
+                                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password">
                                                 @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -55,7 +64,7 @@
                                                 <label><strong>NGO Branch</strong></label>
                                                 <select class="form-control @error('ngo_id') is-invalid @enderror" id="ngo_id" name="ngo_id" required>
 
-                                                    <option value="">--select city--</option>
+                                                    <option value="">--select NGO--</option>
                                                     @foreach($ngos as $ngo)
                                                     <option value="{!!$ngo->id!!}">{!!$ngo->name!!}</option>
                                                     @endforeach

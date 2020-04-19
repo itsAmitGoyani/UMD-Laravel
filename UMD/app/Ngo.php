@@ -13,4 +13,9 @@ class Ngo extends Model
         'state',
         'pincode',
     ];
+
+    public function manager()
+    {
+    	return $this->hasOne('App\Manager');
+    }
 }

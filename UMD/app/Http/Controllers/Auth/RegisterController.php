@@ -144,8 +144,10 @@ class RegisterController extends Controller
 
     public function showManagerRegisterForm()
     {
-        $ngo = Ngo::all();
-        return view('admin.registermanager', ['ngos' => $ngo]);
+        $ngos = Ngo::whereNotIn('id',function($query) {
+            $query->select('ngo_id')->from('managers');
+         })->get();
+        return view('admin.registerManager', ['ngos' => $ngos]);
     }
 
     protected function createManager(Request $request)
@@ -153,9 +155,9 @@ class RegisterController extends Controller
         //$this->validator($request->all())->validate();
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
             'password' => ['required', 'string', 'min:8'],
-            'ngo_id' => ['required'],
+            'ngo_id' => ['required','numeric'],
         ])->validate();
         $manager = Manager::create([
             'name' => $request['name'],
@@ -163,7 +165,13 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
             'ngo_id' => $request['ngo_id'],
         ]);
-        return redirect()->intended('/admin-registermanager');
+        if($manager) {
+            return redirect()->intended('/admin-registermanager')
+                ->with('success','NGO Manager registerd successfully');
+        }else{
+            return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+        }
+        
     }
 
     //this is pickerman funcationality

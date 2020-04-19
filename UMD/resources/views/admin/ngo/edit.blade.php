@@ -12,7 +12,7 @@
                             <div class="row no-gutters">
                                 <div class="col-xl-12">
                                     <div class="auth-form">
-                                        <h4 class="text-center mb-4">NGO Registration</h4>
+                                        <h4 class="text-center mb-4">Edit NGO</h4>
                                         @error('errmsg')
                                         <div class="alert alert-dismissable alert-danger">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +35,7 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>NGO Name</strong></label>
-                                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name">
+                                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $ngo->name }}" required autocomplete="name">
                                                 @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Address</strong></label>
-                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" rows="2" required cols="20" value="{{ old('address') }}" autocomplete="address"></textarea>
+                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" rows="2" required cols="20" value="{{ $ngo->address }}" autocomplete="address"></textarea>
                                                 @error('address')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Pincode</strong></label>
-                                                <input type="number" name="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ old('pincode') }}" required autocomplete="pincode">
+                                                <input type="number" name="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ $ngo->pincode }}" required autocomplete="pincode">
                                                 @error('pincode')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

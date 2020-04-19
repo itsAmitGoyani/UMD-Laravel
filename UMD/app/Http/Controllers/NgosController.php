@@ -15,7 +15,8 @@ class NgosController extends Controller
      */
     public function index()
     {
-        return view('admin.displayngos');
+        $ngos = Ngo::all();
+        return view('admin.displayngos',['ngos'=>$ngos]);
     }
 
     /**
@@ -53,7 +54,7 @@ class NgosController extends Controller
                 'pincode' => $request['pincode'],
             ]);
             if($ngo) {
-                return redirect()->intended('/admin-displayngos')->with('success','NGO registered successfully');
+                return back()->with('success','NGO registered successfully');
             }
             return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
         }
@@ -76,9 +77,13 @@ class NgosController extends Controller
      * @param  \App\Ngo  $ngo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ngo $ngo)
+    public function edit($id)
     {
-        //
+        $ngo=Ngo::where('id',$id)->get();
+        if($ngo) {
+            return view('admin.ngo.edit',['ngo'=>$ngo]);
+        }
+        return back()->withErrors(['errmsg' => 'Unknown error']);
     }
 
     /**

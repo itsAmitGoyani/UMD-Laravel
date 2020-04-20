@@ -144,9 +144,9 @@ class RegisterController extends Controller
 
     public function showManagerRegisterForm()
     {
-        $ngos = Ngo::whereNotIn('id',function($query) {
+        $ngos = Ngo::whereNotIn('id', function ($query) {
             $query->select('ngo_id')->from('managers');
-         })->get();
+        })->get();
         return view('admin.registerManager', ['ngos' => $ngos]);
     }
 
@@ -157,21 +157,39 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
             'password' => ['required', 'string', 'min:8'],
-            'ngo_id' => ['required','numeric'],
+            'ngo_id' => ['required', 'numeric'],
         ])->validate();
-        $manager = Manager::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'ngo_id' => $request['ngo_id'],
-        ]);
-        if($manager) {
-            return redirect()->intended('/admin-registermanager')
-                ->with('success','NGO Manager registerd successfully');
-        }else{
-            return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+
+        //upload image
+
+        $image = $request->file('pimage');
+        if ($image != null) {
+            $name = $image->getClientOriginalName();
+            $nameimg = explode('.', $name);
+            $ext = $image->getClientOriginalExtension();
+            $imagepath = $nameimg[0] . '_' . time() . '.' . $ext;
+            $destinationPath = public_path('\images\manager');
+            $image->move($destinationPath, $imagepath);
+            $profileimgurl = url('/') . '/images/manager/' . $imagepath;
+
+            //register image 
+
+            $manager = Manager::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'ngo_id' => $request['ngo_id'],
+                'profile_image_url' => $profileimgurl
+            ]);
+            if ($manager) {
+                return redirect()->intended('/admin-registermanager')
+                    ->with('success', 'NGO Manager registerd successfully');
+            } else {
+                return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+            }
+        } else {
+            echo "image n0ot";
         }
-        
     }
 
     //this is pickerman funcationality

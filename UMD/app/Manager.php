@@ -17,7 +17,7 @@ class Manager extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'ngo_id',
+        'name', 'email', 'password', 'ngo_id', 'profile_image_url',
     ];
 
     /**
@@ -40,6 +40,6 @@ class Manager extends Authenticatable
 
     public function ngo()
     {
-    	return $this->belongsTo('App\Ngo');
+        return $this->belongsTo('App\Ngo');
     }
 }

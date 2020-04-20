@@ -22,16 +22,16 @@
                                         </div>
                                         @enderror
                                         @if (session()->has('success'))
-                                            <div class="alert alert-dismissable alert-success">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <strong>
-                                                    {!! session()->get('success') !!}
-                                                </strong>
-                                            </div>
+                                        <div class="alert alert-dismissable alert-success">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>
+                                                {!! session()->get('success') !!}
+                                            </strong>
+                                        </div>
                                         @endif
-                                        <form method="POST" action="{{ route('admin-registermanager') }}">
+                                        <form method="POST" action="{{ route('admin-registermanager') }}" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>Name</strong></label>
@@ -75,6 +75,22 @@
                                                 </span>
                                                 @enderror
                                             </div>
+
+
+                                            <div class="form-group">
+                                                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" id="viewimage" class="rounded-circle z-depth-1-half avatar-pic" alt="example placeholder avatar" height="100" width="100">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><strong>Profile Image</strong></label>
+                                                <input type="file" class="form-control" name="pimage" onchange="LoadPhoto(event)">
+                                                @error('pimage')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                                             </div>
@@ -93,9 +109,20 @@
         </div>
     </div>
 </div>
+
 <!--**********************************
         Scripts
     ***********************************-->
+<script>
+    function LoadPhoto(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('viewimage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 <!-- Required vendors -->
 <script src="vendor/global/global.min.js"></script>
 <script src="js/quixnav-init.js"></script>

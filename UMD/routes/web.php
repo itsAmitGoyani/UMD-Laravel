@@ -65,4 +65,4 @@ Route::get('/admin-ngos/{ngo_id}/edit', 'NgosController@edit');
 
 Route::get('/admin-registermanager', 'Auth\RegisterController@showManagerRegisterForm');
 Route::post('/admin-registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
-//Route::get('/admin-displaymanagers', '');
+Route::get('/admin-displaymanagers', 'ManagerController@index');

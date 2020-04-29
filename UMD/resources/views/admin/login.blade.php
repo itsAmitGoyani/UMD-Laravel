@@ -23,57 +23,67 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
+                                    @if($url=='admin')
                                     <h4 class="text-center mb-4">Admin Login</h4>
                                     @error('errmsg')
                                     <div class="alert alert-dismissable alert-danger">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <li><strong>{!! $message !!}</strong></li>
+                                    </div>
+                                    @enderror
+
+                                    <form method="POST" action="{{ route('admin-login') }}">
+                                        @else
+                                        <h4 class="text-center mb-4">Manager Login</h4>
+                                        @error('errmsg')
+                                        <div class="alert alert-dismissable alert-danger">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
-                                                <li><strong>{!! $message !!}</strong></li>
+                                            <li><strong>{!! $message !!}</strong></li>
                                         </div>
-                                    @enderror
-                                    
-                                    <form method="POST" action="{{ route('admin-login') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label><strong>Email</strong></label>
-                                                <input type="email" name="email" 
-                                                        class="form-control @error('email') is-invalid @enderror" 
-                                                        value="{{ old('email') }}" required autocomplete="email">
-                                            @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label><strong>Password</strong></label>
-                                            <input type="password" name="password" 
-                                                    class="form-control @error('password') is-invalid @enderror" 
-                                                    value="" required >
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                        @enderror
+
+                                        <form method="POST" action="{{ route('manager-login') }}">
+                                            @endif
+                                            @csrf
                                             <div class="form-group">
-                                                <div class="form-check ml-2">
-                                                    <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
-                                                    <label class="form-check-label" for="basic_checkbox_1">Remember me</label>
+                                                <label><strong>Email</strong></label>
+                                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email">
+                                                @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Password</strong></label>
+                                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="" required>
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                                <div class="form-group">
+                                                    <div class="form-check ml-2">
+                                                        <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
+                                                        <label class="form-check-label" for="basic_checkbox_1">Remember me</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <a href="page-forgot-password.html">Forgot Password?</a>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-block">Login</button>
                                             </div>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                        </div>
-                                        
-                                    </form>
-                                    <!-- <div class="new-account mt-3">
+
+                                        </form>
+                                        <!-- <div class="new-account mt-3">
                                         <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
                                     </div> -->
                                 </div>

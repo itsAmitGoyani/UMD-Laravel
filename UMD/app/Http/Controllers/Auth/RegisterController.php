@@ -188,7 +188,7 @@ class RegisterController extends Controller
                 return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
             }
         } else {
-            echo "image n0ot";
+            echo "image not";
         }
     }
 

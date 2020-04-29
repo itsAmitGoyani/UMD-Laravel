@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -37,10 +38,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
+        //$this->middleware('guest')->except('logout');
+        //$this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:donator')->except('logout');
-        $this->middleware('guest:manager')->except('logout');
+        // $this->middleware('guest:manager')->except('logout');
         $this->middleware('guest:pickupman')->except('logout');
         $this->middleware('guest:verifier')->except('logout');
     }
@@ -91,7 +92,7 @@ class LoginController extends Controller
 
     public function showManagerLoginForm()
     {
-        return view('auth.login', ['url' => 'manager']);
+        return view('admin.login', ['url' => 'manager']);
     }
 
     public function managerLogin(Request $request)
@@ -101,11 +102,11 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        if (Auth::guard('managers')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+        if (Auth::guard('manager')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/manager');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Password manager']);
     }
 
     //This is pickupman functionality

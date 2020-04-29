@@ -17,7 +17,7 @@ class Pickupman extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'contact', 'ngo_id',
+        'id', 'name', 'email', 'password', 'contact', 'ngo_id',
     ];
 
     /**

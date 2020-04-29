@@ -17,6 +17,7 @@ class Donator extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',

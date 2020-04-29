@@ -4,16 +4,7 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-        @if (session()->has('success'))
-            <div class="alert alert-dismissable alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>
-                    {!! session()->get('success') !!}
-                </strong>
-            </div>
-        @endif
+        @include('partial.success')
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
@@ -38,15 +29,16 @@
                                     <p class="card-text text-dark d-inline">{{ $ngo->city }}, {{ $ngo->state }}</p>
                                 </div>
                                 <div>
-                                <a href="#" onclick="event.preventDefault();document.getElementById('delete-form').submit();">
-                                    <img class="logo-abbr" src="{{ asset('icons/icons/delete.png')}}">
-                                </a>
-                                <a href="/admin-ngos/{{$ngo->id}}/edit" class="btn btn-primary">Edit</a>
-                                <form id="delete-form" action="/admin-ngos/{{$ngo->id}}" 
-                                        method="POST" style="display: none;">
-                                    @method('DELETE')
-                                    @csrf
-                                </form>
+                                    <a href="/admin-ngos/{{$ngo->id}}/edit" class="btn btn-primary mr-1">Edit</a>
+                                    <a href="#" class="btn btn-primary"
+                                        onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                                        Delete
+                                    </a>
+                                    <form id="delete-form" action="/admin-ngos/{{$ngo->id}}" 
+                                            method="POST" style="display: none;">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </div>
                                 
                             </div>

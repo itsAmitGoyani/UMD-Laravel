@@ -67,4 +67,7 @@ Route::delete('/admin-ngos/{id}', 'NgosController@destroy');
 
 Route::get('/admin-registermanager', 'Auth\RegisterController@showManagerRegisterForm');
 Route::post('/admin-registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
-Route::get('/admin-displaymanagers', 'ManagerController@index');
+Route::get('/admin-displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
+Route::get('/admin-managers/{ngo_id}/edit', 'ManagerController@edit');
+Route::put('/admin-managers/{id}', 'ManagerController@update');
+Route::delete('/admin-managers/{id}', 'ManagerController@destroy');

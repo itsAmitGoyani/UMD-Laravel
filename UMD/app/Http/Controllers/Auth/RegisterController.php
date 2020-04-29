@@ -158,6 +158,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
             'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
+            'pimage' => ['required','image','mimes:jpeg,png,jpg','max:2048'],
         ])->validate();
 
         //upload image
@@ -167,10 +168,11 @@ class RegisterController extends Controller
             $name = $image->getClientOriginalName();
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
-            $imagepath = $nameimg[0] . '_' . time() . '.' . $ext;
-            $destinationPath = public_path('\images\manager');
-            $image->move($destinationPath, $imagepath);
-            $profileimgurl = url('/') . '/images/manager/' . $imagepath;
+            $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
+            $image->storeAs('/public' . __('custom.managerpath'), $imagename);
+            //$destinationPath = url(__('custom.managerpath'));
+            //$image->move($destinationPath, $imagename);
+            //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
 
             //register image 
 
@@ -179,7 +181,7 @@ class RegisterController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'ngo_id' => $request['ngo_id'],
-                'profile_image_url' => $profileimgurl
+                'profile_image_url' => $imagename,
             ]);
             if ($manager) {
                 return redirect()->intended('/admin-registermanager')
@@ -188,7 +190,7 @@ class RegisterController extends Controller
                 return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
             }
         } else {
-            echo "image n0ot";
+            return back()->withInput()->withErrors(['errmsg' => 'Image not found.']);
         }
     }
 

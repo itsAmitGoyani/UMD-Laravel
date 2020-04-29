@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ngo extends Model
 {
     protected $fillable = [
+        'id',
         'name', 
         'address', 
         'city',

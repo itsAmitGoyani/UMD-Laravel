@@ -13,24 +13,8 @@
                                 <div class="col-xl-12">
                                     <div class="auth-form">
                                         <h4 class="text-center mb-4">NGO Registration</h4>
-                                        @error('errmsg')
-                                        <div class="alert alert-dismissable alert-danger">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            <li><strong>{!! $message !!}</strong></li>
-                                        </div>
-                                        @enderror
-                                        @if (session()->has('success'))
-                                            <div class="alert alert-dismissable alert-success">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <strong>
-                                                    {!! session()->get('success') !!}
-                                                </strong>
-                                            </div>
-                                        @endif
+                                        @include('partial.customerror')
+                                        @include('partial.success')
                                         <form method="POST" action="{{ route('admin-registerngo') }}">
                                             @csrf
                                             <div class="form-group">
@@ -47,8 +31,8 @@
                                             <div class="form-group">
                                                 <label><strong>Address</strong></label>
                                                 <textarea name="address" class="form-control @error('address') is-invalid @enderror" 
-                                                        rows="2" required cols="20" value="{{ old('address') }}" 
-                                                        autocomplete="address"></textarea>
+                                                        rows="2" required cols="20" value="" 
+                                                        autocomplete="address">{{ old('address') }}</textarea>
                                                 @error('address')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -71,7 +55,7 @@
                                                 <label><strong>City</strong></label>
                                                 <input type="text" name="city" id="city" 
                                                         class="form-control @error('city') is-invalid @enderror" 
-                                                        value="{{ old('city') }}" disabled required autocomplete="city">
+                                                        value="{{ old('city') }}" readonly required autocomplete="city">
                                                 @error('city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -82,7 +66,7 @@
                                                 <label><strong>State</strong></label>
                                                 <input type="text" name="state" id="state" 
                                                         class="form-control @error('state') is-invalid @enderror" 
-                                                        value="{{ old('state') }}" disabled required autocomplete="state">
+                                                        value="{{ old('state') }}" readonly required autocomplete="state">
                                                 @error('state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

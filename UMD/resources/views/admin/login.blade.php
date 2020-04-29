@@ -24,14 +24,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Admin Login</h4>
-                                    @error('errmsg')
-                                    <div class="alert alert-dismissable alert-danger">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                                <li><strong>{!! $message !!}</strong></li>
-                                        </div>
-                                    @enderror
+                                    @include('partial.customerror')
                                     
                                     <form method="POST" action="{{ route('admin-login') }}">
                                         @csrf

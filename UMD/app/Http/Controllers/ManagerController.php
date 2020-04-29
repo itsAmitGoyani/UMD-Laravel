@@ -16,10 +16,6 @@ class ManagerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth:manager');
-    }
 
     public function showdashboard()
     {
@@ -76,9 +72,9 @@ class ManagerController extends Controller
         $ngos = Ngo::whereNotIn('id', function ($query) {
             $query->select('ngo_id')->from('managers');
         })->get();
-        $manager=Manager::find($id);
-        if($manager) {
-            return view('admin.manager.edit',['manager'=>$manager,'ngos'=>$ngos]);
+        $manager = Manager::find($id);
+        if ($manager) {
+            return view('admin.manager.edit', ['manager' => $manager, 'ngos' => $ngos]);
         }
         return back()->withErrors(['errmsg' => 'Unknown error']);
     }
@@ -94,10 +90,10 @@ class ManagerController extends Controller
     {
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:managers,email,'.$id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:managers,email,' . $id],
             'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
-            'pimage' => ['image','mimes:jpeg,png,jpg','max:2048'],
+            'pimage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
         //upload image
         $image = $request->file('pimage');
@@ -110,37 +106,36 @@ class ManagerController extends Controller
             //$destinationPath = url(__('custom.managerpath'));
             //$image->move($destinationPath, $imagename);
             //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
-            
+
             //delete old image
-            $manager=Manager::find($id);
+            $manager = Manager::find($id);
             $oldImageName = $manager->profile_image_url;
             $filename = storage_path('app/public' . __('custom.managerpath') . '/' . $oldImageName);
-            if(file_exists($filename)) {
+            if (file_exists($filename)) {
                 unlink($filename);
             }
-            $managerUpdate=Manager::where('id',$id)
-                    ->update([
-                        'name'=>$request->input('name'),
-                        'email'=>$request->input('email'),
-                        'password'=>$request->input('password'),
-                        'ngo_id'=>$request->input('ngo_id'),
-                        'profile_image_url'=>$imagename,
-                    ]);
+            $managerUpdate = Manager::where('id', $id)
+                ->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'password' => $request->input('password'),
+                    'ngo_id' => $request->input('ngo_id'),
+                    'profile_image_url' => $imagename,
+                ]);
         } else {
-            $managerUpdate=Manager::where('id',$id)
-                    ->update([
-                        'name'=>$request->input('name'),
-                        'email'=>$request->input('email'),
-                        'password'=>$request->input('password'),
-                        'ngo_id'=>$request->input('ngo_id'),
-                    ]);
+            $managerUpdate = Manager::where('id', $id)
+                ->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'password' => $request->input('password'),
+                    'ngo_id' => $request->input('ngo_id'),
+                ]);
         }
-        if($managerUpdate)
-        {
-            return redirect()->route('admin-displaymanagers')->with('success','NGO Manager details Updated Successfully');
+        if ($managerUpdate) {
+            return redirect()->route('admin-displaymanagers')->with('success', 'NGO Manager details Updated Successfully');
         }
-        
-        return back()->withInput()->withErrors(['errmsg'=>'Unknown Error']);
+
+        return back()->withInput()->withErrors(['errmsg' => 'Unknown Error']);
     }
 
     /**
@@ -152,17 +147,17 @@ class ManagerController extends Controller
     public function destroy($id)
     {
         $findmanager = Manager::find($id);
-        if($findmanager) {
+        if ($findmanager) {
             $imagename = $findmanager->profile_image_url;
             $filename = storage_path('app/public' . __('custom.managerpath') . '/' . $imagename);
-            if(file_exists($filename)) {
+            if (file_exists($filename)) {
                 unlink($filename);
             }
-            if($findmanager->delete()){
+            if ($findmanager->delete()) {
                 return redirect()->route('admin-displaymanagers')
-                                ->with('success' , 'NGO Manager deleted successfully');
+                    ->with('success', 'NGO Manager deleted successfully');
             }
         }
-        return back()->withErrors('errmsg' , 'NGO Manager is not deleted');
+        return back()->withErrors('errmsg', 'NGO Manager is not deleted');
     }
 }

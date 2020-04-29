@@ -15,11 +15,21 @@ class ManagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
+
+    public function showdashboard()
+    {
+        return view('admin.dashboard');
+    }
+
     public function index()
     {
 
         $manager = Manager::with('ngo')->get();
-        //return $manager;
         return view('admin.displaymanager', ['managers' => $manager]);
     }
 

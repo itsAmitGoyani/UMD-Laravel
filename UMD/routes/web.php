@@ -30,7 +30,7 @@ Route::view('/pickupman', 'pickupman');
 Route::view('/verifier', 'verifier');
 
 Route::get('/login/donator', 'Auth\LoginController@showDonatorLoginForm');
-Route::get('/login/manager', 'Auth\LoginController@showManagerLoginForm');
+// Route::get('/login/manager', 'Auth\LoginController@showManagerLoginForm');
 Route::get('/login/pickerman', 'Auth\LoginController@showPickermanLoginForm');
 Route::get('/login/verifier', 'Auth\LoginController@showVerifierLoginForm');
 
@@ -39,7 +39,7 @@ Route::get('/register/pickupman', 'Auth\RegisterController@showPickupmanRegister
 Route::get('/register/verifier', 'Auth\RegisterController@showVerifierRegisterForm');
 
 Route::post('/login/donator', 'Auth\LoginController@donatorLogin');
-Route::post('/login/manager', 'Auth\LoginController@managerLogin');
+// Route::post('/login/manager', 'Auth\LoginController@managerLogin');
 Route::post('/login/pickerman', 'Auth\LoginController@pickermanLogin');
 Route::post('/login/verifier', 'Auth\LoginController@verifierLogin');
 
@@ -71,3 +71,14 @@ Route::get('/admin-displaymanagers', 'ManagerController@index')->name('admin-dis
 Route::get('/admin-managers/{ngo_id}/edit', 'ManagerController@edit');
 Route::put('/admin-managers/{id}', 'ManagerController@update');
 Route::delete('/admin-managers/{id}', 'ManagerController@destroy');
+
+//manager routes
+
+//All routes with manager prefix and uses by manager only
+
+Route::group(['prefix' => 'manager'], function () {
+    Route::get('/', 'ManagerController@showdashboard');
+    Route::get('login', 'Auth\LoginController@showManagerLoginForm');
+    Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
+    Route::get('logout', 'Auth\LogoutController@managerLogout');
+});

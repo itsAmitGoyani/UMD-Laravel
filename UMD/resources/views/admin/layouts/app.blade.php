@@ -156,10 +156,17 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
+                                    @if(Auth::guard('admin')->check())
                                     <a href="/admin-logout" class="dropdown-item">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
+                                        <span class="ml-2">Logout</span>
                                     </a>
+                                    @else
+                                    <a href="/manager/logout" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout</span>
+                                    </a>
+                                    @endif
                                 </div>
                             </li>
                         </ul>
@@ -184,6 +191,7 @@
                             <li><a href="index2.html">Dashboard 2</a></li>
                         </ul>
                     </li> -->
+                    @if(Auth::guard('admin')->check())
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="/admin-registerngo">{{ __('Register NGO') }}</a></li>
@@ -196,6 +204,21 @@
                             <li><a href="/admin-displaymanagers">{{ __('Display All Manager') }}</a></li>
                         </ul>
                     </li>
+                    @else
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Picker') }}</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="">{{ __('Register Picker') }}</a></li>
+                            <li><a href="">{{ __('Display All Picker') }}</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="">{{ __('Register Verifier') }}</a></li>
+                            <li><a href="">{{ __('Display All Verifier') }}</a></li>
+                        </ul>
+                    </li>
+
+                    @endif
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">

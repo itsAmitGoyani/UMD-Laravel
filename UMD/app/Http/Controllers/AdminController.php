@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
-use App\Manager;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,11 +22,7 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function showManager()
-    {
-        $manager = Manager::all();
-        return view('admin.displaymanager', ['managers' => $manager]);
-    }
+
 
     /**
      * Show the form for creating a new resource.

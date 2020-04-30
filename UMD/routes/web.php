@@ -47,37 +47,44 @@ Route::post('/register/donator', 'Auth\RegisterController@createDonator');
 Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
 Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
 
-Route::get('/admin-logout', 'Auth\LogoutController@adminLogout');
+
 
 //Route::view('/home', 'home')->middleware('auth');
 
 // All routes with admin prefix and uses by admin only
-Route::get('/admin', 'AdminController@index');
-Route::get('/admin-dashboard', 'AdminController@index');
 
-Route::get('/admin-login', 'Auth\LoginController@showAdminLoginForm');
-Route::post('/admin-login', 'Auth\LoginController@adminLogin')->name('admin-login');
+//Route::get('/admin-dashboard', 'AdminController@index');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'AdminController@index');
+    Route::get('login', 'Auth\LoginController@showAdminLoginForm');
+    Route::post('login', 'Auth\LoginController@adminLogin')->name('admin-login');
+    Route::get('registerngo', 'NgosController@create');
+    Route::post('registerngo', 'NgosController@store')->name('admin-registerngo');
+    Route::get('displayngos', 'NgosController@index')->name('admin-displayngos');
+    Route::get('ngos/{ngo_id}/edit', 'NgosController@edit');
+    Route::put('ngos/{id}', 'NgosController@update');
+    Route::delete('ngos/{id}', 'NgosController@destroy');
 
-Route::get('/admin-registerngo', 'NgosController@create');
-Route::post('/admin-registerngo', 'NgosController@store')->name('admin-registerngo');
-Route::get('/admin-displayngos', 'NgosController@index')->name('admin-displayngos');
-Route::get('/admin-ngos/{ngo_id}/edit', 'NgosController@edit');
-Route::put('/admin-ngos/{id}', 'NgosController@update');
-Route::delete('/admin-ngos/{id}', 'NgosController@destroy');
 
-Route::get('/admin-registermanager', 'Auth\RegisterController@showManagerRegisterForm');
-Route::post('/admin-registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
-Route::get('/admin-displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
-Route::get('/admin-managers/{ngo_id}/edit', 'ManagerController@edit');
-Route::put('/admin-managers/{id}', 'ManagerController@update');
-Route::delete('/admin-managers/{id}', 'ManagerController@destroy');
+    Route::get('registermanager', 'Auth\RegisterController@showManagerRegisterForm');
+    Route::post('registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
+    Route::get('displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
+    Route::get('managers/{ngo_id}/edit', 'ManagerController@edit');
+    Route::put('managers/{id}', 'ManagerController@update');
+    Route::delete('managers/{id}', 'ManagerController@destroy');
+
+    Route::get('logout', 'Auth\LogoutController@adminLogout');
+});
+
 
 //manager routes
 
 //All routes with manager prefix and uses by manager only
 
 Route::group(['prefix' => 'manager'], function () {
-    Route::get('/', 'ManagerController@showdashboard');
+    Route::group(['middleware' => ['auth:manager']], function () {
+        Route::get('/', 'ManagerController@showdashboard');
+    });
     Route::get('login', 'Auth\LoginController@showManagerLoginForm');
     Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
     Route::get('logout', 'Auth\LogoutController@managerLogout');

@@ -157,7 +157,7 @@
                                         <span class="ml-2">Inbox </span>
                                     </a>
 
-                                    <a href="/admin/logout" class="dropdown-item">
+                                    <a href="/manager/logout" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout</span>
                                     </a>
@@ -187,18 +187,19 @@
                         </ul>
                     </li> -->
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Picker') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="/admin/registerngo">{{ __('Register NGO') }}</a></li>
-                            <li><a href="/admin/displayngos">{{ __('Display All NGOs') }}</a></li>
+                            <li><a href="">{{ __('Register Picker') }}</a></li>
+                            <li><a href="">{{ __('Display All Picker') }}</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO Manager') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="/admin/registermanager">{{ __('Register NGO Manager') }}</a></li>
-                            <li><a href="/admin/displaymanagers">{{ __('Display All Manager') }}</a></li>
+                            <li><a href="">{{ __('Register Verifier') }}</a></li>
+                            <li><a href="">{{ __('Display All Verifier') }}</a></li>
                         </ul>
                     </li>
+
 
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>

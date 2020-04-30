@@ -19,9 +19,7 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>NGO Name</strong></label>
-                                                <input type="text" name="name" 
-                                                        class="form-control @error('name') is-invalid @enderror" 
-                                                        value="{{ old('name') }}" required autocomplete="name">
+                                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name">
                                                 @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -30,9 +28,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Address</strong></label>
-                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" 
-                                                        rows="2" required cols="20" value="" 
-                                                        autocomplete="address">{{ old('address') }}</textarea>
+                                                <textarea name="address" class="form-control @error('address') is-invalid @enderror" rows="2" required cols="20" value="" autocomplete="address">{{ old('address') }}</textarea>
                                                 @error('address')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -41,9 +37,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>Pincode</strong></label>
-                                                <input type="number" name="pincode" id="pincode" 
-                                                        class="form-control @error('pincode') is-invalid @enderror" 
-                                                        value="{{ old('pincode') }}" required autocomplete="pincode">
+                                                <input type="number" name="pincode" id="pincode" class="form-control @error('pincode') is-invalid @enderror" value="{{ old('pincode') }}" required autocomplete="pincode">
                                                 <span role="alert"><strong id="errpncd" style="Color:red"></strong></span>
                                                 @error('pincode')
                                                 <span class="invalid-feedback" role="alert">
@@ -53,9 +47,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>City</strong></label>
-                                                <input type="text" name="city" id="city" 
-                                                        class="form-control @error('city') is-invalid @enderror" 
-                                                        value="{{ old('city') }}" readonly required autocomplete="city">
+                                                <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" readonly required autocomplete="city">
                                                 @error('city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -64,16 +56,14 @@
                                             </div>
                                             <div class="form-group">
                                                 <label><strong>State</strong></label>
-                                                <input type="text" name="state" id="state" 
-                                                        class="form-control @error('state') is-invalid @enderror" 
-                                                        value="{{ old('state') }}" readonly required autocomplete="state">
+                                                <input type="text" name="state" id="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state') }}" readonly required autocomplete="state">
                                                 @error('state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                             </div>
-                                            
+
                                             <!-- <div class="form-group">
                                                 <label><strong>State</strong></label>
                                                 <select class="form-control @error('state') is-invalid @enderror" id="state" name="state" required>

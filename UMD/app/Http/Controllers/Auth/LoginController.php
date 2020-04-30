@@ -92,7 +92,7 @@ class LoginController extends Controller
 
     public function showManagerLoginForm()
     {
-        return view('admin.login', ['url' => 'manager']);
+        return view('ngo_manager.login', ['url' => 'manager']);
     }
 
     public function managerLogin(Request $request)

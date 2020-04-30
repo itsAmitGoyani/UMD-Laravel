@@ -24,7 +24,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
 
-                                    <h4 class="text-center mb-4">Admin Login</h4>
+                                    <h4 class="text-center mb-4">Manager Login</h4>
                                     @error('errmsg')
                                     <div class="alert alert-dismissable alert-danger">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -34,7 +34,7 @@
                                     </div>
                                     @enderror
 
-                                    <form method="POST" action="{{ route('admin-login') }}">
+                                    <form method="POST" action="{{ route('manager-login') }}">
 
                                         @csrf
                                         <div class="form-group">

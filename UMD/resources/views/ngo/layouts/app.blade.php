@@ -189,14 +189,14 @@
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="">{{ __('Register Verifier') }}</a></li>
-                            <li><a href="">{{ __('Display All Verifier') }}</a></li>
+                            <li><a href="#">{{ __('Register Verifier') }}</a></li>
+                            <li><a href="#">{{ __('Display All Verifier') }}</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Pickupman') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="">{{ __('Register Pickupman') }}</a></li>
-                            <li><a href="">{{ __('Display All Pickupman') }}</a></li>
+                            <li><a href="#">{{ __('Register Pickupman') }}</a></li>
+                            <li><a href="#">{{ __('Display All Pickupman') }}</a></li>
                         </ul>
                     </li>
 

@@ -19,7 +19,7 @@ class ManagerController extends Controller
 
     public function showdashboard()
     {
-        return view('ngo_manager.dashboard');
+        return view('ngo.manager.dashboard');
     }
 
     public function index()

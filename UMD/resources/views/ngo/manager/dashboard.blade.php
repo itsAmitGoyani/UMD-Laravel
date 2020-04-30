@@ -1,4 +1,4 @@
-@extends('ngo_manager.layouts.app')
+﻿@extends('ngo.layouts.app')
 
 @section('content')
 <div class="content-body">

@@ -104,7 +104,7 @@ class LoginController extends Controller
 
         if (Auth::guard('manager')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/manager');
+            return redirect()->intended('/ngo/manager');
         }
         return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Password manager']);
     }
@@ -125,7 +125,7 @@ class LoginController extends Controller
 
         if (Auth::guard('pickupman')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/pickupman');
+            return redirect()->intended('/ngo/pickupman');
         }
         return back()->withInput($request->only('email', 'remember'));
     }
@@ -146,7 +146,7 @@ class LoginController extends Controller
 
         if (Auth::guard('verifier')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/verifier');
+            return redirect()->intended('/ngo/verifier');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

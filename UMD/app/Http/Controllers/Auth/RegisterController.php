@@ -184,7 +184,7 @@ class RegisterController extends Controller
                 'profile_image_url' => $imagename,
             ]);
             if ($manager) {
-                return redirect()->intended('/admin-registermanager')
+                return redirect()->route('admin-registermanager')
                     ->with('success', 'NGO Manager registerd successfully');
             } else {
                 return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);

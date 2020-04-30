@@ -71,13 +71,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'Auth\LogoutController@adminLogout');
 });
 
-//All routes with manager prefix and uses by manager only
 
-Route::group(['prefix' => 'manager'], function () {
-    Route::group(['middleware' => ['auth:manager']], function () {
-        Route::get('/', 'ManagerController@showdashboard');
+Route::group(['prefix'=>'ngo'],function(){
+
+    //All routes with manager prefix and uses by manager only
+    Route::group(['prefix' => 'manager'], function () {
+        Route::group(['middleware' => ['auth:manager']], function () {
+            Route::get('/', 'ManagerController@showdashboard');
+            Route::get('logout', 'Auth\LogoutController@managerLogout');
+        });
+        Route::get('login', 'Auth\LoginController@showManagerLoginForm');
+        Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
+        
     });
-    Route::get('login', 'Auth\LoginController@showManagerLoginForm');
-    Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
-    Route::get('logout', 'Auth\LogoutController@managerLogout');
 });
+

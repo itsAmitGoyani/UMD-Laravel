@@ -18,6 +18,6 @@ class LogoutController extends Controller
     public function managerLogout()
     {
         Auth::guard('manager')->logout();
-        return redirect('/manager');
+        return redirect('/ngo/manager');
     }
 }

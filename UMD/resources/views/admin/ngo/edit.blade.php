@@ -15,7 +15,7 @@
                                         <h4 class="text-center mb-4">Edit NGO</h4>
                                         @include('partial.customerror')
                                         @include('partial.success')
-                                        <form method="POST" action="/admin-ngos/{{$ngo->id}}">
+                                        <form method="POST" action="/admin/ngos/{{$ngo->id}}">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">

@@ -47,13 +47,8 @@ Route::post('/register/donator', 'Auth\RegisterController@createDonator');
 Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
 Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
 
-
-
-//Route::view('/home', 'home')->middleware('auth');
-
 // All routes with admin prefix and uses by admin only
 
-//Route::get('/admin-dashboard', 'AdminController@index');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::get('login', 'Auth\LoginController@showAdminLoginForm');
@@ -75,9 +70,6 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('logout', 'Auth\LogoutController@adminLogout');
 });
-
-
-//manager routes
 
 //All routes with manager prefix and uses by manager only
 

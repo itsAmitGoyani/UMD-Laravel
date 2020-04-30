@@ -20,6 +20,7 @@ class CreatePickupmenTable extends Migration
             $table->string('password');
             $table->string('contact',10)->unique();
             $table->integer('ngo_id')->unsigned();
+            $table->string('profileimage');
             $table->foreign('ngo_id')->references('id')->on('ngos');
             $table->rememberToken();
             $table->timestamps();

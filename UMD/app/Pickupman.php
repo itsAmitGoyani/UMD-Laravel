@@ -10,14 +10,14 @@ class Pickupman extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'pickerman';
+    protected $guard = 'pickupman';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'contact', 'ngo_id',
+        'id', 'name', 'email', 'password', 'contact', 'profileimage', 'ngo_id',
     ];
 
     /**

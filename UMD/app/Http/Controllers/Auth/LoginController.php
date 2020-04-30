@@ -113,7 +113,7 @@ class LoginController extends Controller
 
     public function showPickupmanLoginForm()
     {
-        return view('auth.login', ['url' => 'pickupman']);
+        return view('ngo.pickupman.login');
     }
 
     public function pickupmanLogin(Request $request)

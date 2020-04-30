@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from demo.themefisher.com/focus/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:06 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -156,12 +153,22 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-
+                                    @if(Auth::guard('manager')->check())
                                     <a href="/ngo/manager/logout" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout</span>
                                     </a>
-
+                                    @elseif(Auth::guard('verifier')->check())
+                                    <a href="/ngo/verifier/logout" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout</span>
+                                    </a>
+                                    @elseif(Auth::guard('pickupman')->check())
+                                    <a href="/ngo/pickupman/logout" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout</span>
+                                    </a>
+                                    @endif
                                 </div>
                             </li>
                         </ul>
@@ -186,7 +193,7 @@
                             <li><a href="index2.html">Dashboard 2</a></li>
                         </ul>
                     </li> -->
-
+                    @if(Auth::guard('manager')->check())
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="#">{{ __('Register Verifier') }}</a></li>
@@ -195,11 +202,11 @@
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Pickupman') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">{{ __('Register Pickupman') }}</a></li>
-                            <li><a href="#">{{ __('Display All Pickupman') }}</a></li>
+                            <li><a href="{{ route('RegisterPickupman') }}">{{ __('Register Pickupman') }}</a></li>
+                            <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
                         </ul>
                     </li>
-
+                    @endif
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">
@@ -214,7 +221,7 @@
                             <li><a href="app-calender.html">Calendar</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-chart-bar-33"></i><span class="nav-text">Charts</span></a>
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-chart-bar-33"></i><span class="nav-text">Charts</span></a>
                         <ul aria-expanded="false">
                             <li><a href="chart-flot.html">Flot</a></li>
                             <li><a href="chart-morris.html">Morris</a></li>
@@ -293,7 +300,7 @@
                             </li>
                             <li><a href="page-lock-screen.html">Lock Screen</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
@@ -363,8 +370,5 @@
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
 
 </body>
-
-
-<!-- Mirrored from demo.themefisher.com/focus/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:32 GMT -->
 
 </html>

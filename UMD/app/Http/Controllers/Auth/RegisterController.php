@@ -15,6 +15,7 @@ use App\Providers\RouteServiceProvider;
 use App\Verifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -47,10 +48,10 @@ class RegisterController extends Controller
     {
         // $this->middleware('guest');
         //$this->middleware('guest:admin');
-        $this->middleware('guest:donator');
-        $this->middleware('guest:manager');
-        $this->middleware('guest:pickupman');
-        $this->middleware('guest:verifier');
+        //$this->middleware('guest:donator');
+        //$this->middleware('guest:manager');
+        //$this->middleware('guest:pickupman');
+        //$this->middleware('guest:verifier');
     }
 
     /**
@@ -196,29 +197,51 @@ class RegisterController extends Controller
 
     //this is pickerman funcationality
 
-    public function showPickermanRegisterForm()
+    public function showPickupmanRegisterForm()
     {
-        return view('auth.register', ['url' => 'pickerman']);
+        $ngovar = Manager::select('ngo_id')->where('id',Auth::user()->id)->get();
+        $ngo_id = $ngovar[0]->ngo_id;
+        return view('ngo.manager.pickupman.register', ['user' => 'pickupman','ngo_id' => $ngo_id]);
     }
 
-    protected function createPickerman(Request $request)
+    protected function createPickupman(Request $request)
     {
-        //$this->validator($request->all())->validate();
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'contact' => ['required', 'string', 'max:10', 'unique:donators'],
-            'ngo_id' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:pickupmen'],
+            'password' => ['required', 'string', 'min:8'],
+            'contact' => ['required', 'string', 'size:10', 'unique:pickupmen'],
+            'ngo_id' => ['required', 'numeric'],
+            'pimage' => ['required','image','mimes:jpeg,png,jpg','max:2048'],
         ])->validate();
-        $pickerman = Pickupman::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'contact' => $request['contact'],
-            'ngo_id' => $request['ngo_id'],
-        ]);
-        return redirect()->intended('login/pickerman');
+
+        //upload image
+
+        $image = $request->file('pimage');
+        if ($image != null) {
+            $name = $image->getClientOriginalName();
+            $nameimg = explode('.', $name);
+            $ext = $image->getClientOriginalExtension();
+            $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
+            $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
+            
+            $pickupman = Pickupman::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'contact' => $request['contact'],
+                'ngo_id' => $request['ngo_id'],
+                'profileimage' => $imagename,
+            ]);
+            if ($pickupman) {
+                return redirect()->route('DisplayPickupmen')
+                    ->with('success', 'Pickupman registerd successfully');
+            } else {
+                return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+            }
+        } else {
+            return back()->withInput()->withErrors(['errmsg' => 'Image not found.']);
+        }
     }
 
     //This is verifier funcationality

@@ -18,6 +18,12 @@ class LogoutController extends Controller
     public function managerLogout()
     {
         Auth::guard('manager')->logout();
-        return redirect('/ngo/manager');
+        return redirect('/ngo/manager/login');
+    }
+
+    public function pickupmanLogout()
+    {
+        Auth::guard('pickupman')->logout();
+        return redirect('/ngo/pickupman/login');
     }
 }

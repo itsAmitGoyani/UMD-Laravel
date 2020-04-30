@@ -64,14 +64,14 @@ class Handler extends ExceptionHandler
         if ($request->is('donator') || $request->is('donator/*')) {
             return redirect()->guest('/login/donator');
         }
-        if ($request->is('manager') || $request->is('manager/*')) {
-            return redirect()->guest('/manager/login');
+        if ($request->is('ngo/manager') || $request->is('ngo/manager/*')) {
+            return redirect()->guest('/ngo/manager/login');
         }
-        if ($request->is('pickupman') || $request->is('pickupman/*')) {
-            return redirect()->guest('/login/pickupman');
+        if ($request->is('ngo/pickupman') || $request->is('ngo/pickupman/*')) {
+            return redirect()->guest('/ngo/pickupman/login');
         }
-        if ($request->is('verifier') || $request->is('verifier/*')) {
-            return redirect()->guest('/login/verifier');
+        if ($request->is('ngo/verifier') || $request->is('ngo/verifier/*')) {
+            return redirect()->guest('/ngo/verifier/login');
         }
         return redirect()->guest(route('login'));
     }

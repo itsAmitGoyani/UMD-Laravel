@@ -45,7 +45,6 @@ class NgosController extends Controller
             'city'   => 'required',
         ]);
 
-        if (Auth::guard('admin')) {
             $ngo = Ngo::create([
                 'name' => $request['name'],
                 'address' => $request['address'],
@@ -57,7 +56,6 @@ class NgosController extends Controller
                 return back()->with('success','NGO registered successfully');
             }
             return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
-        }
     }
 
     /**

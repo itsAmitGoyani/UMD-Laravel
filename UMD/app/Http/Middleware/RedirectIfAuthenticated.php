@@ -25,13 +25,13 @@ class RedirectIfAuthenticated
             return redirect('/donator');
         }
         if ($guard == "manager" && Auth::guard($guard)->check()) {
-            return redirect('/manager');
+            return redirect('/ngo/manager');
         }
         if ($guard == "pickupman" && Auth::guard($guard)->check()) {
-            return redirect('/pickupman');
+            return redirect('/ngo/pickupman');
         }
         if ($guard == "verifier" && Auth::guard($guard)->check()) {
-            return redirect('/verifier');
+            return redirect('/ngo/verifier');
         }
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);

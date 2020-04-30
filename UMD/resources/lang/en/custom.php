@@ -9,5 +9,7 @@ return [
     */
 
     'managerpath' => '/Manager',
+    'verifierpath' => '/Verifier',
+    'pickupmanpath' => '/Pickupman',
 
 ];

@@ -17,7 +17,7 @@ class Verifier extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'ngo_id',
+        'id', 'name', 'email', 'password', 'profileimage', 'ngo_id',
     ];
 
     /**

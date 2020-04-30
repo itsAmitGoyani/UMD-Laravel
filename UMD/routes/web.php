@@ -54,8 +54,8 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
-Route::group(['prefix'=>'ngo'],function(){
-    Route::get('/',function () {
+Route::group(['prefix' => 'ngo'], function () {
+    Route::get('/', function () {
         return view('ngo.home');
     });
     //All routes with manager prefix and uses by manager only
@@ -68,12 +68,18 @@ Route::group(['prefix'=>'ngo'],function(){
             Route::post('registerpickupman', 'Auth\RegisterController@createPickupman')->name('RegisterPickupman');
             Route::get('displaypickupmen', 'PickupmanController@index')->name('DisplayPickupmen');
             Route::get('pickupmen/{id}/edit', 'PickupmanController@edit');
-            Route::put('pickupmen/{id}', 'PickupmanController@update');
+            Route::put('pickupmen/{ id}', 'PickupmanController@update');
             Route::delete('pickupmen/{id}', 'PickupmanController@destroy');
+
+            Route::get('registerverifier', 'Auth\RegisterController@showVerifierRegisterForm')->name('RegisterVerifier');
+            Route::post('registerverifier', 'Auth\RegisterController@createVerifier')->name('RegisterVerifier');
+            Route::get('displayverifier', 'VerifierController@index')->name('DisplayVerifier');
+            Route::get('verifier/{id}/edit', 'VerifierController@edit');
+            Route::put('verifier/{id}', 'VerifierController@update');
+            Route::delete('verifier/{id}', 'VerifierController@destroy');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
-        
     });
 
     //All routes with pickupman prefix and uses by pickupman only
@@ -81,11 +87,18 @@ Route::group(['prefix'=>'ngo'],function(){
         Route::group(['middleware' => ['auth:pickupman']], function () {
             Route::get('/', 'PickupmanController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@pickupmanLogout');
-
         });
         Route::get('login', 'Auth\LoginController@showPickupmanLoginForm');
         Route::post('login', 'Auth\LoginController@pickupmanLogin')->name('pickupman-login');
-        
+    });
+
+    //All routes with verifier prefix and uses by pickupman only
+    Route::group(['prefix' => 'verifier'], function () {
+        Route::group(['middleware' => ['auth:verifier']], function () {
+            Route::get('/', 'VerifierController@showDashboard');
+            Route::get('logout', 'Auth\LogoutController@verifierLogout');
+        });
+        Route::get('login', 'Auth\LoginController@showVerifierLoginForm');
+        Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');
     });
 });
-

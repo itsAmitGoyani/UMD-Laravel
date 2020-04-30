@@ -159,7 +159,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
             'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
-            'pimage' => ['required','image','mimes:jpeg,png,jpg','max:2048'],
+            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
         //upload image
@@ -199,9 +199,9 @@ class RegisterController extends Controller
 
     public function showPickupmanRegisterForm()
     {
-        $ngovar = Manager::select('ngo_id')->where('id',Auth::user()->id)->get();
+        $ngovar = Manager::select('ngo_id')->where('id', Auth::user()->id)->get();
         $ngo_id = $ngovar[0]->ngo_id;
-        return view('ngo.manager.pickupman.register', ['user' => 'pickupman','ngo_id' => $ngo_id]);
+        return view('ngo.manager.pickupman.register', ['user' => 'pickupman', 'ngo_id' => $ngo_id]);
     }
 
     protected function createPickupman(Request $request)
@@ -212,7 +212,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8'],
             'contact' => ['required', 'string', 'size:10', 'unique:pickupmen'],
             'ngo_id' => ['required', 'numeric'],
-            'pimage' => ['required','image','mimes:jpeg,png,jpg','max:2048'],
+            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
         //upload image
@@ -224,7 +224,7 @@ class RegisterController extends Controller
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
             $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
-            
+
             $pickupman = Pickupman::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
@@ -248,7 +248,9 @@ class RegisterController extends Controller
 
     public function showVerifierRegisterForm()
     {
-        return view('auth.register', ['url' => 'verifier']);
+        $ngovar = Manager::select('ngo_id')->where('id', Auth::user()->id)->get();
+        $ngo_id = $ngovar[0]->ngo_id;
+        return view('ngo.manager.verifier.register', ['user' => 'verifier', 'ngo_id' => $ngo_id]);
     }
 
     protected function createVerifier(Request $request)
@@ -257,15 +259,42 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required'],
+            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
-        $verifier = Verifier::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'ngo_id' => $request['ngo_id'],
-        ]);
-        return redirect()->intended('login/verifier');
+
+        $image = $request->file('pimage');
+        if ($image != null) {
+            $name = $image->getClientOriginalName();
+            $nameimg = explode('.', $name);
+            $ext = $image->getClientOriginalExtension();
+            $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
+            $image->storeAs('/public' . __('custom.verifierpath'), $imagename);
+
+            $verifier = Verifier::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'ngo_id' => $request['ngo_id'],
+                'profileimage' => $imagename,
+            ]);
+            if ($verifier) {
+                return redirect()->route('DisplayVerifier')
+                    ->with('success', 'Verifier registerd successfully');
+            } else {
+                return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+            }
+        } else {
+            return back()->withInput()->withErrors(['errmsg' => 'Image not found.']);
+        }
+
+        // $verifier = Verifier::create([
+        //     'name' => $request['name'],
+        //     'email' => $request['email'],
+        //     'password' => Hash::make($request['password']),
+        //     'ngo_id' => $request['ngo_id'],
+        // ]);
+        // return redirect()->intended('login/verifier');
     }
 }

@@ -26,4 +26,10 @@ class LogoutController extends Controller
         Auth::guard('pickupman')->logout();
         return redirect('/ngo/pickupman/login');
     }
+
+    public function verifierLogout()
+    {
+        Auth::guard('verifier')->logout();
+        return redirect('/ngo/verifier/login');
+    }
 }

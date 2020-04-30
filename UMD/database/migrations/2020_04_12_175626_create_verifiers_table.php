@@ -18,6 +18,7 @@ class CreateVerifiersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('profileimage');
             $table->integer('ngo_id')->unsigned();
             $table->foreign('ngo_id')->references('id')->on('ngos');
             $table->rememberToken();

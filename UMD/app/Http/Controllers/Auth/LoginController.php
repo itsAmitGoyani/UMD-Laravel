@@ -134,7 +134,7 @@ class LoginController extends Controller
 
     public function showVerifierLoginForm()
     {
-        return view('auth.login', ['url' => 'verifier']);
+        return view('ngo.verifier.login');
     }
 
     public function verifierLogin(Request $request)

@@ -106,7 +106,7 @@ class LoginController extends Controller
 
             return redirect()->intended('/ngo/manager');
         }
-        return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Password manager']);
+        return back()->withInput($request->only('email', 'remember'))->withErrors(['errmsg' => 'Invalid Email or Password.']);
     }
 
     //This is pickupman functionality
@@ -127,7 +127,7 @@ class LoginController extends Controller
 
             return redirect()->intended('/ngo/pickupman');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->withErrors(['errmsg' => 'Invalid Email or Password.']);
     }
 
     //This is verifier functionality
@@ -148,6 +148,6 @@ class LoginController extends Controller
 
             return redirect()->intended('/ngo/verifier');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->withErrors(['errmsg' => 'Invalid Email or Password.']);
     }
 }

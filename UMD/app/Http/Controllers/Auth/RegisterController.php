@@ -201,7 +201,7 @@ class RegisterController extends Controller
     {
         $ngovar = Manager::select('ngo_id')->where('id', Auth::user()->id)->get();
         $ngo_id = $ngovar[0]->ngo_id;
-        return view('ngo.manager.pickupman.register', ['user' => 'pickupman', 'ngo_id' => $ngo_id]);
+        return view('ngo.manager.pickupman.register', ['ngo_id' => $ngo_id]);
     }
 
     protected function createPickupman(Request $request)
@@ -250,7 +250,7 @@ class RegisterController extends Controller
     {
         $ngovar = Manager::select('ngo_id')->where('id', Auth::user()->id)->get();
         $ngo_id = $ngovar[0]->ngo_id;
-        return view('ngo.manager.verifier.register', ['user' => 'verifier', 'ngo_id' => $ngo_id]);
+        return view('ngo.manager.verifier.register', ['ngo_id' => $ngo_id]);
     }
 
     protected function createVerifier(Request $request)

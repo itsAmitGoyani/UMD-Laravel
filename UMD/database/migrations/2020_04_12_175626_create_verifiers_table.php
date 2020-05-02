@@ -17,10 +17,11 @@ class CreateVerifiersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('token')->unique();
+            $table->string('password')->nullable();
             $table->string('profileimage');
             $table->integer('ngo_id')->unsigned();
-            $table->foreign('ngo_id')->references('id')->on('ngos');
+            $table->foreign('ngo_id')->references('id')->on('ngos')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

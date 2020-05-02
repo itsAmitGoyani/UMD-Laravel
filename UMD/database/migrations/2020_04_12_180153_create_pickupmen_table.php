@@ -17,11 +17,12 @@ class CreatePickupmenTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('token')->unique();
+            $table->string('password')->nullable();
             $table->string('contact',10)->unique();
             $table->integer('ngo_id')->unsigned();
             $table->string('profileimage');
-            $table->foreign('ngo_id')->references('id')->on('ngos');
+            $table->foreign('ngo_id')->references('id')->on('ngos')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

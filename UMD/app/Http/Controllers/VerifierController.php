@@ -85,7 +85,7 @@ class VerifierController extends Controller
     {
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:pickupmen,email,' . $id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:verifiers,email,' . $id],
             'pimage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
@@ -115,7 +115,6 @@ class VerifierController extends Controller
                 ->update([
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
-                    'contact' => $request->input('contact'),
                 ]);
         }
         if ($verifierUpdate) {

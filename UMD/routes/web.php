@@ -80,6 +80,8 @@ Route::group(['prefix' => 'ngo'], function () {
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
+        Route::get('password', 'Auth\LoginController@showManagerPasswordForm');
+        Route::post('password', 'Auth\LoginController@managerPassword')->name('manager-password');
     });
 
     //All routes with pickupman prefix and uses by pickupman only

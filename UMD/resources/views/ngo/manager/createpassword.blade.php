@@ -34,13 +34,22 @@
                                     </div>
                                     @enderror
 
-                                    <form method="POST" action="{{ route('manager-login') }}">
+                                    <form method="POST" action="{{ route('manager-password') }}">
 
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
                                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email">
                                             @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>Code</strong></label>
+                                            <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" value="" required>
+                                            @error('code')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -55,7 +64,16 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                        <div class="form-group">
+                                            <label><strong>Confirm Password</strong></label>
+                                            <input type="password" name="confirmpassword" class="form-control @error('confirmpassword') is-invalid @enderror" value="" required>
+                                            @error('confirmpassword')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <!-- <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
                                                 <div class="form-check ml-2">
                                                     <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
@@ -65,15 +83,15 @@
                                             <div class="form-group">
                                                 <a href="page-forgot-password.html">Forgot Password?</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                                         </div>
 
                                     </form>
-                                    <div class="new-account mt-3">
-                                        <a class="text-primary" href="/ngo/manager/password">Create Password</a>
-                                    </div>
+                                    <!-- <div class="new-account mt-3">
+                                        <a class="text-primary" href="ngo/manager/password">Create Password</a>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

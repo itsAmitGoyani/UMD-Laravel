@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Ngo;
 use App\User;
-use App\Admin;
 use App\Donator;
+use App\Manager;
+use App\Verifier;
+use App\Pickupman;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Manager;
-use App\Ngo;
-use App\Pickupman;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
-use App\Verifier;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -157,7 +158,7 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
-            'password' => ['required', 'string', 'min:8'],
+            // 'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
@@ -175,16 +176,24 @@ class RegisterController extends Controller
             //$image->move($destinationPath, $imagename);
             //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
 
-            //register image 
-
+            //register image  
+            $token = Str::random(6);
             $manager = Manager::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
-                'password' => Hash::make($request['password']),
+                //'password' => Hash::make($request['password']),
+                'token' => $token,
                 'ngo_id' => $request['ngo_id'],
                 'profile_image_url' => $imagename,
             ]);
             if ($manager) {
+                $data = array('name' => $request->name, 'token' => $token, 'body' => 'This above token for Generate Your Password!!');
+                Mail::send('admin.manager.emails.email', $data, function ($message) use ($request) {
+                    $message->from('amitgoyani111@gmail.com', 'amit');
+
+                    $message->to($request->email, $request->name);
+                });
+
                 return redirect()->route('admin-registermanager')
                     ->with('success', 'NGO Manager registerd successfully');
             } else {

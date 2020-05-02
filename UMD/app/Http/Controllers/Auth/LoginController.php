@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Manager;
 
 class LoginController extends Controller
 {
@@ -93,6 +94,29 @@ class LoginController extends Controller
     public function showManagerLoginForm()
     {
         return view('ngo.manager.login', ['url' => 'manager']);
+    }
+
+    public function showManagerPasswordForm()
+    {
+        return view('ngo.manager.createpassword');
+    }
+
+    public function managerPassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'code' => 'min:6|max:6',
+            'password' => 'required|min:8',
+            'confirmpassword' => 'required|min:8'
+        ]);
+        if ($request->password == $request->confirmpassword) {
+            $manager = Manager::where(['email' => $request->email, 'token' => $request->code])->update(['password' => Hash::make($request->confirmpassword)]);
+            if ($manager) {
+                return redirect('/ngo/manager/login')->with('success', 'Password created Successfully');
+            }
+
+            return back()->withInput()->withErrors(['errmsg' => 'Unknown Error']);
+        }
     }
 
     public function managerLogin(Request $request)

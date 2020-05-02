@@ -35,7 +35,7 @@
                                                 </span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label><strong>Password</strong></label>
                                                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password">
                                                 @error('password')
@@ -43,7 +43,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <label><strong>NGO Branch</strong></label>
                                                 <select class="form-control @error('ngo_id') is-invalid @enderror" id="ngo_id" name="ngo_id" required>

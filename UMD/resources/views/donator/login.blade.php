@@ -9,6 +9,7 @@
 
                 <form action="#">
                     <div class="form-group">
+                        <label><strong>Email</strong></label>
                         <input type="email" name="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -17,6 +18,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label><strong>Password</strong></label>
                         <input type="password" name="password" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter password'" placeholder='Enter password' required>
                         @error('password')
                         <span class="invalid-feedback" role="alert">

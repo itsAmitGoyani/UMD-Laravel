@@ -74,7 +74,7 @@ class LoginController extends Controller
 
     public function showDonatorLoginForm()
     {
-        return view('donator.login');
+        return view('donator.login', ['url' => 'ldonator']);
     }
 
     public function donatorLogin(Request $request)

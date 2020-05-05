@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNgosTable extends Migration
+class CreateMedicinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateNgosTable extends Migration
      */
     public function up()
     {
-        Schema::create('ngos', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('medicines', function (Blueprint $table) {
+            $table->id();
+            $table->integer('category_id')->unsigned();
             $table->string('name');
-            $table->longText('address');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('pincode');
-            $table->integer('dpd')->unsigned()->nullable();
+            $table->string('brand');
+            $table->foreign('category_id')->references('id')->on('medicine_category')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateNgosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ngos');
+        Schema::dropIfExists('medicines');
     }
 }

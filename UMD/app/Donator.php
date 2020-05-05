@@ -22,10 +22,12 @@ class Donator extends Authenticatable
         'email',
         'password',
         'contact',
+        'gender',
         'address',
         'city',
         'state',
         'pincode',
+        'profileimage',
     ];
 
     /**

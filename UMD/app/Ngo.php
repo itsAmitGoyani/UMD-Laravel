@@ -13,6 +13,7 @@ class Ngo extends Model
         'city',
         'state',
         'pincode',
+        'dpd',
     ];
 
     public function manager()

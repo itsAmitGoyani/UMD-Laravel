@@ -67,7 +67,7 @@
                                             <div class="form-group">
                                                 <label><strong>Profile Image</strong></label>
                                                 <div class="media pb-2">
-                                                <img src="{{asset('storage' . __('custom.managerpath') .'/'. $manager->profile_image_url)}}" 
+                                                <img src="{{asset('storage' . __('custom.managerpath') .'/'. $manager->profileimage)}}" 
                                                         id="viewimage" class="mr-3" 
                                                         alt="example placeholder avatar" height="100" width="100">
                                                 </div>

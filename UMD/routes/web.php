@@ -78,10 +78,10 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::put('verifier/{id}', 'VerifierController@update');
             Route::delete('verifier/{id}', 'VerifierController@destroy');
         });
-        Route::get('login', 'Auth\LoginController@showManagerLoginForm');
+        Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
-        Route::get('password', 'Auth\LoginController@showManagerPasswordForm');
-        Route::post('password', 'Auth\LoginController@managerPassword')->name('manager-password');
+        Route::get('createpassword', 'Auth\LoginController@showManagerCreatePasswordForm')->name('Manager-CreatePassword');
+        Route::post('createpassword', 'Auth\LoginController@managerCreatePassword')->name('Manager-CreatePassword');
     });
 
     //All routes with pickupman prefix and uses by pickupman only
@@ -90,8 +90,10 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('/', 'PickupmanController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@pickupmanLogout');
         });
-        Route::get('login', 'Auth\LoginController@showPickupmanLoginForm');
+        Route::get('login', 'Auth\LoginController@showPickupmanLoginForm')->name('pickupman-login');
         Route::post('login', 'Auth\LoginController@pickupmanLogin')->name('pickupman-login');
+        Route::get('createpassword', 'Auth\LoginController@showPickupmanCreatePasswordForm')->name('Pickupman-CreatePassword');
+        Route::post('createpassword', 'Auth\LoginController@pickupmanCreatePassword')->name('Pickupman-CreatePassword');
     });
 
     //All routes with verifier prefix and uses by pickupman only
@@ -100,8 +102,10 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('/', 'VerifierController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@verifierLogout');
         });
-        Route::get('login', 'Auth\LoginController@showVerifierLoginForm');
+        Route::get('login', 'Auth\LoginController@showVerifierLoginForm')->name('verifier-login');
         Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');
+        Route::get('createpassword', 'Auth\LoginController@showVerifierCreatePasswordForm')->name('Verifier-CreatePassword');
+        Route::post('createpassword', 'Auth\LoginController@verifierCreatePassword')->name('Verifier-CreatePassword');
     });
 });
 

@@ -158,7 +158,7 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers'],
-            // 'password' => ['required', 'string', 'min:8'],
+            //'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
@@ -184,13 +184,15 @@ class RegisterController extends Controller
                 //'password' => Hash::make($request['password']),
                 'token' => $token,
                 'ngo_id' => $request['ngo_id'],
-                'profile_image_url' => $imagename,
+                'profileimage' => $imagename,
             ]);
             if ($manager) {
-                $data = array('name' => $request->name, 'token' => $token, 'body' => 'This above token for Generate Your Password!!');
-                Mail::send('admin.manager.emails.email', $data, function ($message) use ($request) {
-                    $message->from('amitgoyani111@gmail.com', 'amit');
-
+                $data = array('name' => $request->name, 
+                                'token' => $token, 
+                                'body' => 'The above token is for Create Your Password!!'
+                            );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
+                    $message->from('goyaniamit111@gmail.com', 'UMD');
                     $message->to($request->email, $request->name);
                 });
 
@@ -218,7 +220,7 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:pickupmen'],
-            'password' => ['required', 'string', 'min:8'],
+            //'password' => ['required', 'string', 'min:8'],
             'contact' => ['required', 'string', 'size:10', 'unique:pickupmen'],
             'ngo_id' => ['required', 'numeric'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
@@ -234,15 +236,26 @@ class RegisterController extends Controller
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
             $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
 
+            $token = Str::random(6);
             $pickupman = Pickupman::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
-                'password' => Hash::make($request['password']),
+                //'password' => Hash::make($request['password']),
+                'token' => $token,
                 'contact' => $request['contact'],
                 'ngo_id' => $request['ngo_id'],
                 'profileimage' => $imagename,
             ]);
             if ($pickupman) {
+                $data = array('name' => $request->name, 
+                                'token' => $token, 
+                                'body' => 'The above token is for Create Your Password!!'
+                            );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
+                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->to($request->email, $request->name);
+                });
+
                 return redirect()->route('DisplayPickupmen')
                     ->with('success', 'Pickupman registerd successfully');
             } else {
@@ -268,7 +281,7 @@ class RegisterController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-            'password' => ['required', 'string', 'min:8'],
+            //'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
@@ -281,14 +294,25 @@ class RegisterController extends Controller
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
             $image->storeAs('/public' . __('custom.verifierpath'), $imagename);
 
+            $token = Str::random(6);
             $verifier = Verifier::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
-                'password' => Hash::make($request['password']),
+                //'password' => Hash::make($request['password']),
+                'token' => $token,
                 'ngo_id' => $request['ngo_id'],
                 'profileimage' => $imagename,
             ]);
             if ($verifier) {
+                $data = array('name' => $request->name, 
+                                'token' => $token, 
+                                'body' => 'The above token is for Create Your Password!!'
+                            );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
+                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->to($request->email, $request->name);
+                });
+
                 return redirect()->route('DisplayVerifier')
                     ->with('success', 'Verifier registerd successfully');
             } else {

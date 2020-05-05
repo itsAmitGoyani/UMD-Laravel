@@ -35,7 +35,7 @@
                                                 </span>
                                                 @enderror
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label><strong>Password</strong></label>
                                                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password">
                                                 @error('password')
@@ -43,7 +43,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
-                                            </div>
+                                            </div> -->
                                             <input type="hidden" name="ngo_id" value="{{ $ngo_id }}" />
                                             <div class="form-group">
                                                 <label><strong>Profile Image</strong></label>

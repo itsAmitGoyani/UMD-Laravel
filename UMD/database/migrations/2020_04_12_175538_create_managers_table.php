@@ -20,7 +20,7 @@ class CreateManagersTable extends Migration
             $table->string('token')->unique();
             $table->string('password')->nullable();
             $table->integer('ngo_id')->unsigned();
-            $table->string('profile_image_url');
+            $table->string('profileimage');
             $table->foreign('ngo_id')->references('id')->on('ngos')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

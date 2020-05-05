@@ -20,11 +20,10 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-
                                     <h4 class="text-center mb-4">Verifier Login</h4>
                                     @include('partial.customerror')
+                                    @include('partial.success')
                                     <form method="POST" action="{{ route('verifier-login') }}">
-
                                         @csrf
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
@@ -60,9 +59,9 @@
                                         </div>
 
                                     </form>
-                                    <!-- <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
-                                    </div> -->
+                                    <div class="new-account mt-3">
+                                        <p>Don't have a password? <a class="text-primary" href="{{ route('Verifier-CreatePassword') }}">Create Password</a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

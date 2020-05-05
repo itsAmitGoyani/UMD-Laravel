@@ -120,7 +120,7 @@ class ManagerController extends Controller
                     'email' => $request->input('email'),
                     'password' => $request->input('password'),
                     'ngo_id' => $request->input('ngo_id'),
-                    'profile_image_url' => $imagename,
+                    'profileimage' => $imagename,
                 ]);
         } else {
             $managerUpdate = Manager::where('id', $id)

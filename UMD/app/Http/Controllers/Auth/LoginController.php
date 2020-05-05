@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Manager;
+use App\Pickupman;
+use App\Verifier;
 
 class LoginController extends Controller
 {
@@ -72,7 +74,7 @@ class LoginController extends Controller
 
     public function showDonatorLoginForm()
     {
-        return view('donator.login', ['url' => 'ldonator']);
+        return view('auth.login');
     }
 
     public function donatorLogin(Request $request)
@@ -93,30 +95,28 @@ class LoginController extends Controller
 
     public function showManagerLoginForm()
     {
-        return view('ngo.manager.login', ['url' => 'manager']);
+        return view('ngo.manager.login');
     }
 
-    public function showManagerPasswordForm()
+    public function showManagerCreatePasswordForm()
     {
         return view('ngo.manager.createpassword');
     }
 
-    public function managerPassword(Request $request)
+    public function managerCreatePassword(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'code' => 'min:6|max:6',
+            'email' => 'required|email|exists:managers,email',
+            'token' => 'required|string|size:6',
             'password' => 'required|min:8',
-            'confirmpassword' => 'required|min:8'
+            'confirmpassword' => 'required|min:8|same:password'
         ]);
-        if ($request->password == $request->confirmpassword) {
-            $manager = Manager::where(['email' => $request->email, 'token' => $request->code])->update(['password' => Hash::make($request->confirmpassword)]);
+            $manager = Manager::where(['email' => $request->email, 'token' => $request->token])
+                                ->update(['password' => Hash::make($request->password)]);
             if ($manager) {
-                return redirect('/ngo/manager/login')->with('success', 'Password created Successfully');
+                return redirect('/ngo/manager/login')->with('success', 'Password created Successfully.');
             }
-
-            return back()->withInput()->withErrors(['errmsg' => 'Unknown Error']);
-        }
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Token.']);
     }
 
     public function managerLogin(Request $request)
@@ -140,6 +140,27 @@ class LoginController extends Controller
         return view('ngo.pickupman.login');
     }
 
+    public function showPickupmanCreatePasswordForm()
+    {
+        return view('ngo.pickupman.createpassword');
+    }
+
+    public function pickupmanCreatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:pickupmen,email',
+            'token' => 'required|string|size:6',
+            'password' => 'required|min:8',
+            'confirmpassword' => 'required|min:8|same:password'
+        ]);
+            $pickupman = Pickupman::where(['email' => $request->email, 'token' => $request->token])
+                                ->update(['password' => Hash::make($request->password)]);
+            if ($pickupman) {
+                return redirect('/ngo/pickupman/login')->with('success', 'Password created Successfully.');
+            }
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Token.']);
+    }
+
     public function pickupmanLogin(Request $request)
     {
         $this->validate($request, [
@@ -159,6 +180,27 @@ class LoginController extends Controller
     public function showVerifierLoginForm()
     {
         return view('ngo.verifier.login');
+    }
+
+    public function showVerifierCreatePasswordForm()
+    {
+        return view('ngo.verifier.createpassword');
+    }
+
+    public function verifierCreatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:verifiers,email',
+            'token' => 'required|string|size:6',
+            'password' => 'required|min:8',
+            'confirmpassword' => 'required|min:8|same:password'
+        ]);
+            $verifier = Verifier::where(['email' => $request->email, 'token' => $request->token])
+                                ->update(['password' => Hash::make($request->password)]);
+            if ($verifier) {
+                return redirect('/ngo/verifier/login')->with('success', 'Password created Successfully.');
+            }
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Token.']);
     }
 
     public function verifierLogin(Request $request)

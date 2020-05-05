@@ -104,3 +104,12 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');
     });
 });
+
+
+Route::group(['prefix' => 'donator'], function () {
+    Route::group(['middleware' => ['auth:donator']], function () {
+    });
+    Route::get('/', 'DonatorController@index');
+    Route::get('login', 'Auth\LoginController@showDonatorLoginForm');
+    Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm');
+});

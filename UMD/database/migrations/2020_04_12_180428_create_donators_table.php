@@ -18,11 +18,13 @@ class CreateDonatorsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('contact',10)->unique();
+            $table->string('gender');
+            $table->string('contact', 10)->unique();
             $table->string('address');
             $table->string('city');
             $table->string('state');
-            $table->string('pincode',6);
+            $table->string('pincode', 6);
+            $table->string('profileimage');
             $table->rememberToken();
             $table->timestamps();
         });

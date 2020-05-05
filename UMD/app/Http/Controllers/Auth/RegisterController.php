@@ -112,7 +112,7 @@ class RegisterController extends Controller
 
     public function showDonatorRegisterForm()
     {
-        return view('auth.register', ['url' => 'donator']);
+        return view('donator.register', ['url' => 'rdonator']);
     }
 
     protected function createDonator(Request $request)

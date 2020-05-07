@@ -1,7 +1,6 @@
 @extends('donator.layouts.app')
 @section('content')
-@extends('donator.layouts.app')
-@section('content')
+
 <!-- login part -->
 <section class="padding_top">
     <div class="container">
@@ -9,10 +8,11 @@
             <div class="col-lg-6">
                 <!-- <h4 class="widget_title">Newsletter</h4> -->
 
-                <form action="#">
+                <form method="POST" action="{{ route('RegisterDonator') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="form-group">
                         <label><strong>Name</strong></label>
-                        <input type="text" name="name" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter name'" placeholder='Enter name' required>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter name'" placeholder='Enter name' required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Email</strong></label>
-                        <input type="email" name="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Password</strong></label>
-                        <input type="password" name="password" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter password'" placeholder='Enter password' required>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter password'" placeholder='Enter password' required>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -40,18 +40,18 @@
                     <div class="form-group">
                         <label><strong>Gender</strong></label><br>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="male" name="inlineDefaultRadiosExample" value="male">
+                            <input type="radio" class="custom-control-input" id="male" name="gender" value="male">
                             <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="female" name="inlineDefaultRadiosExample" value="female">
+                            <input type="radio" class="custom-control-input" id="female" name="gender" value="female">
                             <label class="custom-control-label" for="female">Female</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label><strong>Contact</strong></label>
 
-                        <input type="number" name="contact" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter contact'" placeholder='Enter contact' required>
+                        <input type="number" name="contact" class="form-control @error('contact') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter contact'" placeholder='Enter contact' required>
                         @error('contact')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label><strong>Address</strong></label>
 
-                        <textarea class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder='Enter Address' rows="2" name="address"></textarea>
+                        <textarea class="form-control @error('address') is-invalid @enderror" form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder='Enter Address' rows="2" name="address"></textarea>
                         @error('address')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Pincode</strong></label>
-                        <input type="number" name="pincode" id="pincode" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter pincode'" placeholder='Enter pincode' required>
+                        <input type="number" name="pincode" id="pincode" class="form-control @error('pincode') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter pincode'" placeholder='Enter pincode' required>
                         <span role="alert"><strong id="errpncd" style="Color:red"></strong></span>
                         @error('pincode')
                         <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label><strong>State</strong></label>
 
-                        <input type="text" name="state" id="state" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
+                        <input type="text" name="state" id="state" class="form-control @error('state') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
                         @error('state')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label><strong>City</strong></label>
 
-                        <input type="text" name="city" id="city" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
+                        <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
                         @error('city')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <a class="btn_3 " href="#">Register</a>
+                        <button type="submit" class="btn_3 ">Register</button>
                     </div>
 
                 </form>
@@ -166,7 +166,5 @@
 </script>
 
 <!-- login part end -->
-
-@endsection
 
 @endsection

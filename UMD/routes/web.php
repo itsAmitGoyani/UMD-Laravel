@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 Auth::routes();
 
@@ -110,10 +110,12 @@ Route::group(['prefix' => 'ngo'], function () {
 });
 
 
-Route::group(['prefix' => 'donator'], function () {
-    Route::group(['middleware' => ['auth:donator']], function () {
-    });
+
+Route::group(['middleware' => ['auth:donator']], function () {
     Route::get('/', 'DonatorController@index');
-    Route::get('login', 'Auth\LoginController@showDonatorLoginForm');
-    Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm');
+    Route::get('logout', 'Auth\LogoutController@donatorLogout');
 });
+Route::get('login', 'Auth\LoginController@showDonatorLoginForm');
+Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm');
+Route::post('register', 'Auth\RegisterController@createDonator')->name('RegisterDonator');
+Route::post('login', 'Auth\LoginController@donatorLogin')->name('LoginDonator');

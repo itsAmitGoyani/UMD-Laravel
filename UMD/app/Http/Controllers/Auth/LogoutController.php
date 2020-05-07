@@ -32,4 +32,10 @@ class LogoutController extends Controller
         Auth::guard('verifier')->logout();
         return redirect('/ngo/verifier/login');
     }
+
+    public function donatorLogout()
+    {
+        Auth::guard('donator')->logout();
+        return redirect('/login');
+    }
 }

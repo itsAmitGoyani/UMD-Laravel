@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="/dpanel/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="/dpanel/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -79,9 +82,14 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Profile
                                     </a>
+
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="/donator/login">Login</a>
-                                        <a class="dropdown-item" href="/donator/register">Register</a>
+                                        @if(Auth::guard('donator')->check())
+                                        <a class="dropdown-item" href="/logout">Logout</a>
+                                        @else
+                                        <a class="dropdown-item" href="/login">Login</a>
+                                        <a class="dropdown-item" href="/register">Register</a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="d-none d-lg-block">

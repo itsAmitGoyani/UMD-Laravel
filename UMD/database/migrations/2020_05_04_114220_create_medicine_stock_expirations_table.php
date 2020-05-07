@@ -18,7 +18,7 @@ class CreateMedicineStockExpirationsTable extends Migration
             $table->integer('medicine_stock_id')->unsigned();
             $table->date('expirydate');
             $table->integer('qty')->unsigned();
-            $table->foreign('medicinestock_id')->references('id')->on('medicine_stocks')->onDelete('cascade');
+            $table->foreign('medicine_stock_id')->references('id')->on('medicine_stocks')->onDelete('cascade');
             $table->timestamps();
         });
     }

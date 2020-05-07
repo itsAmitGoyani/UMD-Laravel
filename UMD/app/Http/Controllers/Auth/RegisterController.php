@@ -118,28 +118,49 @@ class RegisterController extends Controller
     protected function createDonator(Request $request)
     {
         //$this->validator($request->all())->validate();
+
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
             'contact' => ['required', 'string', 'max:10', 'unique:donators'],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
             'pincode' => ['required', 'string', 'max:6'],
+            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
-        $donator = Donator::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'contact' => $request['contact'],
-            'address' => $request['address'],
-            'city' => $request['city'],
-            'state' => $request['state'],
-            'pincode' => $request['pincode'],
-        ]);
-        return redirect()->intended('login/donator');
+        $image = $request->file('pimage');
+        if ($image != null) {
+            $name = $image->getClientOriginalName();
+            $nameimg = explode('.', $name);
+            $ext = $image->getClientOriginalExtension();
+            $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
+            $image->storeAs('/public' . __('custom.donatorpath'), $imagename);
+
+            $donator = Donator::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'gender' => $request['gender'],
+                'contact' => $request['contact'],
+                'address' => $request['address'],
+                'city' => $request['city'],
+                'state' => $request['state'],
+                'pincode' => $request['pincode'],
+                'profileimage' => $imagename,
+
+            ]);
+            if ($donator) {
+                return redirect('/login')
+                    ->with('success', 'Pickupman registerd successfully');
+            } else {
+                return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+            }
+        } else {
+            return back()->withInput()->withErrors(['errmsg' => 'Image not found.']);
+        }
     }
 
     //This is Manager functinality
@@ -187,10 +208,11 @@ class RegisterController extends Controller
                 'profileimage' => $imagename,
             ]);
             if ($manager) {
-                $data = array('name' => $request->name, 
-                                'token' => $token, 
-                                'body' => 'The above token is for Create Your Password!!'
-                            );
+                $data = array(
+                    'name' => $request->name,
+                    'token' => $token,
+                    'body' => 'The above token is for Create Your Password!!'
+                );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
                     $message->from('goyaniamit111@gmail.com', 'UMD');
                     $message->to($request->email, $request->name);
@@ -247,10 +269,11 @@ class RegisterController extends Controller
                 'profileimage' => $imagename,
             ]);
             if ($pickupman) {
-                $data = array('name' => $request->name, 
-                                'token' => $token, 
-                                'body' => 'The above token is for Create Your Password!!'
-                            );
+                $data = array(
+                    'name' => $request->name,
+                    'token' => $token,
+                    'body' => 'The above token is for Create Your Password!!'
+                );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
                     $message->from('goyaniamit111@gmail.com', 'UMD');
                     $message->to($request->email, $request->name);
@@ -304,10 +327,11 @@ class RegisterController extends Controller
                 'profileimage' => $imagename,
             ]);
             if ($verifier) {
-                $data = array('name' => $request->name, 
-                                'token' => $token, 
-                                'body' => 'The above token is for Create Your Password!!'
-                            );
+                $data = array(
+                    'name' => $request->name,
+                    'token' => $token,
+                    'body' => 'The above token is for Create Your Password!!'
+                );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
                     $message->from('goyaniamit111@gmail.com', 'UMD');
                     $message->to($request->email, $request->name);

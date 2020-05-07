@@ -76,8 +76,12 @@
                                         Profile
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="/donator/login">Login</a>
-                                        <a class="dropdown-item" href="/donator/register">Register</a>
+                                        @if(Auth::guard('donator')->check())
+                                        <a class="dropdown-item" href="/logout">Logout</a>
+                                        @else
+                                        <a class="dropdown-item" href="/login">Login</a>
+                                        <a class="dropdown-item" href="/register">Register</a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="nav-item">

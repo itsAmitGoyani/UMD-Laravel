@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             return redirect('/admin');
         }
         if ($guard == "donator" && Auth::guard($guard)->check()) {
-            return redirect('/donator');
+            return redirect('/');
         }
         if ($guard == "manager" && Auth::guard($guard)->check()) {
             return redirect('/ngo/manager');

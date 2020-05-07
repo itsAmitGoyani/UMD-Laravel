@@ -86,9 +86,9 @@ class LoginController extends Controller
 
         if (Auth::guard('donator')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/donator');
+            return redirect()->intended('/');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->withErrors(['errmsg' => 'Invalid Email or Password']);
     }
 
     //This is manager functionality

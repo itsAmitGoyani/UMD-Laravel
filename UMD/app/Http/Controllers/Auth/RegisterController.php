@@ -121,13 +121,14 @@ class RegisterController extends Controller
 
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators,email'],
             'password' => ['required', 'string', 'min:8'],
-            'contact' => ['required', 'string', 'max:10', 'unique:donators'],
+            'contact' => ['required', 'numeric', 'digits:10', 'unique:donators,contact'],
             'address' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'in:Male,Female' ],
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
-            'pincode' => ['required', 'string', 'max:6'],
+            'pincode' => ['required', 'numeric', 'digits:6'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
@@ -243,7 +244,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:pickupmen'],
             //'password' => ['required', 'string', 'min:8'],
-            'contact' => ['required', 'string', 'size:10', 'unique:pickupmen'],
+            'contact' => ['required', 'numeric', 'digits:10', 'unique:pickupmen'],
             'ngo_id' => ['required', 'numeric'],
             'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();

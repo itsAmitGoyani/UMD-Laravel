@@ -36,7 +36,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="/donator"> <img src="/dpanel/img/logo.png" alt="logo"> </a>
+                        <a class="navbar-brand" href="/"> <img src="/dpanel/img/logo.png" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="ti-menu"></span>
                         </button>
@@ -44,7 +44,7 @@
                         <div class="collapse navbar-collapse main-menu-item justify-content-end" id="navbarSupportedContent">
                             <ul class="navbar-nav align-items-center">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/donator">Home</a>
+                                    <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="about.html">about</a>
@@ -110,7 +110,7 @@
                                 Children in Need </h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut</p>
-                            <a href="#" class="btn_2">Start Donation</a>
+                            <a href="/donate" class="btn_2">Start Donation</a>
                         </div>
                     </div>
                 </div>

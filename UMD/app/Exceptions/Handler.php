@@ -61,9 +61,6 @@ class Handler extends ExceptionHandler
         if ($request->is('admin') || $request->is('admin/*')) {
             return redirect()->guest('/admin/login');
         }
-        if ($request->is('donator') || $request->is('donator/*')) {
-            return redirect()->guest('/login');
-        }
         if ($request->is('ngo/manager') || $request->is('ngo/manager/*')) {
             return redirect()->guest('/ngo/manager/login');
         }
@@ -73,6 +70,9 @@ class Handler extends ExceptionHandler
         if ($request->is('ngo/verifier') || $request->is('ngo/verifier/*')) {
             return redirect()->guest('/ngo/verifier/login');
         }
-        return redirect()->guest(route('login'));
+        if ($request->is('donate') || $request->is('donate/*')) {
+            return redirect()->guest('login');
+        }
+        return redirect()->guest('login');
     }
 }

@@ -1,9 +1,24 @@
 @extends('donator.layouts.app')
 @section('content')
 
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item text-center">
+                            <h2>Register</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb end-->
 <!-- login part -->
-<section class="padding_top">
-    <div class="container">
+<!-- <section class="padding_top"> -->
+    <div class="container pt-5 pb-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-6">
                 <!-- <h4 class="widget_title">Newsletter</h4> -->
@@ -56,11 +71,12 @@
                         <label><strong>Gender</strong></label><br>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" id="male" 
-                                    name="gender" value="male" {{ old('gender')=='Male' ? checked }}>
+                                    name="gender" value="Male">
                             <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="female" name="gender" value="female">
+                            <input type="radio" class="custom-control-input" id="female" 
+                                    name="gender" value="Female">
                             <label class="custom-control-label" for="female">Female</label>
                         </div>
                     </div>
@@ -155,7 +171,7 @@
             </div>
         </div>
     </div>
-</section>
+<!-- </section> -->
 <script>
     $(document).ready(function() {
         $("#pincode").change(function() {

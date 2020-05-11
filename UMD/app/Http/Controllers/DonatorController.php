@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Donator;
+use App\Ngo;
 use Illuminate\Http\Request;
 
 class DonatorController extends Controller
@@ -15,6 +16,12 @@ class DonatorController extends Controller
     public function index()
     {
         return view('donator.home');
+    }
+
+    public function showDonateForm()
+    {
+        $ngos = Ngo::all('id','name');
+        return view('donator.donate', ['ngos' => $ngos]);
     }
 
     /**

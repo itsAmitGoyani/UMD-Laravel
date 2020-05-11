@@ -24,6 +24,11 @@ class DonatorController extends Controller
         return view('donator.donate', ['ngos' => $ngos]);
     }
 
+    public function donate(Request $request)
+    {
+        return 0;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

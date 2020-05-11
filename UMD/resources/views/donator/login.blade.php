@@ -32,7 +32,7 @@
                     </div>
                 </form>
                 <div class="new-account mt-3">
-                    <p>Don't have an account? <a class="text-primary" href="/register">Register</a></p>
+                    <p>Don't have an account? <a class="text-primary" href="{{ route('RegisterDonator') }}">Register</a></p>
                 </div>
             </div>
         </div>

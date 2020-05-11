@@ -12,7 +12,12 @@
                     @csrf
                     <div class="form-group">
                         <label><strong>Name</strong></label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter name'" placeholder='Enter name' required>
+                        <input type="text" name="name" 
+                                class="form-control @error('name') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter name'" 
+                                value="{{ old('name') }}"
+                                placeholder='Enter name' required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -21,7 +26,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Email</strong></label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                        <input type="email" name="email" 
+                                class="form-control @error('email') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter email'"  
+                                value="{{ old('email') }}"
+                                placeholder='Enter email' required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -30,7 +40,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Password</strong></label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter password'" placeholder='Enter password' required>
+                        <input type="password" name="password" 
+                                class="form-control @error('password') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter password'"  
+                                value="{{ old('password') }}"
+                                placeholder='Enter password' required>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -40,7 +55,8 @@
                     <div class="form-group">
                         <label><strong>Gender</strong></label><br>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="male" name="gender" value="male">
+                            <input type="radio" class="custom-control-input" id="male" 
+                                    name="gender" value="male" {{ old('gender')=='Male' ? checked }}>
                             <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -50,8 +66,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Contact</strong></label>
-
-                        <input type="number" name="contact" class="form-control @error('contact') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter contact'" placeholder='Enter contact' required>
+                        <input type="number" name="contact" 
+                                class="form-control @error('contact') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter contact'"  
+                                value="{{ old('contact') }}"
+                                placeholder='Enter contact' required>
                         @error('contact')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -60,8 +80,10 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Address</strong></label>
-
-                        <textarea class="form-control @error('address') is-invalid @enderror" form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Address'" placeholder='Enter Address' rows="2" name="address"></textarea>
+                        <textarea class="form-control @error('address') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter Address'" 
+                                placeholder='Enter Address' rows="2" name="address">{{ old('address') }}</textarea>
                         @error('address')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -70,7 +92,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Pincode</strong></label>
-                        <input type="number" name="pincode" id="pincode" class="form-control @error('pincode') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter pincode'" placeholder='Enter pincode' required>
+                        <input type="number" name="pincode" id="pincode" 
+                                class="form-control @error('pincode') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Enter pincode'"   
+                                value="{{ old('pincode') }}"
+                                placeholder='Enter pincode' required>
                         <span role="alert"><strong id="errpncd" style="Color:red"></strong></span>
                         @error('pincode')
                         <span class="invalid-feedback" role="alert">
@@ -80,8 +107,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>State</strong></label>
-
-                        <input type="text" name="state" id="state" class="form-control @error('state') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
+                        <input type="text" name="state" id="state" 
+                                class="form-control @error('state') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = ''"   
+                                value="{{ old('state') }}"
+                                placeholder="" readonly required>
                         @error('state')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -90,8 +121,12 @@
                     </div>
                     <div class="form-group">
                         <label><strong>City</strong></label>
-
-                        <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" placeholder='' readonly required>
+                        <input type="text" name="city" id="city" 
+                                class="form-control @error('city') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = ''"   
+                                value="{{ old('city') }}"
+                                placeholder="" readonly required>
                         @error('city')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -113,8 +148,10 @@
                     <div class="text-center">
                         <button type="submit" class="btn_3 ">Register</button>
                     </div>
-
                 </form>
+                <div class="new-account mt-3">
+                    <p>Already have an account? <a class="text-primary" href="{{ route('LoginDonator') }}">Login</a></p>
+                </div>
             </div>
         </div>
     </div>

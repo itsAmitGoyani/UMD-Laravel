@@ -153,8 +153,8 @@ class RegisterController extends Controller
 
             ]);
             if ($donator) {
-                return redirect('/login')
-                    ->with('success', 'Pickupman registerd successfully');
+                return redirect()->route('LoginDonator')
+                    ->with('success', 'Donator registerd successfully.');
             } else {
                 return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
             }

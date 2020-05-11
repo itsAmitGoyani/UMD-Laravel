@@ -20,15 +20,7 @@ use Illuminate\Support\Facades\Route;
 // })->name('welcome');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/login/donator', 'Auth\LoginController@showDonatorLoginForm');
-Route::get('/register/donator', 'Auth\RegisterController@showDonatorRegisterForm');
-Route::post('/login/donator', 'Auth\LoginController@donatorLogin');
-Route::post('/register/donator', 'Auth\RegisterController@createDonator');
-Route::post('/register/pickupman', 'Auth\RegisterController@createPickupman');
-Route::post('/register/verifier', 'Auth\RegisterController@createVerifier');
 
 // All routes with admin prefix and uses by admin only
 
@@ -110,12 +102,13 @@ Route::group(['prefix' => 'ngo'], function () {
 });
 
 
-
-Route::group(['middleware' => ['auth:donator']], function () {
-    Route::get('/', 'DonatorController@index');
-    Route::get('logout', 'Auth\LogoutController@donatorLogout');
-});
-Route::get('login', 'Auth\LoginController@showDonatorLoginForm');
-Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm');
+Route::get('/', 'DonatorController@index');
+Route::get('login', 'Auth\LoginController@showDonatorLoginForm')->name('LoginDonator');
+Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm')->name('RegisterDonator');
 Route::post('register', 'Auth\RegisterController@createDonator')->name('RegisterDonator');
 Route::post('login', 'Auth\LoginController@donatorLogin')->name('LoginDonator');
+
+Route::group(['middleware' => ['auth:donator']], function () {
+    //Route::get('/', 'DonatorController@index');
+    Route::get('logout', 'Auth\LogoutController@donatorLogout');
+});

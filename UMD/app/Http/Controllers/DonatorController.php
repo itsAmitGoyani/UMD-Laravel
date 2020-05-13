@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Donator;
 use App\Ngo;
+use App\Donator;
+use App\PickupSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DonatorController extends Controller
 {
@@ -20,13 +23,29 @@ class DonatorController extends Controller
 
     public function showDonateForm()
     {
-        $ngos = Ngo::all('id','name');
-        return view('donator.donate', ['ngos' => $ngos]);
+        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->groupBy('date')->get();
+        for ($i = 0; $i < count($disabledaterecord); $i++) {
+            $disabledate[$i] = $disabledaterecord[$i]->date;
+        }
+        $ngos = Ngo::all('id', 'name');
+        return view('donator.donate', ['ngos' => $ngos, 'disabledates' => $disabledate]);
     }
 
     public function donate(Request $request)
     {
-        return 0;
+        $donator = Donator::where('id', Auth::user()->id)->first();
+        $pickupschedule = new PickupSchedule();
+        $pickupschedule->donator_id = $donator->id;
+        $pickupschedule->ngo_id = $request->ngo_id;
+        $pickupschedule->date = $request->date;
+        $pickupschedule->save();
+        //return $pickupschedule;
+        if ($pickupschedule) {
+            return redirect('/donate')
+                ->with('success', 'Donate added successfully.');
+        } else {
+            return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
+        }
     }
 
     /**

@@ -27,8 +27,7 @@
                 @csrf
                 <div class="form-group">
                     <label><strong>NGO Branch</strong></label>
-                    <select class="form-control @error('ngo_id') is-invalid @enderror" 
-                            id="ngo_id" name="ngo_id" required>
+                    <select class="form-control @error('ngo_id') is-invalid @enderror" id="ngo_id" name="ngo_id" required>
                         <option value="">--select NGO--</option>
                         @foreach($ngos as $ngo)
                         <option value="{!!$ngo->id!!}">{!!$ngo->name!!}</option>
@@ -42,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label><strong>Date</strong></label>
-                    <input type='text' class="form-control  @error('date') is-invalid @enderror" placeholder="select date" id='datepicker'>
+                    <input type='text' name="date" class="form-control  @error('date') is-invalid @enderror" placeholder="select date" id='datepicker'>
                     @error('date')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -84,16 +83,22 @@
     //     ['05/10/2020', '05/09/2020', '05/08/2020'],
     //   ];
     //   return disabled[month];
-    //}
+    //
+    var users = <?php echo json_encode($disabledates); ?>;
+    console.log(users);
 
     $('#datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: new Date(),
         todayHighlight: true,
         updateViewDate: false,
-        datesDisabled: ['05/10/2020', '05/09/2020', '05/08/2020']
+        datesDisabled: users,
     }).on('changeMonth', function(e) {
+
         //   var month = e.date.getMonth();
         //   var disabled = getDisabledDates(month);
         //   $('#datepicker').datepicker('setDatesDisabled', disabled);
+
     });
 </script>
 

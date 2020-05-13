@@ -14,4 +14,9 @@ class PickupSchedule extends Model
         'status',
         'pickupman_id',
     ];
+    
+    public function donator()
+    {
+        return $this->belongsTo('App\Donator');
+    }
 }

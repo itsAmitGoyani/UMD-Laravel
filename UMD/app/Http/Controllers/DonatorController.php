@@ -24,6 +24,7 @@ class DonatorController extends Controller
     public function showDonateForm()
     {
         $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->groupBy('date')->get();
+        $disabledate[0]=null;
         for ($i = 0; $i < count($disabledaterecord); $i++) {
             $disabledate[$i] = $disabledaterecord[$i]->date;
         }

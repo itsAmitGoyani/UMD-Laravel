@@ -112,5 +112,6 @@ Route::group(['middleware' => ['auth:donator']], function () {
     //Route::get('/', 'DonatorController@index');
     Route::get('donate', 'DonatorController@showDonateForm');
     Route::post('donate', 'DonatorController@donate')->name('Donate');
+    Route::get('disabledates', 'DonatorController@disabledates');
     Route::get('logout', 'Auth\LogoutController@donatorLogout');
 });

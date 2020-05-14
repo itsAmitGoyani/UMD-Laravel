@@ -23,7 +23,7 @@
         <div class="col-lg-6">
             <!-- <h4 class="widget_title">Newsletter</h4> -->
 
-            <form method="POST" action="{{ route('Donate') }}">
+            <form method="POST" action="{{ route('Donate') }}" id="dateform">
                 @csrf
                 <div class="form-group">
                     <label><strong>NGO Branch</strong></label>
@@ -63,41 +63,72 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
 
+
 <script type="text/javascript">
-    //  function getDisabledDates(month){
-    //   if( month<0 || month>12){
-    //     return [];
-    //   }
-    //   var disabled = [
-    //     ['01/01/2017', '01/02/2017', '01/03/2017'],
-    //     ['02/04/2017', '02/05/2017', '02/06/2017'],
-    //     ['03/08/2017', '03/09/2017', '03/10/2017'],
-    //     ['04/05/2017', '04/06/2017', '04/07/2017'],
-    //     ['05/15/2017', '05/16/2017', '05/17/2017'],
-    //     ['06/11/2017', '06/12/2017', '06/13/2017'],
-    //     ['07/15/2017', '07/16/2017', '07/17/2017'],
-    //     ['08/07/2017', '08/08/2017', '08/09/2017'],
-    //     ['09/05/2017', '09/06/2017', '09/07/2017'],
-    //     ['10/11/2017', '10/12/2017', '10/13/2017'],
-    //     ['11/06/2017', '11/07/2017', '11/08/2017'],
-    //     ['05/10/2020', '05/09/2020', '05/08/2020'],
-    //   ];
-    //   return disabled[month];
-    //
-    var users = <?php echo json_encode($disabledates); ?>;
-    console.log(users);
+    var disabledates = [];
+
+    $(document).ready(function() {
+        console.log("this is disable dates" + disabledates);
+        $("#ngo_id").change(function() {
+            var id = $(this).val();
+            console.log("1:" + id);
+            var dataString = '{id:' + id + '}';
+            console.log("2:" + dataString);
+            $.ajax({
+                type: "GET",
+                url: "{{url('/disabledates')}}",
+                data: {
+                    'id': id
+                },
+                cache: false,
+                success: function(data) {
+                    disabledates = data;
+                    console.log("3:" + data + "this is disable" + disabledates);
+                    $('#datepicker').datepicker('refresh');
+
+                },
+
+            });
+
+        });
+    });
+
+    // function getDisabledDates(month) {
+    //     if (month < 0 || month > 12) {
+    //         return [];
+    //     }
+    //     var disabled = [
+    //         ['01/01/2017', '01/02/2017', '01/03/2017'],
+    //         ['02/04/2017', '20/05/2020', '21/05/2020'],
+    //         ['03/08/2017', '03/09/2017', '03/10/2017'],
+    //         ['04/05/2017', '04/06/2017', '04/07/2017'],
+    //         ['05/15/2017', '05/16/2017', '05/17/2017'],
+    //         ['06/11/2017', '06/12/2017', '06/13/2017'],
+    //         ['07/15/2017', '07/16/2017', '07/17/2017'],
+    //         ['08/07/2017', '08/08/2017', '08/09/2017'],
+    //         ['09/05/2017', '09/06/2017', '09/07/2017'],
+    //         ['10/11/2017', '10/12/2017', '10/13/2017'],
+    //         ['11/06/2017', '11/07/2017', '11/08/2017'],
+    //         ['05/10/2020', '05/09/2020', '05/08/2020'],
+    //     ];
+    //     return disabled[month];
+    // }
+
 
     $('#datepicker').datepicker({
         format: 'yyyy-mm-dd',
         startDate: new Date(),
         todayHighlight: true,
         updateViewDate: false,
-        datesDisabled: users,
-    }).on('changeMonth', function(e) {
+        datesDisabled: disabledates
+    }).on('changeDate', function(e) {
+        console.log(disabledates);
 
-        //   var month = e.date.getMonth();
-        //   var disabled = getDisabledDates(month);
-        //   $('#datepicker').datepicker('setDatesDisabled', disabled);
+
+        // var month = e.date.getMonth();
+        // var disabled = getDisabledDates(month);
+        //$('#datepicker').datepicker('setDatesDisabled', disabledates);
+
 
     });
 </script>

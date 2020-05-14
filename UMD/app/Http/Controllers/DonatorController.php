@@ -21,14 +21,29 @@ class DonatorController extends Controller
         return view('donator.home');
     }
 
+    public function disabledates(Request $request)
+    {
+        $i = 0;
+        $id = $request->id;
+        $dpd = NGO::select('dpd')->where('id', $id)->first();
+        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->where('ngo_id', $id)->groupBy('date', 'ngo_id')->get();
+        foreach ($disabledaterecord as $disabledaterecord) {
+            if ($disabledaterecord->count >= $dpd->dpd) {
+                $date[$i] = $disabledaterecord->date;
+                $i++;
+            }
+        }
+        return response($date);
+    }
+
     public function showDonateForm()
     {
-        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->groupBy('date')->get();
-        for ($i = 0; $i < count($disabledaterecord); $i++) {
-            $disabledate[$i] = $disabledaterecord[$i]->date;
-        }
+        // $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->groupBy('date')->get();
+        // for ($i = 0; $i < count($disabledaterecord); $i++) {
+        //     $disabledate[$i] = $disabledaterecord[$i]->date;
+        // }
         $ngos = Ngo::all('id', 'name');
-        return view('donator.donate', ['ngos' => $ngos, 'disabledates' => $disabledate]);
+        return view('donator.donate', ['ngos' => $ngos]);
     }
 
     public function donate(Request $request)

@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="/dpanel/css/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
 </head>
 
 <body>
@@ -103,7 +102,7 @@
         </div>
     </header>
     <!-- Header part end-->
-    
+
     <!-- breadcrumb start-->
     <!-- breadcrumb end-->
 

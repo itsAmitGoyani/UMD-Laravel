@@ -4,7 +4,8 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-        @include('partial.success')
+    @include('partial.customerror')
+    @include('partial.success')
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">

@@ -48,4 +48,9 @@ class Donator extends Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
+
+    public function pickupschedule()
+    {
+    	return $this->hasOne('App\PickupSchedule');
+    }
 }

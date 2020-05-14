@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Pickupman;
+use App\PickupSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,8 +23,21 @@ class PickupmanController extends Controller
      */
     public function index()
     {
-        $pickupmen = Pickupman::all();
+        $ngo_id = Auth::user()->ngo_id;
+        $pickupmen = Pickupman::where('ngo_id',$ngo_id)->get();
         return view('ngo.manager.pickupman.display',['pickupmen' => $pickupmen]);
+    }
+
+    public function viewPendingDonations()
+    {
+        $ngo_id = Auth::user()->ngo_id;
+        $date= date("Y-m-d");
+        $donations = PickupSchedule::where([
+                                    ['ngo_id',$ngo_id],
+                                    ['date',$date],
+                                    ['status','Pending'],
+                                ])->get();
+        return view('ngo.pickupman.viewPendingDonations',['donations' => $donations]);
     }
 
     /**

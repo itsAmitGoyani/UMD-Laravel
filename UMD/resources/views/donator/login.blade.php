@@ -21,7 +21,8 @@
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-6">
             <!-- <h4 class="widget_title">Newsletter</h4> -->
-
+            @include('partial.customerror')
+            @include('partial.success')
             <form method="POST" action="{{ route('LoginDonator') }}">
                 @csrf
                 <div class="form-group">

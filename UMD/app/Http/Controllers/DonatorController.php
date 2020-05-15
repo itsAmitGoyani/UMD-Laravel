@@ -24,9 +24,10 @@ class DonatorController extends Controller
     public function disabledates(Request $request)
     {
         $i = 0;
+        $date = [];
         $id = $request->id;
         $dpd = NGO::select('dpd')->where('id', $id)->first();
-        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->where('ngo_id', $id)->groupBy('date', 'ngo_id')->get();
+        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->where('ngo_id', $id)->groupBy('date')->get();
         foreach ($disabledaterecord as $disabledaterecord) {
             if ($disabledaterecord->count >= $dpd->dpd) {
                 $date[$i] = $disabledaterecord->date;
@@ -56,8 +57,7 @@ class DonatorController extends Controller
         $pickupschedule->save();
         //return $pickupschedule;
         if ($pickupschedule) {
-            return redirect('/donate')
-                ->with('success', 'Donate added successfully.');
+            return back()->with('success', 'Request for donate sent successfully.');
         } else {
             return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
         }

@@ -87,10 +87,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Contact</a>
                                 </li>
+                                @if(Auth::guard('donator')->check())
                                 <li class="d-none d-lg-block">
-                                    <a class="btn_2" href="#">learn more</a>
+                                    <a class="btn_2" href="{{ route('viewDonations-Donator') }}">View Donations</a>
                                 </li>
-
+                                @endif
                             </ul>
                         </div>
                     </nav>

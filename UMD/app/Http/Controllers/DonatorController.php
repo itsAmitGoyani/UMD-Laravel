@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Ngo;
 use App\Donator;
 use App\PickupSchedule;
@@ -24,9 +25,10 @@ class DonatorController extends Controller
     public function disabledates(Request $request)
     {
         $i = 0;
+        $date = [];
         $id = $request->id;
         $dpd = NGO::select('dpd')->where('id', $id)->first();
-        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->where('ngo_id', $id)->groupBy('date', 'ngo_id')->get();
+        $disabledaterecord = PickupSchedule::select('date', DB::raw('count(*) as count'))->where('ngo_id', $id)->groupBy('date')->get();
         foreach ($disabledaterecord as $disabledaterecord) {
             if ($disabledaterecord->count >= $dpd->dpd) {
                 $date[$i] = $disabledaterecord->date;
@@ -42,7 +44,12 @@ class DonatorController extends Controller
         // for ($i = 0; $i < count($disabledaterecord); $i++) {
         //     $disabledate[$i] = $disabledaterecord[$i]->date;
         // }
-        $ngos = Ngo::all('id', 'name');
+        $ngoids = PickupSchedule::where('donator_id',Auth::user()->id)->get('ngo_id');
+        foreach ($ngoids as $ngoid) {
+            $data[] = $ngoid->ngo_id;
+        }
+        
+        $ngos = Ngo::select('id', 'name')->whereNotIn('id',$data)->get();
         return view('donator.donate', ['ngos' => $ngos]);
     }
 
@@ -56,11 +63,17 @@ class DonatorController extends Controller
         $pickupschedule->save();
         //return $pickupschedule;
         if ($pickupschedule) {
-            return redirect('/donate')
-                ->with('success', 'Donate added successfully.');
+            return back()->with('success', 'Request for donate sent successfully.');
         } else {
             return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
         }
+    }
+
+    public function viewDonations()
+    {
+        $pendingdonations = PickupSchedule::where('donator_id',Auth::user()->id)->get();
+        $donations = Donation::where('donator_id', Auth::user()->id)->get();
+        return view('donator.viewDonations', ['donations' => $donations,'pendingdonations' => $pendingdonations]);
     }
 
     /**

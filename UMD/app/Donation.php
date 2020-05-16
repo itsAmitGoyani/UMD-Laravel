@@ -15,4 +15,24 @@ class Donation extends Model
         'status',
         'verifier_id',
     ];
+
+    public function donator()
+    {
+        return $this->belongsTo('App\Donator');
+    }
+
+    public function ngo()
+    {
+        return $this->belongsTo('App\Ngo');
+    }
+
+    public function pickupman()
+    {
+        return $this->belongsTo('App\Pickupman');
+    }
+
+    public function verifier()
+    {
+        return $this->belongsTo('App\Verifier');
+    }
 }

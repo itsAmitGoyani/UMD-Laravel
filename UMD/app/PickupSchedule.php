@@ -19,4 +19,14 @@ class PickupSchedule extends Model
     {
         return $this->belongsTo('App\Donator');
     }
+
+    public function ngo()
+    {
+        return $this->belongsTo('App\Ngo');
+    }
+
+    public function pickupman()
+    {
+        return $this->belongsTo('App\Pickupman');
+    }
 }

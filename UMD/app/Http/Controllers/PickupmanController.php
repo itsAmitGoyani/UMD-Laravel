@@ -34,7 +34,7 @@ class PickupmanController extends Controller
         $date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
-
+            ['date', $date],
             ['status', 'Pending'],
         ])->get();
         return view('ngo.pickupman.viewPendingDonations', ['donations' => $donations]);
@@ -46,7 +46,7 @@ class PickupmanController extends Controller
         $date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
-
+            ['date', $date],
             ['status', 'Taken'],
         ])->get();
         return view('ngo.pickupman.viewHandinDonations', ['donations' => $donations]);
@@ -64,7 +64,7 @@ class PickupmanController extends Controller
 
     public function UpdateHandinDonation($id)
     {
-        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Pending']);
+        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Picked Up']);
         if ($donations) {
             return response()->json(["msg" => "Donation complate Successsfully"]);
         } else {

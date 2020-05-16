@@ -63,7 +63,6 @@
                     console.log(data);
                     $('#tablediv').load(' #tablediv');
                 },
-
             });
         });
     });

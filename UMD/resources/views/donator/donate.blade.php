@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Charity</title>
     <link rel="icon" href="/dpanel/img/favicon.png">
-    
-        
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/dpanel/css/bootstrap.min.css">
     <!-- animate CSS -->
@@ -283,7 +283,7 @@
         </div>
     </footer>
     <!--::footer_part end::-->
-    
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
@@ -293,12 +293,12 @@
         var disabledates = [];
 
         $(document).ready(function() {
-            console.log("this is disable dates" + disabledates);
+            
             $("#ngo_id").change(function() {
                 var id = $(this).val();
-                console.log("1:" + id);
+               // console.log("1:" + id);
                 var dataString = '{id:' + id + '}';
-                console.log("2:" + dataString);
+               // console.log("2:" + dataString);
                 $.ajax({
                     type: "GET",
                     url: "{{url('/disabledates')}}",
@@ -308,7 +308,7 @@
                     cache: false,
                     success: function(data) {
                         disabledates = data;
-                        console.log("3: this is disable" + disabledates);
+                      //  console.log("3: this is disable" + disabledates);
                         $('#datepicker').datepicker('destroy');
                         var date = new Date();
                         var temp = date.getDate() + 1;
@@ -324,45 +324,6 @@
                 });
             });
         });
-
-        // function getDisabledDates(month) {
-        //     if (month < 0 || month > 12) {
-        //         return [];
-        //     }
-        //     var disabled = [
-        //         ['01/01/2017', '01/02/2017', '01/03/2017'],
-        //         ['02/04/2017', '20/05/2020', '21/05/2020'],
-        //         ['03/08/2017', '03/09/2017', '03/10/2017'],
-        //         ['04/05/2017', '04/06/2017', '04/07/2017'],
-        //         ['05/15/2017', '05/16/2017', '05/17/2017'],
-        //         ['06/11/2017', '06/12/2017', '06/13/2017'],
-        //         ['07/15/2017', '07/16/2017', '07/17/2017'],
-        //         ['08/07/2017', '08/08/2017', '08/09/2017'],
-        //         ['09/05/2017', '09/06/2017', '09/07/2017'],
-        //         ['10/11/2017', '10/12/2017', '10/13/2017'],
-        //         ['11/06/2017', '11/07/2017', '11/08/2017'],
-        //         ['05/10/2020', '05/09/2020', '05/08/2020'],
-        //     ];
-        //     return disabled[month];
-        // }
-
-
-        // $('#datepicker').datepicker({
-        //     format: 'yyyy-mm-dd',
-        //     startDate: new Date(),
-        //     todayHighlight: true,
-        //     updateViewDate: false,
-        //     datesDisabled: disabledates
-        // }).on('changeDate', function(e) {
-        //     console.log(disabledates);
-
-
-        //     // var month = e.date.getMonth();
-        //     // var disabled = getDisabledDates(month);
-        //     //$('#datepicker').datepicker('setDatesDisabled', disabledates);
-
-
-        // });
     </script>
     <!-- jquery plugins here-->
 

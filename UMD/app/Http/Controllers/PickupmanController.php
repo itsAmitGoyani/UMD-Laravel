@@ -24,20 +24,52 @@ class PickupmanController extends Controller
     public function index()
     {
         $ngo_id = Auth::user()->ngo_id;
-        $pickupmen = Pickupman::where('ngo_id',$ngo_id)->get();
-        return view('ngo.manager.pickupman.display',['pickupmen' => $pickupmen]);
+        $pickupmen = Pickupman::where('ngo_id', $ngo_id)->get();
+        return view('ngo.manager.pickupman.display', ['pickupmen' => $pickupmen]);
     }
 
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        $date= date("Y-m-d");
+        $date = date("Y-m-d");
         $donations = PickupSchedule::where([
-                                    ['ngo_id',$ngo_id],
-                                    ['date',$date],
-                                    ['status','Pending'],
-                                ])->get();
-        return view('ngo.pickupman.viewPendingDonations',['donations' => $donations]);
+            ['ngo_id', $ngo_id],
+
+            ['status', 'Pending'],
+        ])->get();
+        return view('ngo.pickupman.viewPendingDonations', ['donations' => $donations]);
+    }
+
+    public function viewHandinDonations()
+    {
+        $ngo_id = Auth::user()->ngo_id;
+        $date = date("Y-m-d");
+        $donations = PickupSchedule::where([
+            ['ngo_id', $ngo_id],
+
+            ['status', 'Taken'],
+        ])->get();
+        return view('ngo.pickupman.viewHandinDonations', ['donations' => $donations]);
+    }
+
+    public function UpdateDonation($id)
+    {
+        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Taken']);
+        if ($donations) {
+            return response()->json(["msg" => "Donation complate Successsfully"]);
+        } else {
+            return response()->json(["msg" => "Unknow Error"]);
+        }
+    }
+
+    public function UpdateHandinDonation($id)
+    {
+        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Pending']);
+        if ($donations) {
+            return response()->json(["msg" => "Donation complate Successsfully"]);
+        } else {
+            return response()->json(["msg" => "Unknow Error"]);
+        }
     }
 
     /**
@@ -110,7 +142,7 @@ class PickupmanController extends Controller
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
             $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
-            
+
             //delete old image
             $pickupman = Pickupman::find($id);
             $oldImageName = $pickupman->profileimage;

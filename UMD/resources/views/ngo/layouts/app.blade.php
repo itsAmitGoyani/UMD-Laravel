@@ -209,7 +209,8 @@
                     @endif
                     @if(Auth::guard('pickupman')->check())
                     <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('View Pending Donations') }}</a></li>
-                    
+                    <li><a href="{{ route('ViewHDs-Pickupman') }}">{{ __('View Donations') }}</a></li>
+
                     @endif
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>

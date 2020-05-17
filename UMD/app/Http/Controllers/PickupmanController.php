@@ -54,11 +54,11 @@ class PickupmanController extends Controller
 
     public function UpdateDonation($id)
     {
-        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Taken']);
+        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Taken' , 'pickupman_id' => Auth::user()->id]);
         if ($donations) {
-            return response()->json(["msg" => "Donation complate Successsfully"]);
+           return response()->json(["msg" => "Yes"]);
         } else {
-            return response()->json(["msg" => "Unknow Error"]);
+            return response()->json(["msg" => "No"]);
         }
     }
 

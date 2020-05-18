@@ -198,12 +198,14 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterVerifier') }}">{{ __('Register Verifier') }}</a></li>
                             <li><a href="{{ route('DisplayVerifier') }}">{{ __('Display All Verifier') }}</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Pickupman') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterPickupman') }}">{{ __('Register Pickupman') }}</a></li>
                             <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
+                            <li><a href="{{ route('ViewDs-Manager') }}">{{ __('View Donations') }}</a></li>
                         </ul>
                     </li>
                     @endif

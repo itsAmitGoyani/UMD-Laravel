@@ -8,7 +8,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Pending Donations</h4>
+                    <h4>Hand In Donations</h4>
                 </div>
             </div>
         </div>
@@ -18,9 +18,9 @@
                     <div class="card-header">
                         <h4 class="card-title">Today</h4>
                     </div>
-                    <div class="card-body" id="tbdiv">
+                    <div class="card-body" id="tablediv">
                         <div class="table-responsive">
-                            <table class="table header-border table-responsive-sm" id="tbdonation">
+                            <table class="table header-border table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th>OrderID</th>
@@ -39,7 +39,7 @@
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
                                         <td><span class="badge badge-warning">{{ $donation->status }}</span></td>
-                                        <td><a href="\ngo\pickupman\updatedonation\{{ $donation->id }}"><span class="badge badge-primary">Hand In</span></a></td>
+                                        <td><a href="\ngo\manager\updatereceivedonations\{{ $donation->id }}"><span class="badge badge-primary">Received</span></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -52,9 +52,6 @@
     </div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
-
 <script type="text/javascript">
     $(document).ready(function() {
         $('a').click(function(event) {
@@ -64,15 +61,10 @@
                 url: $(this).attr('href'),
                 success: function(data) {
                     console.log(data);
-                    $('#tbdiv').load(' #tbdiv');
-
-
+                    $('#tablediv').load(' #tablediv');
                 },
-
             });
-
         });
-
     });
 </script>
 

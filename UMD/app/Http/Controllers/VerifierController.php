@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Verifier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class VerifierController extends Controller
@@ -21,11 +23,40 @@ class VerifierController extends Controller
 
     public function index()
     {
-        //
         $verifier = Verifier::all();
         return view('ngo.manager.verifier.display', ['verifiers' => $verifier]);
     }
 
+    public function viewPendingDonations()
+    {
+        $ngo_id = Auth::user()->ngo_id;
+        $donations = Donation::where([
+                                        ['ngo_id', $ngo_id],
+                                        ['status', 'Pending'],
+                                    ])
+                                ->orderBy('datetime','asc')
+                                ->get();
+        return view('ngo.verifier.viewPendingDonations', ['donations' => $donations]);
+    }
+
+    public function takePendingDonation($id)
+    {
+        if(Donation::where([['verifier_id', Auth::user()->id],['status', 'Taken']])->exists())
+        {
+            return redirect()->route('ViewPDs-Verifier')->withErrors(['errmsg'=>'Sorry. One donation already been taken by you.']);
+        }
+        $donations = Donation::where('id', $id)->update(['status' => 'Taken' , 'verifier_id' => Auth::user()->id]);
+        if ($donations) {
+            return redirect()->route('ViewTD-Verifier')->with('success','Donation taken successfully.');
+        } else {
+            return back()->withErrors(['errmsg'=>'A problem has been occurred while taking donation.']);
+        }
+    }
+    
+    public function viewTakenDonation()
+    {
+        
+    }
     /**
      * Show the form for creating a new resource.
      *

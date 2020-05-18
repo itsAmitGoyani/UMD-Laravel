@@ -69,9 +69,9 @@ class PickupmanController extends Controller
         $pickupman_id = Auth::user()->id;
         $donations = PickupSchedule::where('id', $id)->update(['pickupman_id' => $pickupman_id, 'status' => 'Taken']);
         if ($donations) {
-            return response()->json(["msg" => "Donation complate Successsfully"]);
+           return response()->json(["msg" => "Yes"]);
         } else {
-            return response()->json(["msg" => "Unknow Error"]);
+            return response()->json(["msg" => "No"]);
         }
     }
 

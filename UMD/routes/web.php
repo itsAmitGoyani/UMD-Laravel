@@ -62,6 +62,8 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('pickupmen/{id}/edit', 'PickupmanController@edit');
             Route::put('pickupmen/{ id}', 'PickupmanController@update');
             Route::delete('pickupmen/{id}', 'PickupmanController@destroy');
+            Route::get('receivedonations', 'PickupmanController@viewReceiveDonations')->name('ViewDs-Manager');
+            Route::get('updatereceivedonations/{id}', 'PickupmanController@UpdateReceiveDonations');
 
             Route::get('registerverifier', 'Auth\RegisterController@showVerifierRegisterForm')->name('RegisterVerifier');
             Route::post('registerverifier', 'Auth\RegisterController@createVerifier')->name('RegisterVerifier');

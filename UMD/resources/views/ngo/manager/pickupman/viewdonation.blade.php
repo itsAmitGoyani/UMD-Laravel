@@ -5,20 +5,10 @@
     <div class="container-fluid">
         @include('partial.customerror')
         @include('partial.success')
-        <!-- Success Alert -->
-        <div class="alert alert-success alert-dismissible fade show" id="successdiv">
-            <strong>Success!</strong> Order Handed In successfully.
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-        <!-- Error Alert -->
-        <div class="alert alert-danger alert-dismissible fade show" id="errordiv">
-            <strong>Error!</strong> A problem has been occurred while handing in order.
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Pending Donations</h4>
+                    <h4>Hand In Donations</h4>
                 </div>
             </div>
         </div>
@@ -28,9 +18,9 @@
                     <div class="card-header">
                         <h4 class="card-title">Today</h4>
                     </div>
-                    <div class="card-body" id="tbdiv">
+                    <div class="card-body" id="tablediv">
                         <div class="table-responsive">
-                            <table class="table header-border table-responsive-sm" id="tbdonation">
+                            <table class="table header-border table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th>OrderID</th>
@@ -43,13 +33,13 @@
                                 </thead>
                                 <tbody>
                                     @foreach($donations as $donation)
-                                    <tr id="tr{{ $donation->id }}">
+                                    <tr>
                                         <td>#{{ $donation->id }}</td>
                                         <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
                                         <td><span class="badge badge-warning">{{ $donation->status }}</span></td>
-                                        <td><a href="\ngo\pickupman\updatedonation\{{ $donation->id }}" name="handinbtn"><span class="badge badge-primary">Hand In</span></a></td>
+                                        <td><a href="\ngo\manager\updatereceivedonations\{{ $donation->id }}"><span class="badge badge-primary">Received</span></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -62,37 +52,19 @@
     </div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
-
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#successdiv').hide();
-        $('#errordiv').hide();
-        $('a[name="handinbtn"]').click(function(event) {
+        $('a').click(function(event) {
             event.preventDefault();
-            var trid = $(this).parent('td').parent('tr').attr("id");
             $.ajax({
                 type: "GET",
                 url: $(this).attr('href'),
                 success: function(data) {
                     console.log(data);
-                    if (data["msg"] == "Yes") {
-                        $('#successdiv').show();
-                        $('#' + trid).remove();
-                        //$('#tbdiv').load("pendingdonations #tbdiv");
-                    } else {
-                        $('#errordiv').show();
-                    }
-
+                    $('#tablediv').load(' #tablediv');
                 },
-                error: function(error) {
-                    console.log(error);
-                    $('#errordiv').show();
-                }
             });
         });
-
     });
 </script>
 

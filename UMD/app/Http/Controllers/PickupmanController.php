@@ -34,7 +34,7 @@ class PickupmanController extends Controller
         $date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
-            ['date', $date],
+            // ['date', $date],
             ['status', 'Pending'],
         ])->get();
         return view('ngo.pickupman.viewPendingDonations', ['donations' => $donations]);
@@ -52,9 +52,22 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.viewHandinDonations', ['donations' => $donations]);
     }
 
+    public function viewReceiveDonations()
+    {
+        $ngo_id = Auth::user()->ngo_id;
+        $date = date("Y-m-d");
+        $donations = PickupSchedule::where([
+            ['ngo_id', $ngo_id],
+            ['date', $date],
+            ['status', 'Picked Up'],
+        ])->get();
+        return view('ngo.manager.pickupman.viewdonation', ['donations' => $donations]);
+    }
+
     public function UpdateDonation($id)
     {
-        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Taken' , 'pickupman_id' => Auth::user()->id]);
+        $pickupman_id = Auth::user()->id;
+        $donations = PickupSchedule::where('id', $id)->update(['pickupman_id' => $pickupman_id, 'status' => 'Taken']);
         if ($donations) {
            return response()->json(["msg" => "Yes"]);
         } else {
@@ -64,6 +77,7 @@ class PickupmanController extends Controller
 
     public function UpdateHandinDonation($id)
     {
+
         $donations = PickupSchedule::where('id', $id)->update(['status' => 'Picked Up']);
         if ($donations) {
             return response()->json(["msg" => "Donation complate Successsfully"]);
@@ -72,6 +86,15 @@ class PickupmanController extends Controller
         }
     }
 
+    public function UpdateReceiveDonations($id)
+    {
+        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Success']);
+        if ($donations) {
+            return response()->json(["msg" => "Donation complate Successsfully"]);
+        } else {
+            return response()->json(["msg" => "Unknow Error"]);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

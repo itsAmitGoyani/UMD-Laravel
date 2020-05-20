@@ -7,18 +7,18 @@
         @include('partial.success')
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissible fade show" id="successdiv">
-            <strong>Success!</strong> Order Handed In successfully.
+            <strong>Success!</strong> Donation recevied successfully.
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
         <!-- Error Alert -->
         <div class="alert alert-danger alert-dismissible fade show" id="errordiv">
-            <strong>Error!</strong> A problem has been occurred while handing in order.
+            <strong>Error!</strong> A problem has been occurred while updating donation status.
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Hand In Donations</h4>
+                    <h4>Picked Up Donations</h4>
                 </div>
             </div>
         </div>
@@ -37,19 +37,21 @@
                                         <th>Donator Name</th>
                                         <th>Address</th>
                                         <th>City,State</th>
+                                        <th>Pickupman Name</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($donations as $donation)
-                                    <tr>
+                                    <tr id="tr{{ $donation->id }}">
                                         <td>#{{ $donation->id }}</td>
                                         <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
-                                        <td><span class="badge badge-warning">{{ $donation->status }}</span></td>
-                                        <td><a href="\ngo\manager\updatereceivedonations\{{ $donation->id }}" name="handinbtn"><span class="badge badge-primary">Received</span></a></td>
+                                        <td><span class="text-muted">{{ $donation->pickupman->name }}</span></td>
+                                        <td><span class="badge badge-rounded badge-outline-warning">{{ $donation->status }}</span></td>
+                                        <td><a href="\ngo\manager\updatepickedupdonations\{{ $donation->id }}" name="receivedbtn"><span class="btn btn-primary btn-sm">Received</span></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -66,7 +68,7 @@
     $(document).ready(function() {
         $('#successdiv').hide();
         $('#errordiv').hide();
-        $('a[name="handinbtn"]').click(function(event) {
+        $('a[name="receivedbtn"]').click(function(event) {
             event.preventDefault();
             var trid = $(this).parent('td').parent('tr').attr("id");
             $.ajax({

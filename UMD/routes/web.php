@@ -62,8 +62,6 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('pickupmen/{id}/edit', 'PickupmanController@edit');
             Route::put('pickupmen/{ id}', 'PickupmanController@update');
             Route::delete('pickupmen/{id}', 'PickupmanController@destroy');
-            Route::get('receivedonations', 'PickupmanController@viewReceiveDonations')->name('ViewDs-Manager');
-            Route::get('updatereceivedonations/{id}', 'PickupmanController@UpdateReceiveDonations');
 
             Route::get('registerverifier', 'Auth\RegisterController@showVerifierRegisterForm')->name('RegisterVerifier');
             Route::post('registerverifier', 'Auth\RegisterController@createVerifier')->name('RegisterVerifier');
@@ -72,8 +70,12 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::put('verifier/{id}', 'VerifierController@update');
             Route::delete('verifier/{id}', 'VerifierController@destroy');
 
-            Route::get('dpd', 'ManagerController@showDPDForm')->name('AddDPD');
-            Route::post('dpd', 'ManagerController@UpdateDPD')->name('DPD');
+            
+            Route::get('pickedupdonations', 'ManagerController@viewPickedUpDonations')->name('ViewPickedUpDs-Manager');
+            Route::get('updatepickedupdonations/{id}', 'ManagerController@updatePickedUpDonations');
+            Route::get('editdpd', 'ManagerController@showDPDForm')->name('EditDPD-Manager');
+            Route::post('updatedpd', 'ManagerController@updateDPD')->name('UpdateDPD-Manager');
+            Route::get('donationhistory','ManagerController@viewDonationHistory')->name('ViewDonationHistory-Manager');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
@@ -105,6 +107,7 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('pendingdonations', 'VerifierController@viewPendingDonations')->name('ViewPDs-Verifier');
             Route::get('takependingdonation/{id}', 'VerifierController@takePendingDonation');
             Route::get('takendonation', 'VerifierController@viewTakenDonation')->name('ViewTD-Verifier');
+            Route::post('addmedicine','VerifierController@addMedicine')->name('AddMedicine-Verifier');
         });
         Route::get('login', 'Auth\LoginController@showVerifierLoginForm')->name('verifier-login');
         Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');

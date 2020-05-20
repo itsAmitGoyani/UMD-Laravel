@@ -52,18 +52,7 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.viewHandinDonations', ['donations' => $donations]);
     }
 
-    public function viewReceiveDonations()
-    {
-        $ngo_id = Auth::user()->ngo_id;
-        $date = date("Y-m-d");
-        $donations = PickupSchedule::where([
-            ['ngo_id', $ngo_id],
-            ['date', $date],
-            ['status', 'Picked Up'],
-        ])->get();
-        return view('ngo.manager.pickupman.viewdonation', ['donations' => $donations]);
-    }
-
+    
     public function UpdateDonation($id)
     {
         $pickupman_id = Auth::user()->id;
@@ -85,16 +74,7 @@ class PickupmanController extends Controller
             return response()->json(["msg" => "Unknow Error"]);
         }
     }
-
-    public function UpdateReceiveDonations($id)
-    {
-        $donations = PickupSchedule::where('id', $id)->update(['status' => 'Success']);
-        if ($donations) {
-            return response()->json(["msg" => "Donation complate Successsfully"]);
-        } else {
-            return response()->json(["msg" => "Unknow Error"]);
-        }
-    }
+ 
     /**
      * Show the form for creating a new resource.
      *

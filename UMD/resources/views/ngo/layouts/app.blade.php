@@ -5,7 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Admin Dashboard </title>
+    @if(Auth::guard('manager')->check())
+    <title> NGO Manager Dashboard </title>
+    @elseif(Auth::guard('verifier')->check())
+    <title> Medicine Verifier Dashboard </title>
+    @elseif(Auth::guard('pickupman')->check())
+    <title> Pickup Man Dashboard </title>
+    @endif
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.carousel.min.css') }}">
@@ -187,12 +193,6 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="index-2.html">Dashboard 1</a></li>
-                            <li><a href="index2.html">Dashboard 2</a></li>
-                        </ul>
-                    </li> -->
                     @if(Auth::guard('manager')->check())
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
                         <ul aria-expanded="false">
@@ -205,17 +205,22 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterPickupman') }}">{{ __('Register Pickupman') }}</a></li>
                             <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
-                            <li><a href="{{ route('ViewDs-Manager') }}">{{ __('View Donations') }}</a></li>
+                            
                         </ul>
                     </li>
-                    <li><a href="{{ route('AddDPD') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('DPD') }}</span></a>
-                    <li><a href="#"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('History') }}</span></a>
-                        @endif
-                        @if(Auth::guard('pickupman')->check())
+                    <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a>
+                    <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
+                    <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a>
+                    @endif
+                    @if(Auth::guard('verifier')->check())
+                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
+                    <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
+                    @endif
+                    @if(Auth::guard('pickupman')->check())
                     <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('View Pending Donations') }}</a></li>
                     <li><a href="{{ route('ViewHDs-Pickupman') }}">{{ __('View Donations') }}</a></li>
-
                     @endif
+
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">

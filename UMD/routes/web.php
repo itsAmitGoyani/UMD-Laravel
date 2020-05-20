@@ -71,6 +71,9 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('verifier/{id}/edit', 'VerifierController@edit');
             Route::put('verifier/{id}', 'VerifierController@update');
             Route::delete('verifier/{id}', 'VerifierController@destroy');
+
+            Route::get('dpd', 'ManagerController@showDPDForm')->name('AddDPD');
+            Route::post('dpd', 'ManagerController@UpdateDPD')->name('DPD');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
@@ -87,7 +90,6 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('updatedonation/{id}', 'PickupmanController@UpdateDonation');
             Route::get('handindonations', 'PickupmanController@viewHandinDonations')->name('ViewHDs-Pickupman');
             Route::get('updateHandindonation/{id}', 'PickupmanController@UpdateHandinDonation');
-            
         });
         Route::get('login', 'Auth\LoginController@showPickupmanLoginForm')->name('pickupman-login');
         Route::post('login', 'Auth\LoginController@pickupmanLogin')->name('pickupman-login');

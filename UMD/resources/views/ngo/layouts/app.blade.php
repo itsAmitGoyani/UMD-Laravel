@@ -208,8 +208,10 @@
                             <li><a href="{{ route('ViewDs-Manager') }}">{{ __('View Donations') }}</a></li>
                         </ul>
                     </li>
-                    @endif
-                    @if(Auth::guard('pickupman')->check())
+                    <li><a href="{{ route('AddDPD') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('History') }}</span></a>
+                    <li><a href="{{ route('AddDPD') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('DPD') }}</span></a>
+                        @endif
+                        @if(Auth::guard('pickupman')->check())
                     <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('View Pending Donations') }}</a></li>
                     <li><a href="{{ route('ViewHDs-Pickupman') }}">{{ __('View Donations') }}</a></li>
 

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Donation;
+use App\DonationMedicine;
+use App\DonationMedicineExpiration;
+use App\Medicine;
+use App\MedicineCategory;
 use App\Verifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +59,52 @@ class VerifierController extends Controller
     
     public function viewTakenDonation()
     {
+        $ngo_id = Auth::user()->ngo_id;
+        $verifier_id = Auth::user()->id;
+        $donation = Donation::where([
+                                        ['ngo_id', $ngo_id],
+                                        ['status', 'Taken'],
+                                        ['verifier_id', $verifier_id],
+                                ])->first();
+        $mcategories = MedicineCategory::all();
+        return view('ngo.verifier.viewTakenDonation', ['donation' => $donation , 'mcategories' => $mcategories]);
+    }
+
+    public function addMedicine(Request $request)
+    {
+        $this->validate($request, [
+            'did' => 'required|numeric',
+            'name'   => 'required|string',
+            'category'   => 'required|numeric',
+            'brand' => 'required|string',
+            'expdate'   => 'required',
+            'qty'   => 'required|numeric',
+        ]);
+        $medicine = Medicine::firstOrNew(['name' => $request['name'], 
+                                        'category_id' => $request['category'], 
+                                        'brand' => $request['brand']]);
+        $medicine->save();
+        $mid = Medicine::where([
+                                ['name' , $request['name']], 
+                                ['category_id' , $request['category']], 
+                                ['brand' , $request['brand']],
+                            ])->first('id');        
         
+        if(DonationMedicine::create(['donation_id' => $request['did'],
+                                    'medicine_id' => $mid->id,
+                                    'qty' => $request['qty']])) {
+            $dmid = DonationMedicine::where([
+                                    ['donation_id' , $request['did']], 
+                                    ['medicine_id' ,$mid->id], 
+                                    ['qty' , $request['qty']],
+                                ])->first('id');
+            if(DonationMedicineExpiration::create(['expirydate' => $request['expdate'],
+                                                    'donation_medicine_id' => $dmid->id,
+                                                    'qty' => $request['qty']])) {
+                return back()->with('success','Medicine added successfully');
+            }
+        }
+        return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
     }
     /**
      * Show the form for creating a new resource.

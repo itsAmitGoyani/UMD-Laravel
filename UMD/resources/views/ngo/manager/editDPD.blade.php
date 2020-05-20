@@ -12,14 +12,14 @@
                             <div class="row no-gutters">
                                 <div class="col-xl-12">
                                     <div class="auth-form">
-                                        <h4 class="text-center mb-4">Verifier Registration</h4>
+                                        <h4 class="text-center mb-4">Edit Donations Per Day for {{$ngo->name}}</h4>
                                         @include('partial.customerror')
                                         @include('partial.success')
-                                        <form method="POST" action="{{ route('DPD') }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ route('UpdateDPD-Manager') }}">
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>DPD</strong></label>
-                                                <input type="text" name="dpd" class="form-control @error('dpd') is-invalid @enderror" value="{{ old('dpd') }}" required autocomplete="dpd">
+                                                <input type="text" name="dpd" class="form-control @error('dpd') is-invalid @enderror" value="{{ $ngo->dpd }}" required autocomplete="dpd">
                                                 @error('dpd')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -27,7 +27,7 @@
                                                 @enderror
                                             </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                                <button type="submit" class="btn btn-primary btn-block">Update</button>
                                             </div>
 
                                         </form>

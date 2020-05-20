@@ -43,12 +43,12 @@
                                 </thead>
                                 <tbody>
                                     @foreach($donations as $donation)
-                                    <tr>
+                                    <tr id="tr{{ $donation->id }}">
                                         <td>#{{ $donation->id }}</td>
                                         <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
-                                        <td><span class="badge badge-warning">{{ $donation->status }}</span></td>
+                                        <td><span class="badge badge-rounded badge-outline-warning">{{ $donation->status }}</span></td>
                                         <td><a href="\ngo\pickupman\updateHandindonation\{{ $donation->id }}" name="handinbtn"><span class="badge badge-primary">Picked Up</span></a></td>
                                     </tr>
                                     @endforeach

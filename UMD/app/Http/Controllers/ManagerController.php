@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Manager;
 use App\Ngo;
+use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -30,20 +32,54 @@ class ManagerController extends Controller
         return view('admin.displaymanager', ['managers' => $manager]);
     }
 
-    public function showDPDForm()
+    public function viewPickedUpDonations()
     {
-        return view('ngo.manager.dpd');
+        $ngo_id = Auth::user()->ngo_id;
+        //$date = date("Y-m-d");
+        $donations = PickupSchedule::where([
+            ['ngo_id', $ngo_id],
+            //['date', $date],
+            ['status', 'Picked Up'],
+        ])->get();
+        return view('ngo.manager.viewPickedUpDonations', ['donations' => $donations]);
     }
 
-    public function UpdateDPD(Request $request)
+    public function updatePickedUpDonations($id)
     {
-        $ngoid = Auth::user()->ngo_id;
-        $ngo = NGO::where('id', $ngoid)->update(['dpd' => $request->dpd]);
+        $donation = PickupSchedule::where('id', $id)->first();
+        if(PickupSchedule::where('id', $id)->delete()) {
+            $datetime = date('Y-m-d H:i:s');
+            $d = Donation::create([
+                                    'donator_id' => $donation->donator_id ,
+                                    'ngo_id' => $donation->ngo_id ,
+                                    'pickupman_id' => $donation->pickupman_id ,
+                                    'datetime' => $datetime,
+            ]);
+            if ($d) {
+                return response()->json(["msg" => "Yes"]);
+            }
+        }
+        return response()->json(["msg" => "No"]);
+    }
+    public function showDPDForm()
+    {
+        $ngo = NGO::where('id', Auth::user()->ngo_id)->first();
+        return view('ngo.manager.editDPD' , ['ngo' => $ngo]);
+    }
+
+    public function updateDPD(Request $request)
+    {
+        $ngo = NGO::where('id', Auth::user()->ngo_id)->update(['dpd' => $request->dpd]);
         if ($ngo) {
-            return redirect()->back()->with('success', 'DPD Added Successfully ');
+            return redirect()->back()->with('success', 'DPD updated Successfully ');
         } else {
             return back()->withErrors(['errmsg' => 'Unknown error']);
         }
+    }
+
+    public function viewDonationHistory()
+    {
+        return "hey Viral Kachhadiya.";
     }
     /**
      * Show the form for creating a new resource.

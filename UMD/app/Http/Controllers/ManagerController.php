@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Manager;
 use App\Ngo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,6 +30,21 @@ class ManagerController extends Controller
         return view('admin.displaymanager', ['managers' => $manager]);
     }
 
+    public function showDPDForm()
+    {
+        return view('ngo.manager.dpd');
+    }
+
+    public function UpdateDPD(Request $request)
+    {
+        $ngoid = Auth::user()->ngo_id;
+        $ngo = NGO::where('id', $ngoid)->update(['dpd' => $request->dpd]);
+        if ($ngo) {
+            return redirect()->back()->with('success', 'DPD Added Successfully ');
+        } else {
+            return back()->withErrors(['errmsg' => 'Unknown error']);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

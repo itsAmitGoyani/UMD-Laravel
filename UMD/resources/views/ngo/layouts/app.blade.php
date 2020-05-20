@@ -5,13 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    @if(Auth::guard('manager')->check())
-    <title> NGO Manager Dashboard </title>
-    @elseif(Auth::guard('verifier')->check())
-    <title> Medicine Verifier Dashboard </title>
-    @elseif(Auth::guard('pickupman')->check())
-    <title> Pickup Man Dashboard </title>
-    @endif
+    <title> Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.carousel.min.css') }}">
@@ -214,12 +208,10 @@
                             <li><a href="{{ route('ViewDs-Manager') }}">{{ __('View Donations') }}</a></li>
                         </ul>
                     </li>
-                    @endif
-                    @if(Auth::guard('verifier')->check())
-                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
-                    <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
-                    @endif
-                    @if(Auth::guard('pickupman')->check())
+                    <li><a href="{{ route('AddDPD') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('History') }}</span></a>
+                    <li><a href="{{ route('AddDPD') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('DPD') }}</span></a>
+                        @endif
+                        @if(Auth::guard('pickupman')->check())
                     <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('View Pending Donations') }}</a></li>
                     <li><a href="{{ route('ViewHDs-Pickupman') }}">{{ __('View Donations') }}</a></li>
 

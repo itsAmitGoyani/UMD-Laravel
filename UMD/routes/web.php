@@ -102,6 +102,9 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::group(['middleware' => ['auth:verifier']], function () {
             Route::get('/', 'VerifierController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@verifierLogout');
+            Route::get('pendingdonations', 'VerifierController@viewPendingDonations')->name('ViewPDs-Verifier');
+            Route::get('takependingdonation/{id}', 'VerifierController@takePendingDonation');
+            Route::get('takendonation', 'VerifierController@viewTakenDonation')->name('ViewTD-Verifier');
         });
         Route::get('login', 'Auth\LoginController@showVerifierLoginForm')->name('verifier-login');
         Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');

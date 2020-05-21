@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Donation;
-use App\Manager;
 use App\Ngo;
+use App\Manager;
+use App\Donation;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller
 {
@@ -35,10 +36,10 @@ class ManagerController extends Controller
     public function viewPickedUpDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        //$date = date("Y-m-d");
+        $date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
-            //['date', $date],
+            ['date', $date],
             ['status', 'Picked Up'],
         ])->get();
         return view('ngo.manager.viewPickedUpDonations', ['donations' => $donations]);
@@ -47,13 +48,13 @@ class ManagerController extends Controller
     public function updatePickedUpDonations($id)
     {
         $donation = PickupSchedule::where('id', $id)->first();
-        if(PickupSchedule::where('id', $id)->delete()) {
+        if (PickupSchedule::where('id', $id)->delete()) {
             $datetime = date('Y-m-d H:i:s');
             $d = Donation::create([
-                                    'donator_id' => $donation->donator_id ,
-                                    'ngo_id' => $donation->ngo_id ,
-                                    'pickupman_id' => $donation->pickupman_id ,
-                                    'datetime' => $datetime,
+                'donator_id' => $donation->donator_id,
+                'ngo_id' => $donation->ngo_id,
+                'pickupman_id' => $donation->pickupman_id,
+                'datetime' => $datetime,
             ]);
             if ($d) {
                 return response()->json(["msg" => "Yes"]);
@@ -64,7 +65,7 @@ class ManagerController extends Controller
     public function showDPDForm()
     {
         $ngo = NGO::where('id', Auth::user()->ngo_id)->first();
-        return view('ngo.manager.editDPD' , ['ngo' => $ngo]);
+        return view('ngo.manager.editDPD', ['ngo' => $ngo]);
     }
 
     public function updateDPD(Request $request)
@@ -79,7 +80,13 @@ class ManagerController extends Controller
 
     public function viewDonationHistory()
     {
-        return "hey Viral Kachhadiya.";
+        $today = Donation::where('datetime', '>=', Carbon::today())->orderby('datetime', 'desc')->get();
+        $yesterday = Donation::where('datetime', '>=', Carbon::yesterday())->orderby('datetime', 'desc')->get();
+        $lastweek = Donation::whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lastmonth = Donation::whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+        $all = Donation::orderby('datetime', 'desc')->get();
+        return view('ngo.manager.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
     }
     /**
      * Show the form for creating a new resource.

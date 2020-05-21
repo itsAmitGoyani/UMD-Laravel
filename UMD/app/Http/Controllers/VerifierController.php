@@ -7,6 +7,8 @@ use App\DonationMedicine;
 use App\DonationMedicineExpiration;
 use App\Medicine;
 use App\MedicineCategory;
+use App\MedicineStock;
+use App\MedicineStockExpiration;
 use App\Verifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,12 +36,7 @@ class VerifierController extends Controller
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        $donations = Donation::where([
-                                        ['ngo_id', $ngo_id],
-                                        ['status', 'Pending'],
-                                    ])
-                                ->orderBy('datetime','asc')
-                                ->get();
+        $donations = Donation::where([['ngo_id', $ngo_id],['status', 'Pending']])->orderBy('datetime','asc')->get();
         return view('ngo.verifier.viewPendingDonations', ['donations' => $donations]);
     }
 
@@ -61,13 +58,17 @@ class VerifierController extends Controller
     {
         $ngo_id = Auth::user()->ngo_id;
         $verifier_id = Auth::user()->id;
-        $donation = Donation::where([
-                                        ['ngo_id', $ngo_id],
+        if($donation = Donation::where([['ngo_id', $ngo_id],
                                         ['status', 'Taken'],
-                                        ['verifier_id', $verifier_id],
-                                ])->first();
-        $mcategories = MedicineCategory::all();
-        return view('ngo.verifier.viewTakenDonation', ['donation' => $donation , 'mcategories' => $mcategories]);
+                                        ['verifier_id', $verifier_id]])->first())
+        {
+            $mcategories = MedicineCategory::all();
+            $dms = DonationMedicine::where('donation_id', $donation->id)->get();
+            return view('ngo.verifier.viewTakenDonation', ['donation' => $donation , 'dms' => $dms , 'mcategories' => $mcategories]);
+        }else{
+            return redirect()->route('ViewPDs-Verifier')->withErrors(['errmsg'=>'You have not any Taken Donation. So take one from Pending Donations.']);
+        }                               
+        
     }
 
     public function addMedicine(Request $request)
@@ -77,8 +78,8 @@ class VerifierController extends Controller
             'name'   => 'required|string',
             'category'   => 'required|numeric',
             'brand' => 'required|string',
-            'expdate'   => 'required',
-            'qty'   => 'required|numeric',
+            'expdate.*'   => 'required',
+            'qty.*'   => 'required|numeric',
         ]);
         $medicine = Medicine::firstOrNew(['name' => $request['name'], 
                                         'category_id' => $request['category'], 
@@ -89,23 +90,81 @@ class VerifierController extends Controller
                                 ['category_id' , $request['category']], 
                                 ['brand' , $request['brand']],
                             ])->first('id');        
+        $expdates = $request['expdate'];
+        $qtys = $request['qty'];
+        $totalqty = 0;
+        foreach($qtys as $qty)
+        {
+            $totalqty += $qty;
+        }
         
         if(DonationMedicine::create(['donation_id' => $request['did'],
                                     'medicine_id' => $mid->id,
-                                    'qty' => $request['qty']])) {
+                                    'qty' => $totalqty])) {
             $dmid = DonationMedicine::where([
                                     ['donation_id' , $request['did']], 
                                     ['medicine_id' ,$mid->id], 
-                                    ['qty' , $request['qty']],
+                                    ['qty' , $totalqty],
                                 ])->first('id');
-            if(DonationMedicineExpiration::create(['expirydate' => $request['expdate'],
-                                                    'donation_medicine_id' => $dmid->id,
-                                                    'qty' => $request['qty']])) {
-                return back()->with('success','Medicine added successfully');
+            foreach(array_combine($expdates,$qtys) as $expdate => $qty)
+            {
+                $res = DonationMedicineExpiration::create(['expirydate' => $expdate,
+                                                            'donation_medicine_id' => $dmid->id,
+                                                            'qty' => $qty]);
             }
+            return back()->with('success','Medicine added successfully');
+            
         }
         return back()->withInput()->withErrors(['errmsg' => 'Unknown error']);
     }
+
+    public function addMedicinesToStock($id)
+    {
+        $records = DonationMedicine::with(['expirations'])->where('donation_id',$id)->get();
+        $today =  date("Y-m-d");
+        $ngo_id = Auth::user()->ngo_id;
+        foreach($records as $record)
+        {
+            foreach($record['expirations'] as $expiration)
+            {
+                if($expiration['expirydate'] >= $today)
+                {
+                    if($msid = MedicineStock::where([['ngo_id',$ngo_id],['medicine_id',$record['medicine_id']]])->first('id'))
+                    {
+                        MedicineStock::find($msid['id'])->increment('qty',$expiration['qty']);
+                        if($mserecord = MedicineStockExpiration::where([['medicine_stock_id',$msid['id']],['expirydate',$expiration['expirydate']]])->first())
+                        {
+                            $newqty = $mserecord['qty'] + $expiration['qty'];
+                            MedicineStockExpiration::where('id',$mserecord['id'])->update(['qty' => $newqty]);
+                        }else{
+                            MedicineStockExpiration::create(['medicine_stock_id' => $msid['id'] , 'expirydate' => $expiration['expirydate'], 'qty' => $expiration['qty']]);
+                        }
+                    }else{
+                        MedicineStock::create(['ngo_id' => $ngo_id, 'medicine_id' => $record['medicine_id'], 'qty' => $expiration['qty']]);
+                        $msid = MedicineStock::where([['ngo_id',$ngo_id],['medicine_id',$record['medicine_id']]])->first('id');
+                        MedicineStockExpiration::create(['medicine_stock_id' => $msid['id'] , 'expirydate' => $expiration['expirydate'], 'qty' => $expiration['qty']]);
+                    }
+                }
+            }
+        }
+        if(Donation::where([['verifier_id',Auth::user()->id],['status','Taken']])->update(['status'=>'Success']))
+        {
+            return redirect('/ngo/verifier/feedback/'.$id)->with('success','Medicines added to Stock successfully.');    
+        }
+        return back()->withErrors(['errmsg'=>'Sorry. Some errors.']);
+    }
+
+    public function showFeedbackForm($id)
+    {
+        return 'Here, Feedback Form for Donation id '.$id;
+    }
+
+    public function submitFeedback(Request $request)
+    {
+        
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

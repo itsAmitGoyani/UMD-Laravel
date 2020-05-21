@@ -11,6 +11,8 @@
     <title> Medicine Verifier Dashboard </title>
     @elseif(Auth::guard('pickupman')->check())
     <title> Pickup Man Dashboard </title>
+    @else
+    <title> NGO Panel </title>
     @endif
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
@@ -20,7 +22,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
+    
 
 </head>
 

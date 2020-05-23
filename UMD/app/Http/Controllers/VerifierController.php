@@ -165,16 +165,23 @@ class VerifierController extends Controller
             'category'   => 'required|numeric',
             'description' => 'required',
         ]);
-        $feedback = new Feedback();
-        $feedback->category_id = $request->category;
-        $feedback->donation_id = $request->did;
-        $feedback->description = $request->description;
-        $feedback->save();
-        if ($feedback) {
-            return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');
+        // $feedback = new Feedback();
+        // $feedback->category_id = $request->category;
+        // $feedback->donation_id = $request->did;
+        // $feedback->description = $request->description;
+        // $feedback->save();
+
+
+        if ($request->category_id == 3) {
+            $Donation = Donation::where('id', $request->did)->first();
+            $Demail = $Donation->verifier->email;
         } else {
-            return back()->withErrors(['errmsg' => 'Sorry. Some errors.']);
         }
+        // if ($feedback) {
+        //     return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');
+        // } else {
+        //     return back()->withErrors(['errmsg' => 'Sorry. Some errors.']);
+        // }
     }
 
 

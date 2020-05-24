@@ -219,8 +219,12 @@
                     <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
                     @endif
                     @if(Auth::guard('pickupman')->check())
-                    <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('View Pending Donations') }}</a></li>
-                    <li><a href="{{ route('ViewHDs-Pickupman') }}">{{ __('View Donations') }}</a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donations') }}</span></a>
+                        <ul aria-expanded="true">
+                            <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('Pending Donations') }}</a></li>
+                            <li><a href="{{ route('ViewTDs-Pickupman') }}">{{ __('Taken Donations') }}</a></li>
+                        </ul>
+                    </li>
                     @endif
 
                     <li class="nav-label">Apps</li>

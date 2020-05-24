@@ -6,6 +6,7 @@ use App\Pickupman;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +32,7 @@ class PickupmanController extends Controller
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        $date = date("Y-m-d");
+        //$date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
             // ['date', $date],
@@ -40,7 +41,7 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.viewPendingDonations', ['donations' => $donations]);
     }
 
-    public function viewHandinDonations()
+    public function viewTakenDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
         $date = date("Y-m-d");
@@ -49,29 +50,50 @@ class PickupmanController extends Controller
             ['date', $date],
             ['status', 'Taken'],
         ])->get();
-        return view('ngo.pickupman.viewHandinDonations', ['donations' => $donations]);
+        return view('ngo.pickupman.viewTakenDonations', ['donations' => $donations]);
     }
 
     
-    public function UpdateDonation($id)
+    public function updatePendingDonation($id)
     {
         $pickupman_id = Auth::user()->id;
         $donations = PickupSchedule::where('id', $id)->update(['pickupman_id' => $pickupman_id, 'status' => 'Taken']);
         if ($donations) {
-           return response()->json(["msg" => "Yes"]);
+            $record = PickupSchedule::with(['ngo','donator'])->where('id', $id)->first();
+            $data = array(
+                'ngo_name' => $record['ngo']['name'],
+                'donator_name' => $record['donator']['name'],
+            );
+            Mail::send('emailLayouts.outForPickup', $data, function ($message) use ($record) {
+                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->to($record['donator']['email'], $record['donator']['name']);
+                $message->subject('Out for Pickup!');
+            });
+            return response()->json(["msg" => "Yes"]);
         } else {
             return response()->json(["msg" => "No"]);
         }
     }
 
-    public function UpdateHandinDonation($id)
+    public function UpdateTakenDonation($id)
     {
 
         $donations = PickupSchedule::where('id', $id)->update(['status' => 'Picked Up']);
         if ($donations) {
-            return response()->json(["msg" => "Donation complate Successsfully"]);
+            $record = PickupSchedule::with(['ngo','donator','pickupman'])->where('id', $id)->first();
+            $data = array(
+                'ngo_name' => $record['ngo']['name'],
+                'donator_name' => $record['donator']['name'],
+                'pickupman_name' => $record['pickupman']['name'],
+            );
+            Mail::send('emailLayouts.pickedUp', $data, function ($message) use ($record) {
+                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->to($record['donator']['email'], $record['donator']['name']);
+                $message->subject('Donation Picked Up!');
+            });
+            return response()->json(["msg" => "Yes"]);
         } else {
-            return response()->json(["msg" => "Unknow Error"]);
+            return response()->json(["msg" => "No"]);
         }
     }
  

@@ -48,8 +48,8 @@
                                         <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
-                                        <td><span class="badge badge-warning">{{ $donation->status }}</span></td>
-                                        <td><a href="\ngo\pickupman\updatedonation\{{ $donation->id }}" name="handinbtn"><span class="badge badge-primary">Hand In</span></a></td>
+                                        <td><span class="badge badge-rounded badge-outline-warning">{{ $donation->status }}</span></td>
+                                        <td><a href="\ngo\pickupman\updatependingdonation\{{ $donation->id }}" name="handinbtn"><span class="btn btn-primary btn-sm">Take</span></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

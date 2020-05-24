@@ -89,9 +89,9 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('/', 'PickupmanController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@pickupmanLogout');
             Route::get('pendingdonations', 'PickupmanController@viewPendingDonations')->name('ViewPDs-Pickupman');
-            Route::get('updatedonation/{id}', 'PickupmanController@UpdateDonation');
-            Route::get('handindonations', 'PickupmanController@viewHandinDonations')->name('ViewHDs-Pickupman');
-            Route::get('updateHandindonation/{id}', 'PickupmanController@UpdateHandinDonation');
+            Route::get('updatependingdonation/{id}', 'PickupmanController@updatePendingDonation');
+            Route::get('handindonations', 'PickupmanController@viewTakenDonations')->name('ViewTDs-Pickupman');
+            Route::get('updateHandindonation/{id}', 'PickupmanController@UpdateTakenDonation');
         });
         Route::get('login', 'Auth\LoginController@showPickupmanLoginForm')->name('pickupman-login');
         Route::post('login', 'Auth\LoginController@pickupmanLogin')->name('pickupman-login');

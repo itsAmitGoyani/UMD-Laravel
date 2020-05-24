@@ -120,18 +120,6 @@
                         <div class="card-footer-link mb-4 mb-sm-0">
                             <a href="/ngo/verifier/addtostock/{{$donation->id}}" class="btn btn-primary mr-2">Add Medicines to Stock</a>
                         </div>
-                        <div>
-                            <a href="/ngo/manager/pickupmen/{{$donation->id}}/edit" class="btn btn-primary mr-2">Edit</a>
-                            <form id="delete-form{{$donation->id}}" 
-                                action="/ngo/manager/pickupmen/{{$donation->id}}" method="POST" style="display: none;">
-                                @method('DELETE')
-                                @csrf
-                            </form>
-                            <a href="#" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('delete-form{{$donation->id}}').submit();">
-                                Delete
-                            </a>
-                        </div>
-
                     </div>
                 </div>
             </div>

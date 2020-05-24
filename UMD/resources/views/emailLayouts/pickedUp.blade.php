@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sunday Progress Email</title>
+    <title>Donation Picked Up Email</title>
 
     <style type="text/css">
         /* Take care of image borders and formatting */

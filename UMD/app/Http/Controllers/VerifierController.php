@@ -147,16 +147,22 @@ class VerifierController extends Controller
                 }
             }
         }
-        if (Donation::where([['verifier_id', Auth::user()->id], ['status', 'Taken']])->update(['status' => 'Success'])) {
-            return redirect('/ngo/verifier/feedback/' . $id)->with('success', 'Medicines added to Stock successfully.');
+        if (Donation::where([['verifier_id', Auth::user()->id], ['status', 'Taken']])->update(['status' => 'Verified'])) {
+            return redirect()->route('GiveFeedback-Verifier')->with('success', 'Medicines added to Stock successfully.');
         }
         return back()->withErrors(['errmsg' => 'Sorry. Some errors.']);
     }
 
-    public function showFeedbackForm($id)
+    public function showFeedbackForm()
     {
         $fcategories = FeedbackCategory::all();
-        return view('ngo.verifier.feedback', ['id' => $id, 'fcategories' => $fcategories]);
+        if($res = Donation::where([['verifier_id', Auth::user()->id], ['status', 'Verified']])->first('id'))
+        {
+            return view('ngo.verifier.feedback', ['id' => $res['id'], 'fcategories' => $fcategories]);
+        }else{
+            return redirect()->route('ViewTD-Verifier')->withErrors(['errmsg' => 'You can not give feedback because there is not any Verified Donations.']);
+        }
+        
     }
 
     public function submitFeedback(Request $request)
@@ -171,23 +177,26 @@ class VerifierController extends Controller
         $feedback->donation_id = $request->did;
         $feedback->description = $request->description;
         $feedback->save();
-
-        if ($feedback) {
-            if ($request->category == 3) {
+        $res = Donation::where('id',$request->did)->update(['status' => 'Success']);
+        if ($feedback && $res) {
+            if ($request->category == 2 || $request->category == 3) {
                 $Donation = Donation::where('id', $request->did)->first();
-                $Donatoremail = $Donation->verifier->email;
+                $Donatoremail = $Donation->donator->email;
                 $Donatorname = $Donation->donator->name;
                 $ddate = $Donation->datetime;
                 $dngo = $Donation->ngo->name;
-
+                $fcategoryname = $Donation->feedback->category->categoryname;
                 $data = array(
                     'date' => $ddate,
                     'ngo' => $dngo,
+                    'donatorname' => $Donatorname,
+                    'fcategoryname' => $fcategoryname,
                     'fdescription' => $request->description,
                 );
-                Mail::send('emailLayouts.feedbackExcellent', $data, function ($message) use ($Donatoremail, $Donatorname) {
+                Mail::send('emailLayouts.feedback', $data, function ($message) use ($Donatoremail, $Donatorname) {
                     $message->from('goyaniamit111@gmail.com', 'UMD');
                     $message->to($Donatoremail, $Donatorname);
+                    $message->subject('Feedback for your Donation');
                 });
             }
             return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');

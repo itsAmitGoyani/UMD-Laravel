@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Out For Pickup Email</title>
+    <title>Feedback Mail</title>
 
     <style type="text/css">
         /* Take care of image borders and formatting */
@@ -159,7 +159,7 @@
                                     <tr>
                                         <td style="font-size:12px;">
                                             &nbsp;
-                                         </td>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="color:#27aa90; font-size: 40px; text-align:center; font-weight: bold;">
@@ -172,23 +172,27 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <table cellspacing="0" cellpadding="0" class="force-full-width" style="background-color:#ffffff;">
+                                    <tr>
+                                        <td style="background-image : url(https://viral1234kachhadiya.000webhostapp.com/thankyouimage.jpeg); background-size: cover;background-position: center; height: 300px;">
+                                        </td>
+                                    </tr>
+                                </table>
                                 <table cellspacing="0" cellpadding="0" class="force-full-width" style="background-color:#3bcdb0;">
                                     <tr>
                                         <td style="background-color:#3bcdb0;">
                                             <table cellspacing="0" cellpadding="0" class="force-full-width">
                                                 <tr>
                                                     <td style="font-size:40px; font-weight: 600; color: #ffffff; text-align:center;" class="mobile-spacing">
-                                                        <div class="mobile-br">&nbsp;</div>
                                                         <br>
-                                                        Out for Pickup!
+                                                        Thanks for Donating
                                                         <br>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <table cellspacing="0" cellpadding="0" width="600" class="force-full-width">
-                                                <tr>
-                                                    <td style="width:400px; height: 100px; display:block;">
-
+                                                        <p style="font-size:20px; font-weight: 500; color: #000000;">
+                                                            At {{$ngo}}
+                                                            <br>
+                                                            On Date {{$date}}
+                                                            <br><br>
+                                                        </p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -201,10 +205,17 @@
                                         <td style="background-color:#ffffff;">
                                             <table class="columns" cellspacing="0" cellpadding="0" width="100%" align="right">
                                                 <tr>
-                                                    <td class="column-padding" style="text-align:center; vertical-align:top; padding-left: 20px; padding-right:30px;">
+                                                    <td class="column-padding" style="text-align:left; vertical-align:top; padding-left: 20px; padding-right:30px;">
                                                         <br>
-                                                        <span style="color:#3bcdb0; font-size:20px; font-weight:bold;">Hey {{$donator_name}}!</span><br><br>
-                                                        <span style="font-size:15px;">Your donation at {{$ngo_name}} is Out for Pickup. Be Ready to donate.</span>
+                                                        <span style="color:#3bcdb0; font-size:20px; font-weight:bold;">
+                                                            Hey {{$donatorname}}, Here is your feedback for donation.
+                                                        </span>
+                                                        <br><br>
+                                                        <span style="font-size:18px;">
+                                                            {{$fcategoryname}}
+                                                            <br>
+                                                            {{$fdescription}}
+                                                        </span>
                                                         <br><br><br>
                                                     </td>
                                                 </tr>

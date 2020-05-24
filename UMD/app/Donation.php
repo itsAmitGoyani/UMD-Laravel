@@ -35,4 +35,9 @@ class Donation extends Model
     {
         return $this->belongsTo('App\Verifier');
     }
+
+    public function feedback()
+    {
+        return $this->hasOne('App\Feedback');
+    }
 }

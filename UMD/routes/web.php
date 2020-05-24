@@ -109,7 +109,7 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('takendonation', 'VerifierController@viewTakenDonation')->name('ViewTD-Verifier');
             Route::post('addmedicine','VerifierController@addMedicine')->name('AddMedicine-Verifier');
             Route::get('addtostock/{id}','VerifierController@addMedicinesToStock')->name('AddMedicinesToStock-Verifier');
-            Route::get('feedback/{id}','VerifierController@showFeedbackForm');
+            Route::get('feedback','VerifierController@showFeedbackForm')->name('GiveFeedback-Verifier');
             Route::post('submitfeedback','VerifierController@submitFeedback')->name('SubmitFeedback-Verifier');
         });
         Route::get('login', 'Auth\LoginController@showVerifierLoginForm')->name('verifier-login');

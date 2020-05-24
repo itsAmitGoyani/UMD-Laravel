@@ -215,8 +215,9 @@
                     <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a>
                     @endif
                     @if(Auth::guard('verifier')->check())
-                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
                     <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
+                    <li><a href="{{ route('GiveFeedback-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Give Feedback') }}</span></a></li>
                     @endif
                     @if(Auth::guard('pickupman')->check())
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donations') }}</span></a>

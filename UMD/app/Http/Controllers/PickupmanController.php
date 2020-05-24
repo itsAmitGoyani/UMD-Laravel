@@ -32,10 +32,10 @@ class PickupmanController extends Controller
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        //$date = date("Y-m-d");
+        $date = date("Y-m-d");
         $donations = PickupSchedule::where([
             ['ngo_id', $ngo_id],
-            // ['date', $date],
+            ['date', $date],
             ['status', 'Pending'],
         ])->get();
         return view('ngo.pickupman.viewPendingDonations', ['donations' => $donations]);

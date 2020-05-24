@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
-    xmlns:o="urn:schemas-microsoft-com:office:office">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
     <meta charset="utf-8"> <!-- utf-8 works for most cases -->
@@ -298,7 +297,7 @@
         }
 
         .heading-section-white h2 {
-                line-height: 1;
+            line-height: 1;
             padding-bottom: 0;
         }
 
@@ -364,14 +363,12 @@
 
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
     <center style="width: 100%; background-color: #f1f1f1;">
-        <div
-            style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+        <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
             &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         </div>
         <div style="max-width: 600px; margin: 0 auto;" class="email-container">
             <!-- BEGIN BODY -->
-            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                style="margin: auto;">
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
                 <tr>
                     <td valign="top" class="bg_white" style="padding: 1em 2.5em;">
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -384,22 +381,21 @@
                     </td>
                 </tr><!-- end tr -->
                 <tr>
-                    <td valign="middle" class="hero bg_white"
-                        style="background-image: {{asset('image/thankyouimage.jpeg')}}; background-size: cover; height: 400px;">
+                    <td valign="middle" class="hero bg_white" style="background-image : url(https://viral1234kachhadiya.000webhostapp.com/thankyouimage.jpeg); background-size: cover;background-position: center; height: 400px;">
                     </td>
-                </tr><!-- end tr -->
+                </tr>
+                <!--end tr -->
                 <tr>
                     <td class="bg_dark email-section" style="text-align:center;">
                         <div class="heading-section heading-section-white">
                             <h2>Thanks for Donating</h2>
-                            <p>At NGOName</p>
-                            <p>On Date DonationDate</p>
+                            <p>{{$ngo}}</p>
+                            <p>On {{$date}} DonationDate</p>
                         </div>
                     </td>
                 </tr>
             </table>
-            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                style="margin: auto;">
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
                 <tr>
                     <td valign="middle" class="bg_black footer email-section">
                         <table>
@@ -410,7 +406,7 @@
                                             <td style="text-align: left; padding-right: 10px;">
                                                 <h3 class="heading">Here is your Feedback</h3>
                                                 <p>Excellent</p>
-                                                <p>FeedbackDescription</p>
+                                                <p>{{$fdescription}}</p>
                                             </td>
                                         </tr>
                                     </table>

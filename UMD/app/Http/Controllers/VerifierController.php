@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Donation;
-use App\DonationMedicine;
-use App\DonationMedicineExpiration;
 use App\Feedback;
-use App\FeedbackCategory;
 use App\Medicine;
-use App\MedicineCategory;
-use App\MedicineStock;
-use App\MedicineStockExpiration;
 use App\Verifier;
+use App\MedicineStock;
+use App\DonationMedicine;
+use App\FeedbackCategory;
+use App\MedicineCategory;
 use Illuminate\Http\Request;
+use App\MedicineStockExpiration;
+use App\DonationMedicineExpiration;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class VerifierController extends Controller
@@ -165,23 +166,34 @@ class VerifierController extends Controller
             'category'   => 'required|numeric',
             'description' => 'required',
         ]);
-        // $feedback = new Feedback();
-        // $feedback->category_id = $request->category;
-        // $feedback->donation_id = $request->did;
-        // $feedback->description = $request->description;
-        // $feedback->save();
+        $feedback = new Feedback();
+        $feedback->category_id = $request->category;
+        $feedback->donation_id = $request->did;
+        $feedback->description = $request->description;
+        $feedback->save();
 
+        if ($feedback) {
+            if ($request->category == 3) {
+                $Donation = Donation::where('id', $request->did)->first();
+                $Donatoremail = $Donation->verifier->email;
+                $Donatorname = $Donation->donator->name;
+                $ddate = $Donation->datetime;
+                $dngo = $Donation->ngo->name;
 
-        if ($request->category_id == 3) {
-            $Donation = Donation::where('id', $request->did)->first();
-            $Demail = $Donation->verifier->email;
+                $data = array(
+                    'date' => $ddate,
+                    'ngo' => $dngo,
+                    'fdescription' => $request->description,
+                );
+                Mail::send('emailLayouts.feedbackExcellent', $data, function ($message) use ($Donatoremail, $Donatorname) {
+                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->to($Donatoremail, $Donatorname);
+                });
+            }
+            return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');
         } else {
+            return back()->withErrors(['errmsg' => 'Sorry. Some errors.']);
         }
-        // if ($feedback) {
-        //     return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');
-        // } else {
-        //     return back()->withErrors(['errmsg' => 'Sorry. Some errors.']);
-        // }
     }
 
 

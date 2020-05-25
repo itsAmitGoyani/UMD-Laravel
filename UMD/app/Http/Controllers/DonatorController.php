@@ -44,11 +44,11 @@ class DonatorController extends Controller
         // for ($i = 0; $i < count($disabledaterecord); $i++) {
         //     $disabledate[$i] = $disabledaterecord[$i]->date;
         // }
+        $data = array();
         $ngoids = PickupSchedule::where('donator_id',Auth::user()->id)->get('ngo_id');
         foreach ($ngoids as $ngoid) {
             $data[] = $ngoid->ngo_id;
         }
-        
         $ngos = Ngo::select('id', 'name')->whereNotIn('id',$data)->get();
         return view('donator.donate', ['ngos' => $ngos]);
     }

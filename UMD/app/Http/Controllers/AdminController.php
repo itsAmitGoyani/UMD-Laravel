@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\BadFeedback;
+use App\Donator;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,7 +25,11 @@ class AdminController extends Controller
     }
 
 
-
+    public function showBlockdonatorForm()
+    {
+        $baddonator = BadFeedback::all();
+        return view('admin.blockDonator', ['baddonators', $baddonator]);
+    }
     /**
      * Show the form for creating a new resource.
      *

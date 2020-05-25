@@ -80,7 +80,7 @@
                     if (data["msg"] == "Yes") {
                         $('#successdiv').show();
                         $('#' + trid).remove();
-                        //$('#tbdiv').load("pendingdonations #tbdiv");
+                     
                     } else {
                         $('#errordiv').show();
                     }

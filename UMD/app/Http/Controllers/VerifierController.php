@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Donator;
 use App\Donation;
 use App\Feedback;
 use App\Medicine;
 use App\Verifier;
+use App\BadFeedback;
 use App\MedicineStock;
 use App\DonationMedicine;
 use App\FeedbackCategory;
@@ -156,13 +158,11 @@ class VerifierController extends Controller
     public function showFeedbackForm()
     {
         $fcategories = FeedbackCategory::all();
-        if($res = Donation::where([['verifier_id', Auth::user()->id], ['status', 'Verified']])->first('id'))
-        {
+        if ($res = Donation::where([['verifier_id', Auth::user()->id], ['status', 'Verified']])->first('id')) {
             return view('ngo.verifier.feedback', ['id' => $res['id'], 'fcategories' => $fcategories]);
-        }else{
+        } else {
             return redirect()->route('ViewTD-Verifier')->withErrors(['errmsg' => 'You can not give feedback because there is not any Verified Donations.']);
         }
-        
     }
 
     public function submitFeedback(Request $request)
@@ -177,10 +177,10 @@ class VerifierController extends Controller
         $feedback->donation_id = $request->did;
         $feedback->description = $request->description;
         $feedback->save();
-        $res = Donation::where('id',$request->did)->update(['status' => 'Success']);
+        $res = Donation::where('id', $request->did)->update(['status' => 'Success']);
+        $Donation = Donation::where('id', $request->did)->first();
         if ($feedback && $res) {
             if ($request->category == 2 || $request->category == 3) {
-                $Donation = Donation::where('id', $request->did)->first();
                 $Donatoremail = $Donation->donator->email;
                 $Donatorname = $Donation->donator->name;
                 $ddate = $Donation->datetime;
@@ -198,6 +198,22 @@ class VerifierController extends Controller
                     $message->to($Donatoremail, $Donatorname);
                     $message->subject('Feedback for your Donation');
                 });
+            } else {
+                $count = $Donation->donator->bfcouunt + 1;
+                $donator = Donator::where('id', $Donation->donator->id)->update(['bfcount' => $count]);
+                // echo $donator;
+                if (BadFeedback::where('donation_id', $request->did)->exists()) {
+                    $badfeedback = BadFeedback::where('donation_id', $request->did)->update(['donator_id' => $Donation->donator->id]);
+                    // echo "id exists";
+                    // print_r($badfeedback);
+                } else {
+                    $badfeedback = new BadFeedback();
+                    $badfeedback->donator_id = $Donation->donator->id;
+                    $badfeedback->donation_id = $request->did;
+                    $badfeedback->save();
+                    // echo "new id";
+                    // print_r($badfeedback);
+                }
             }
             return redirect()->route('ViewPDs-Verifier')->with('success', 'Feedback added successfully.');
         } else {

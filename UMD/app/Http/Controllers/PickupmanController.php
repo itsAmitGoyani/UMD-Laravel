@@ -53,13 +53,13 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.viewTakenDonations', ['donations' => $donations]);
     }
 
-    
+
     public function updatePendingDonation($id)
     {
         $pickupman_id = Auth::user()->id;
         $donations = PickupSchedule::where('id', $id)->update(['pickupman_id' => $pickupman_id, 'status' => 'Taken']);
         if ($donations) {
-            $record = PickupSchedule::with(['ngo','donator'])->where('id', $id)->first();
+            $record = PickupSchedule::with(['ngo', 'donator'])->where('id', $id)->first();
             $data = array(
                 'ngo_name' => $record['ngo']['name'],
                 'donator_name' => $record['donator']['name'],
@@ -80,7 +80,7 @@ class PickupmanController extends Controller
 
         $donations = PickupSchedule::where('id', $id)->update(['status' => 'Picked Up']);
         if ($donations) {
-            $record = PickupSchedule::with(['ngo','donator','pickupman'])->where('id', $id)->first();
+            $record = PickupSchedule::with(['ngo', 'donator', 'pickupman'])->where('id', $id)->first();
             $data = array(
                 'ngo_name' => $record['ngo']['name'],
                 'donator_name' => $record['donator']['name'],
@@ -96,7 +96,7 @@ class PickupmanController extends Controller
             return response()->json(["msg" => "No"]);
         }
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *

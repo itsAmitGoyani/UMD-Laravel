@@ -49,7 +49,7 @@
                                         <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
                                         <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
                                         <td><span class="badge badge-rounded badge-outline-warning">{{ $donation->status }}</span></td>
-                                        <td><a href="\ngo\pickupman\updateHandindonation\{{ $donation->id }}" name="handinbtn"><span class="btn btn-primary btn-sm">Picked Up</span></a></td>
+                                        <td><a href="\ngo\pickupman\updateHandindonation\{{ $donation->id }}" name="takenbtn"><span class="btn btn-primary btn-sm">Picked Up</span></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -66,7 +66,7 @@
     $(document).ready(function() {
         $('#successdiv').hide();
         $('#errordiv').hide();
-        $('a[name="handinbtn"]').click(function(event) {
+        $('a[name="takenbtn"]').click(function(event) {
             event.preventDefault();
             var trid = $(this).parent('td').parent('tr').attr("id");
             $.ajax({

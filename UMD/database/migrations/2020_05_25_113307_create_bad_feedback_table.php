@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBadfeedbackTable extends Migration
+class CreateBadFeedbackTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateBadfeedbackTable extends Migration
      */
     public function up()
     {
-        Schema::create('badFeedback', function (Blueprint $table) {
+        Schema::create('bad_feedback', function (Blueprint $table) {
             $table->id();
             $table->integer('donator_id')->unsigned();
             $table->integer('donation_id')->unsigned();
             $table->foreign('donator_id')->references('id')->on('donators')->onDelete('cascade');
             $table->foreign('donation_id')->references('id')->on('donations')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateBadfeedbackTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('badFeedback');
+        Schema::dropIfExists('bad_feedback');
     }
 }

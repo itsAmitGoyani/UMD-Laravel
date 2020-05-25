@@ -25,6 +25,8 @@ class CreateDonatorsTable extends Migration
             $table->string('state');
             $table->string('pincode', 6);
             $table->string('profileimage');
+            $table->integer('bfcount');
+            $table->boolean('blocked')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

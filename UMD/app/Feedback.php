@@ -12,4 +12,14 @@ class Feedback extends Model
         'donation_id',
         'description',
     ];
+
+    public function donation()
+    {
+        return $this->belongsTo('App\Donation');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\FeedbackCategory');
+    }
 }

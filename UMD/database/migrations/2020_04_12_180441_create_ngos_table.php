@@ -20,7 +20,7 @@ class CreateNgosTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('pincode');
-            $table->integer('dpd')->unsigned()->nullable();
+            $table->integer('dpd')->unsigned()->default('2');
             $table->timestamps();
         });
     }

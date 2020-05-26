@@ -51,6 +51,7 @@ class NgosController extends Controller
                 'city' => $request['city'],
                 'state' => $request['state'],
                 'pincode' => $request['pincode'],
+                'dpd' => '2',
             ]);
             if($ngo) {
                 return back()->with('success','NGO registered successfully');

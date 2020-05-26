@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\BadFeedback;
+use App\Donation;
 use App\Donator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -24,11 +26,69 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-
-    public function showBlockdonatorForm()
+    public function showBlockDonatorsForm()
     {
-        $baddonator = BadFeedback::all();
-        return view('admin.blockDonator', ['baddonators', $baddonator]);
+        $records = BadFeedback::all();
+        return view('admin.manageDonators', ['records' => $records]);
+    }
+
+    public function blockDonator($id)
+    {
+        if(Donator::where('id',$id)->update(['blocked' => true]))
+        {
+            $recdid = BadFeedback::where('donator_id',$id)->first('donation_id');
+            $did = $recdid['donation_id'];
+            $donation = Donation::with(['feedback'],['donator'],['ngo'])->where('id', $did)->first();
+            $donatoremail = $donation['donator']['email'];
+            $donatorname = $donation['donator']['name'];
+            $data = array(
+                'date' => $donation['datetime'],
+                'ngoname' => $donation['ngo']['name'],
+                'donatorname' => $donatorname,
+                'fcategoryname' => 'Bad',
+                'fdescription' => $donation['feedback']['description'],
+            );
+            Mail::send('emailLayouts.blockDonatorWithFeedback', $data, function ($message) use ($donatoremail, $donatorname) {
+                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->to($donatoremail, $donatorname);
+                $message->subject('You were Blocked to Donate at UMD');
+            });
+            if(BadFeedback::where('donator_id',$id)->delete())
+            {
+                return back()->with('success','Donator blocked successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Sorry. Error.']);
+        }
+    }
+
+    public function warnDonator($id)
+    {
+            $recdid = BadFeedback::where('donator_id',$id)->first('donation_id');
+            $did = $recdid['donation_id'];
+            $donation = Donation::with(['feedback'],['donator'],['ngo'])->where('id', $did)->first();
+            $donatoremail = $donation['donator']['email'];
+            $donatorname = $donation['donator']['name'];
+            $data = array(
+                'date' => $donation['datetime'],
+                'ngoname' => $donation['ngo']['name'],
+                'donatorname' => $donatorname,
+                'fcategoryname' => 'Bad',
+                'fdescription' => $donation['feedback']['description'],
+            );
+            Mail::send('emailLayouts.warnDonatorWithFeedback', $data, function ($message) use ($donatoremail, $donatorname) {
+                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->to($donatoremail, $donatorname);
+                $message->subject('You are Warned to Donate at UMD');
+            });
+            if(BadFeedback::where('donator_id',$id)->delete())
+            {
+                return back()->with('success','Warning mail sent to donator successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error.']);
+            }
     }
     /**
      * Show the form for creating a new resource.

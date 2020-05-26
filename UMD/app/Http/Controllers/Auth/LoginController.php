@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Donator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
@@ -84,6 +85,10 @@ class LoginController extends Controller
             'password' => 'required|min:8'
         ]);
 
+        if(Donator::where([['email',$request->email],['blocked',true]])->first())
+        {
+            return back()->withInput($request->only('email'))->withErrors(['errmsg' => 'Donator with this email is blocked.']);
+        }
         if (Auth::guard('donator')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/');

@@ -7,12 +7,12 @@
         @include('partial.success')
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissible fade show" id="successdiv">
-            <strong>Success!</strong> Order Handed In successfully.
+            <strong>Success!</strong> Order Picked Up successfully.
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
         <!-- Error Alert -->
         <div class="alert alert-danger alert-dismissible fade show" id="errordiv">
-            <strong>Error!</strong> A problem has been occurred while handing in order.
+            <strong>Error!</strong> A problem has been occurred while updating order status.
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
         <div class="row page-titles mx-0">

@@ -44,7 +44,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('logout', 'Auth\LogoutController@adminLogout');
 
-    Route::get('BlockDonator', 'AdminController@showBlockdonatorForm');
+    Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
+    Route::get('blockdonator/{id}', 'AdminController@blockDonator');
+    Route::get('warndonator/{id}', 'AdminController@warnDonator');
 });
 
 
@@ -62,7 +64,7 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::post('registerpickupman', 'Auth\RegisterController@createPickupman')->name('RegisterPickupman');
             Route::get('displaypickupmen', 'PickupmanController@index')->name('DisplayPickupmen');
             Route::get('pickupmen/{id}/edit', 'PickupmanController@edit');
-            Route::put('pickupmen/{ id}', 'PickupmanController@update');
+            Route::put('pickupmen/{id}', 'PickupmanController@update');
             Route::delete('pickupmen/{id}', 'PickupmanController@destroy');
 
             Route::get('registerverifier', 'Auth\RegisterController@showVerifierRegisterForm')->name('RegisterVerifier');

@@ -207,7 +207,6 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterPickupman') }}">{{ __('Register Pickupman') }}</a></li>
                             <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
-                            
                         </ul>
                     </li>
                     <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a>
@@ -220,12 +219,8 @@
                     <li><a href="{{ route('GiveFeedback-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Give Feedback') }}</span></a></li>
                     @endif
                     @if(Auth::guard('pickupman')->check())
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donations') }}</span></a>
-                        <ul aria-expanded="true">
-                            <li><a href="{{ route('ViewPDs-Pickupman') }}">{{ __('Pending Donations') }}</a></li>
-                            <li><a href="{{ route('ViewTDs-Pickupman') }}">{{ __('Taken Donations') }}</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ route('ViewPDs-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewTDs-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donations') }}</span></a></li>
                     @endif
 
                     <li class="nav-label">Apps</li>

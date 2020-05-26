@@ -9,7 +9,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Block Donator</h4>
+                    <h4>Block/Warn Donators</h4>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Today</h4>
+                        <h4 class="card-title">Donators received Bad feedback</h4>
                     </div>
                     <div class="card-body" id="tablediv">
                         <div class="table-responsive">
@@ -27,23 +27,23 @@
                                         <th>Donator ID</th>
                                         <th>Donator Name</th>
                                         <th>City,State</th>
-                                        <th>Feedback</th>
+                                        <th>Feedback Description</th>
                                         <th>NGO</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($baddonators as $baddonator)
-                                    <tr id="tr{{ $baddonator->donator->id }}">
-                                        <td>#{{ $baddonator->donator->id }}</td>
-                                        <td><span class="text-muted">{{ $baddonator->donator->name }}</span></td>
-                                        <td><span class="text-muted">{{ $baddonator->donator->city }},{{ $baddonator->donator->state }}</span></td>
-                                        <td><span class="text-muted">{{ $baddonator->donation->feedback->description }}</span></td>
-                                        <td><span class="badge badge-rounded badge-outline-warning">{{ $baddonator->donation->ngo->name}}</span></td>
-                                        @if($baddonator->donator->bfcount>2)
-                                        <td><a href="#" name="block"><span class="btn btn-primary btn-sm">Block</span></a></td>
+                                    @foreach($records as $record)
+                                    <tr id="tr{{ $record->donator_id }}">
+                                        <td>#{{ $record->donator_id }}</td>
+                                        <td><span class="text-muted">{{ $record->donator->name }}</span></td>
+                                        <td><span class="text-muted">{{ $record->donator->city }},{{ $record->donator->state }}</span></td>
+                                        <td><span class="text-muted">{{ $record->donation->feedback->description }}</span></td>
+                                        <td><span class="text-muted">{{ $record->donation->ngo->name}}</span></td>
+                                        @if($record->donator->bfcount>2)
+                                        <td><a href="/admin/blockdonator/{{$record->donator_id}}" name="block"><span class="btn btn-danger btn-sm">Block</span></a></td>
                                         @else
-                                        <td><a href="#" name="warn"><span class="btn btn-primary btn-sm">Warn</span></a></td>
+                                        <td><a href="/admin/warndonator/{{$record->donator_id}}" name="warn"><span class="btn btn-warning btn-sm">Warn</span></a></td>
                                         @endif
                                     </tr>
                                     @endforeach

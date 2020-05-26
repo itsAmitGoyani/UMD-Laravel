@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Feedback Mail</title>
+    <title>Block Donator Mail</title>
 
     <style type="text/css">
         /* Take care of image borders and formatting */
@@ -162,7 +162,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="color:#27aa90; font-size: 30px; text-align:center; font-weight: bold;">
+                                        <td style="color:#ff3b3b; font-size: 30px; text-align:center; font-weight: bold;">
                                             UMD
                                         </td>
                                     </tr>
@@ -172,25 +172,17 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <table cellspacing="0" cellpadding="0" class="force-full-width" style="background-color:#ffffff;">
-                                    <tr>
-                                        <td style="background-image : url(https://viral1234kachhadiya.000webhostapp.com/thankyouimage.jpeg); background-size: cover;background-position: center; height: 300px;">
-                                        </td>
-                                    </tr>
-                                </table>
                                 <table cellspacing="0" cellpadding="0" class="force-full-width" style="background-color:#3bcdb0;">
                                     <tr>
-                                        <td style="background-color:#3bcdb0;">
+                                        <td style="background-color:#ff3b3b; padding-left: 20px; padding-right: 20px;">
                                             <table cellspacing="0" cellpadding="0" class="force-full-width">
                                                 <tr>
                                                     <td style="font-size:30px; font-weight: 600; color: #ffffff; text-align:center;" class="mobile-spacing">
                                                         <br>
-                                                        Thanks for Donating
+                                                        You were Blocked
                                                         <br>
                                                         <p style="font-size:16px; font-weight: 500; color: #000000;">
-                                                            At {{$ngo}}
-                                                            <br>
-                                                            On Date {{$date}}
+                                                            by admin to donate at UMD due to your last 3 consequent useless donations.
                                                             <br><br>
                                                         </p>
                                                     </td>
@@ -207,16 +199,22 @@
                                                 <tr>
                                                     <td class="column-padding" style="text-align:left; vertical-align:top; padding-left: 20px; padding-right:30px;">
                                                         <br>
-                                                        <span style="color:#3bcdb0; font-size:16px; font-weight:bold;">
-                                                            Hey {{$donatorname}}, Here is your feedback for donation.
+                                                        <span style="color:#ff3b3b; font-size:16px; font-weight:bold;">
+                                                            Hey {{$donatorname}}, Here is your feedback for your last donation.
                                                         </span>
                                                         <br><br>
-                                                        <span style="font-size:15px; color:#3bcdb0;">
+                                                        <span style="font-size:15px; color:#ff3b3b;">
                                                             {{$fcategoryname}}
                                                         </span>
                                                         <br><br>
                                                         <span style="font-size:14px;">
                                                             {{$fdescription}}
+                                                        </span>
+                                                        <br><br>
+                                                        <span style="font-size:14px;">
+                                                            NGO : {{$ngoname}}
+                                                            <br>
+                                                            Donation Date : {{$date}}
                                                         </span>
                                                         <br><br><br>
                                                     </td>
@@ -233,8 +231,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="color:#3bcdb0; font-size: 12px; text-align:center;">
-                                            <a href="#">View in browser</a> | <a href="#">Contact</a>
+                                        <td style="color:#ff3b3b; font-size: 12px; text-align:center;">
+                                            View in browser | Contact
                                         </td>
                                     </tr>
                                     <tr>

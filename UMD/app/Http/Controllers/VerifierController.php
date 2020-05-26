@@ -181,6 +181,7 @@ class VerifierController extends Controller
         $Donation = Donation::where('id', $request->did)->first();
         if ($feedback && $res) {
             if ($request->category == 2 || $request->category == 3) {
+                Donator::where('id', $Donation->donator_id)->update(['bfcount' => '0']);
                 $Donatoremail = $Donation->donator->email;
                 $Donatorname = $Donation->donator->name;
                 $ddate = $Donation->datetime;
@@ -199,11 +200,11 @@ class VerifierController extends Controller
                     $message->subject('Feedback for your Donation');
                 });
             } else {
-                $count = $Donation->donator->bfcouunt + 1;
+                $count = $Donation->donator->bfcount + 1;
                 $donator = Donator::where('id', $Donation->donator->id)->update(['bfcount' => $count]);
                 // echo $donator;
-                if (BadFeedback::where('donation_id', $request->did)->exists()) {
-                    $badfeedback = BadFeedback::where('donation_id', $request->did)->update(['donator_id' => $Donation->donator->id]);
+                if (BadFeedback::where('donator_id', $Donation->donator->id)->exists()) {
+                    $badfeedback = BadFeedback::where('donator_id', $Donation->donator->id)->update(['donation_id' => $request->did]);
                     // echo "id exists";
                     // print_r($badfeedback);
                 } else {

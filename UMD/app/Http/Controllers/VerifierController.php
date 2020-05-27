@@ -38,6 +38,26 @@ class VerifierController extends Controller
         return view('ngo.manager.verifier.display', ['verifiers' => $verifier]);
     }
 
+    public function showMedicineCategoryForm()
+    {
+        return view('ngo.verifier.addMedicineCategory');
+    }
+
+    public function addMedicineCategory(Request $request)
+    {
+        $this->validate($request, [
+            'category' => 'required|string|unique:category',
+        ]);
+        $medicinecategory = new MedicineCategory();
+        $medicinecategory->categoryname = $request->category;
+        $medicinecategory->save();
+        if ($medicinecategory) {
+            return redirect()->route('MedicineCategory-Form')->with('success', 'MedicineCategory added successfully.');
+        } else {
+            return redirect()->route('MedicineCategory-Form')->withErrors(['errmsg' => 'Unknow Error']);
+        }
+    }
+
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
@@ -164,6 +184,8 @@ class VerifierController extends Controller
             return redirect()->route('ViewTD-Verifier')->withErrors(['errmsg' => 'You can not give feedback because there is not any Verified Donations.']);
         }
     }
+
+
 
     public function submitFeedback(Request $request)
     {

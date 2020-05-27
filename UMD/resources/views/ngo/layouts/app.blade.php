@@ -22,7 +22,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    
+
 
 </head>
 
@@ -212,8 +212,9 @@
                     <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a>
                     <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
                     <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a>
-                    @endif
-                    @if(Auth::guard('verifier')->check())
+                        @endif
+                        @if(Auth::guard('verifier')->check())
+                    <li><a href="{{ route('MedicineCategory-Form') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Add Medicine Category') }}</span></a></li>
                     <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
                     <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
                     <li><a href="{{ route('GiveFeedback-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Give Feedback') }}</span></a></li>

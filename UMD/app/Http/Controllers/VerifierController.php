@@ -46,15 +46,15 @@ class VerifierController extends Controller
     public function addMedicineCategory(Request $request)
     {
         $this->validate($request, [
-            'category' => 'required|string|unique:category',
+            'category' => 'required|string|unique:medicine_categories,categoryname',
         ]);
         $medicinecategory = new MedicineCategory();
         $medicinecategory->categoryname = $request->category;
         $medicinecategory->save();
         if ($medicinecategory) {
-            return redirect()->route('MedicineCategory-Form')->with('success', 'MedicineCategory added successfully.');
+            return redirect()->route('AddMCategory-Verifier')->with('success', 'Medicine Category added successfully.');
         } else {
-            return redirect()->route('MedicineCategory-Form')->withErrors(['errmsg' => 'Unknow Error']);
+            return redirect()->route('AddMCategory-Verifier')->withErrors(['errmsg' => 'Sorry. Error']);
         }
     }
 
@@ -184,8 +184,6 @@ class VerifierController extends Controller
             return redirect()->route('ViewTD-Verifier')->withErrors(['errmsg' => 'You can not give feedback because there is not any Verified Donations.']);
         }
     }
-
-
 
     public function submitFeedback(Request $request)
     {

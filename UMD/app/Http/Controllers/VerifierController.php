@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\MedicineStockExpiration;
 use App\DonationMedicineExpiration;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,38 @@ class VerifierController extends Controller
     public function showDashboard()
     {
         return view('ngo.verifier.dashboard');
+    }
+
+    public function showProfile()
+    {
+        $verifier = Verifier::where('id',Auth::user()->id)->first();
+        return view('ngo.verifier.profile',['verifier' => $verifier]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('ngo.verifier.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:8',
+            'NewPassword' => 'required|string|min:8|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Verifier::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('verifier')->logout();
+                return redirect('/ngo/verifier/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
     }
 
     public function index()

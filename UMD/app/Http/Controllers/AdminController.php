@@ -7,6 +7,8 @@ use App\BadFeedback;
 use App\Donation;
 use App\Donator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -24,6 +26,38 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.dashboard');
+    }
+
+    public function showProfile()
+    {
+        $admin = Admin::where('id',Auth::user()->id)->first();
+        return view('admin.profile',['admin' => $admin]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('admin.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:6',
+            'NewPassword' => 'required|string|min:6|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:6|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Admin::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('admin')->logout();
+                return redirect('/admin/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
     }
 
     public function showBlockDonatorsForm()

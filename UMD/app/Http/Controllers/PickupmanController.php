@@ -6,6 +6,7 @@ use App\Pickupman;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -17,11 +18,38 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.dashboard');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function showProfile()
+    {
+        $pickupman = Pickupman::where('id',Auth::user()->id)->first();
+        return view('ngo.pickupman.profile',['pickupman' => $pickupman]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('ngo.pickupman.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:8',
+            'NewPassword' => 'required|string|min:8|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Pickupman::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('pickupman')->logout();
+                return redirect('/ngo/pickupman/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
+    }
+
     public function index()
     {
         $ngo_id = Auth::user()->ngo_id;

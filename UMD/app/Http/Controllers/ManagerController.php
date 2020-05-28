@@ -9,6 +9,7 @@ use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,9 +29,40 @@ class ManagerController extends Controller
 
     public function index()
     {
-
         $manager = Manager::with('ngo')->get();
         return view('admin.displaymanager', ['managers' => $manager]);
+    }
+
+    public function showProfile()
+    {
+        $manager = Manager::where('id',Auth::user()->id)->first();
+        return view('ngo.manager.profile',['manager' => $manager]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('ngo.manager.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:8',
+            'NewPassword' => 'required|string|min:8|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Manager::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('manager')->logout();
+                return redirect('/ngo/manager/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
     }
 
     public function viewPickedUpDonations()

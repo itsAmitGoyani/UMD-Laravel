@@ -43,7 +43,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::delete('managers/{id}', 'ManagerController@destroy');
 
     Route::get('logout', 'Auth\LogoutController@adminLogout');
-
+    Route::get('profile', 'AdminController@showProfile')->name('Profile-Admin');
+    Route::get('changepassword', 'AdminController@showChangePasswordForm')->name('ChangePassword-Admin');
+    Route::post('changepassword', 'AdminController@updatePassword')->name('ChangePassword-Admin');
+            
     Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
     Route::get('blockdonator/{id}', 'AdminController@blockDonator');
     Route::get('warndonator/{id}', 'AdminController@warnDonator');
@@ -59,7 +62,10 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::group(['middleware' => ['auth:manager']], function () {
             Route::get('/', 'ManagerController@showdashboard');
             Route::get('logout', 'Auth\LogoutController@managerLogout');
-
+            Route::get('profile', 'ManagerController@showProfile')->name('Profile-Manager');
+            Route::get('changepassword', 'ManagerController@showChangePasswordForm')->name('ChangePassword-Manager');
+            Route::post('changepassword', 'ManagerController@updatePassword')->name('ChangePassword-Manager');
+            
             Route::get('registerpickupman', 'Auth\RegisterController@showPickupmanRegisterForm')->name('RegisterPickupman');
             Route::post('registerpickupman', 'Auth\RegisterController@createPickupman')->name('RegisterPickupman');
             Route::get('displaypickupmen', 'PickupmanController@index')->name('DisplayPickupmen');
@@ -92,6 +98,10 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::group(['middleware' => ['auth:pickupman']], function () {
             Route::get('/', 'PickupmanController@showDashboard');
             Route::get('logout', 'Auth\LogoutController@pickupmanLogout');
+            Route::get('profile', 'PickupmanController@showProfile')->name('Profile-Pickupman');
+            Route::get('changepassword', 'PickupmanController@showChangePasswordForm')->name('ChangePassword-Pickupman');
+            Route::post('changepassword', 'PickupmanController@updatePassword')->name('ChangePassword-Pickupman');
+            
             Route::get('pendingdonations', 'PickupmanController@viewPendingDonations')->name('ViewPDs-Pickupman');
             Route::get('updatependingdonation/{id}', 'PickupmanController@updatePendingDonation');
             Route::get('handindonations', 'PickupmanController@viewTakenDonations')->name('ViewTDs-Pickupman');
@@ -107,7 +117,10 @@ Route::group(['prefix' => 'ngo'], function () {
     Route::group(['prefix' => 'verifier'], function () {
         Route::group(['middleware' => ['auth:verifier']], function () {
             Route::get('/', 'VerifierController@showDashboard');
-            Route::get('logout', 'Auth\LogoutController@verifierLogout');
+            Route::get('profile', 'VerifierController@showProfile')->name('Profile-Verifier');
+            Route::get('logout', 'Auth\LogoutController@verifierLogout')->name('Logout-Verifier');
+            Route::get('changepassword', 'VerifierController@showChangePasswordForm')->name('ChangePassword-Verifier');
+            Route::post('changepassword', 'VerifierController@updatePassword')->name('ChangePassword-Verifier');
             Route::get('pendingdonations', 'VerifierController@viewPendingDonations')->name('ViewPDs-Verifier');
             Route::get('takependingdonation/{id}', 'VerifierController@takePendingDonation');
             Route::get('takendonation', 'VerifierController@viewTakenDonation')->name('ViewTD-Verifier');

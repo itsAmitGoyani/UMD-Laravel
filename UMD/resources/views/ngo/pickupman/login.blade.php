@@ -52,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="{{ route('ForgotPassword-Pickupman') }}">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -62,6 +62,9 @@
                                     </form>
                                     <div class="new-account mt-3">
                                         <p>Don't have a password? <a class="text-primary" href="{{ route('Pickupman-CreatePassword') }}">Create Password</a></p>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <a class="text-primary" href="{{ route('NGOPanel') }}">Go to NGO Panel</a>
                                     </div>
                                 </div>
                             </div>

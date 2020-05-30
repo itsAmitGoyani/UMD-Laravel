@@ -46,10 +46,17 @@
                 <div class="text-center">
                     <button type="submit" class="btn_3 ">Login</button>
                 </div>
+                <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                    <div class="form-group">
+                        <div class="new-account">
+                            <p>Don't have an account? <a class="text-primary" href="{{ route('RegisterDonator') }}">Register</a></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p><a class="text-primary" href="{{ route('ForgotPassword-Donator') }}">Forgot Password?</a></p>
+                    </div>
+                </div>
             </form>
-            <div class="new-account mt-3">
-                <p>Don't have an account? <a class="text-primary" href="{{ route('RegisterDonator') }}">Register</a></p>
-            </div>
         </div>
     </div>
 </div>

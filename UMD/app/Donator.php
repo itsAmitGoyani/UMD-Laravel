@@ -28,6 +28,7 @@ class Donator extends Authenticatable
         'state',
         'pincode',
         'profileimage',
+        'token',
     ];
 
     /**

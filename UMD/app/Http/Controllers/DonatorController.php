@@ -7,8 +7,12 @@ use App\Ngo;
 use App\Donator;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DonatorController extends Controller
 {
@@ -20,6 +24,98 @@ class DonatorController extends Controller
     public function index()
     {
         return view('donator.home');
+    }
+
+    public function showProfile()
+    {
+        if($donator = Donator::where('id',Auth::user()->id)->first())
+            return view('donator.profile',['donator' => $donator]);
+        else
+            return back()->withErrors(['errmsg' => 'Unknown error.']);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('donator.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:8',
+            'NewPassword' => 'required|string|min:8|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Donator::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('donator')->logout();
+                return redirect('/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('donator.forgotPassword'); 
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ])->validate();
+        if($donator = Donator::where('email',$request->email)->first())
+        {
+            $token = Str::random(6);
+            if(Donator::where('email',$request->email)->update(['token' => $token]))
+            {
+                $data = array(
+                    'greeting' => 'Hey',
+                    'name' => $donator['name'],
+                    'token' => $token,
+                    'body' => 'Here is the token for create New Password !'
+                );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($donator) {
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+                    $message->to($donator['email'], $donator['name']);
+                    $message->subject('Token for create New Password');
+                });
+
+                return redirect()->route('CreatePassword-Donator')
+                    ->with('success', 'Token for create new password sent to your email. Create new password here.');
+            }else{
+                return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
+            }
+        }else{
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
+        }
+    }
+    
+    public function showCreatePasswordForm()
+    {
+        return view('donator.createPassword');
+    }
+
+    public function createPassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:donators,email',
+            'token' => 'required|string|size:6',
+            'password' => 'required|min:8',
+            'confirmpassword' => 'required|min:8|same:password'
+        ]);
+        $manager = Donator::where(['email' => $request->email, 'token' => $request->token])
+            ->update(['password' => Hash::make($request->password)]);
+        if ($manager) {
+            return redirect('/login')->with('success', 'Password created Successfully.');
+        }
+        return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Token.']);
     }
 
     public function disabledates(Request $request)

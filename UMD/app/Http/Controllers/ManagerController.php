@@ -10,18 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function showdashboard()
     {
         return view('ngo.manager.dashboard');
@@ -62,6 +57,43 @@ class ManagerController extends Controller
             }
         }else{
             return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('ngo.manager.forgotPassword'); 
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ])->validate();
+        if($manager = Manager::where('email',$request->email)->first())
+        {
+            $token = Str::random(6);
+            if(Manager::where('email',$request->email)->update(['token' => $token]))
+            {
+                $data = array(
+                    'greeting' => 'Hey',
+                    'name' => $manager['name'],
+                    'token' => $token,
+                    'body' => 'Here is the token for create New Password !'
+                );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($manager) {
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+                    $message->to($manager['email'], $manager['name']);
+                    $message->subject('Token for create New Password');
+                });
+
+                return redirect()->route('Manager-CreatePassword')
+                    ->with('success', 'Token for create new password sent to your email. Create new password here.');
+            }else{
+                return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
+            }
+        }else{
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
         }
     }
 

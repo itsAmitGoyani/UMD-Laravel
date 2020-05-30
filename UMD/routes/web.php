@@ -25,38 +25,40 @@ Route::get('/home', 'HomeController@index')->name('home');
 // All routes with admin prefix and uses by admin only
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'AdminController@index');
-    Route::get('login', 'Auth\LoginController@showAdminLoginForm');
+    Route::group(['middleware' => ['auth:admin']], function () {
+        Route::get('/', 'AdminController@index');
+        Route::get('registerngo', 'NgosController@create');
+        Route::post('registerngo', 'NgosController@store')->name('admin-registerngo');
+        Route::get('displayngos', 'NgosController@index')->name('admin-displayngos');
+        Route::get('ngos/{ngo_id}/edit', 'NgosController@edit');
+        Route::put('ngos/{id}', 'NgosController@update');
+        Route::delete('ngos/{id}', 'NgosController@destroy');
+
+        Route::get('registermanager', 'Auth\RegisterController@showManagerRegisterForm');
+        Route::post('registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
+        Route::get('displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
+        Route::get('managers/{ngo_id}/edit', 'ManagerController@edit');
+        Route::put('managers/{id}', 'ManagerController@update');
+        Route::delete('managers/{id}', 'ManagerController@destroy');
+
+        Route::get('logout', 'Auth\LogoutController@adminLogout');
+        Route::get('profile', 'AdminController@showProfile')->name('Profile-Admin');
+        Route::get('changepassword', 'AdminController@showChangePasswordForm')->name('ChangePassword-Admin');
+        Route::post('changepassword', 'AdminController@updatePassword')->name('ChangePassword-Admin');
+                
+        Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
+        Route::get('blockdonator/{id}', 'AdminController@blockDonator');
+        Route::get('warndonator/{id}', 'AdminController@warnDonator');
+    });
+    Route::get('login', 'Auth\LoginController@showAdminLoginForm')->name('admin-login');
     Route::post('login', 'Auth\LoginController@adminLogin')->name('admin-login');
-    Route::get('registerngo', 'NgosController@create');
-    Route::post('registerngo', 'NgosController@store')->name('admin-registerngo');
-    Route::get('displayngos', 'NgosController@index')->name('admin-displayngos');
-    Route::get('ngos/{ngo_id}/edit', 'NgosController@edit');
-    Route::put('ngos/{id}', 'NgosController@update');
-    Route::delete('ngos/{id}', 'NgosController@destroy');
-
-    Route::get('registermanager', 'Auth\RegisterController@showManagerRegisterForm');
-    Route::post('registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
-    Route::get('displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
-    Route::get('managers/{ngo_id}/edit', 'ManagerController@edit');
-    Route::put('managers/{id}', 'ManagerController@update');
-    Route::delete('managers/{id}', 'ManagerController@destroy');
-
-    Route::get('logout', 'Auth\LogoutController@adminLogout');
-    Route::get('profile', 'AdminController@showProfile')->name('Profile-Admin');
-    Route::get('changepassword', 'AdminController@showChangePasswordForm')->name('ChangePassword-Admin');
-    Route::post('changepassword', 'AdminController@updatePassword')->name('ChangePassword-Admin');
-            
-    Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
-    Route::get('blockdonator/{id}', 'AdminController@blockDonator');
-    Route::get('warndonator/{id}', 'AdminController@warnDonator');
 });
 
 
 Route::group(['prefix' => 'ngo'], function () {
     Route::get('/', function () {
         return view('ngo.home');
-    });
+    })->name('NGOPanel');
     //All routes with manager prefix and uses by manager only
     Route::group(['prefix' => 'manager'], function () {
         Route::group(['middleware' => ['auth:manager']], function () {
@@ -91,6 +93,8 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');
         Route::get('createpassword', 'Auth\LoginController@showManagerCreatePasswordForm')->name('Manager-CreatePassword');
         Route::post('createpassword', 'Auth\LoginController@managerCreatePassword')->name('Manager-CreatePassword');
+        Route::get('forgotpassword', 'ManagerController@showForgotPasswordForm')->name('ForgotPassword-Manager');
+        Route::post('forgotpassword', 'ManagerController@forgotPassword')->name('ForgotPassword-Manager');
     });
 
     //All routes with pickupman prefix and uses by pickupman only
@@ -111,6 +115,8 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::post('login', 'Auth\LoginController@pickupmanLogin')->name('pickupman-login');
         Route::get('createpassword', 'Auth\LoginController@showPickupmanCreatePasswordForm')->name('Pickupman-CreatePassword');
         Route::post('createpassword', 'Auth\LoginController@pickupmanCreatePassword')->name('Pickupman-CreatePassword');
+        Route::get('forgotpassword', 'PickupmanController@showForgotPasswordForm')->name('ForgotPassword-Pickupman');
+        Route::post('forgotpassword', 'PickupmanController@forgotPassword')->name('ForgotPassword-Pickupman');
     });
 
     //All routes with verifier prefix and uses by pickupman only
@@ -135,21 +141,30 @@ Route::group(['prefix' => 'ngo'], function () {
         Route::post('login', 'Auth\LoginController@verifierLogin')->name('verifier-login');
         Route::get('createpassword', 'Auth\LoginController@showVerifierCreatePasswordForm')->name('Verifier-CreatePassword');
         Route::post('createpassword', 'Auth\LoginController@verifierCreatePassword')->name('Verifier-CreatePassword');
+        Route::get('forgotpassword', 'VerifierController@showForgotPasswordForm')->name('ForgotPassword-Verifier');
+        Route::post('forgotpassword', 'VerifierController@forgotPassword')->name('ForgotPassword-Verifier');
     });
 });
 
 
-Route::get('/', 'DonatorController@index');
+Route::get('/', 'DonatorController@index')->name('MedCharity');
 Route::get('login', 'Auth\LoginController@showDonatorLoginForm')->name('LoginDonator');
 Route::get('register', 'Auth\RegisterController@showDonatorRegisterForm')->name('RegisterDonator');
 Route::post('register', 'Auth\RegisterController@createDonator')->name('RegisterDonator');
 Route::post('login', 'Auth\LoginController@donatorLogin')->name('LoginDonator');
-
+Route::get('forgotpassword', 'DonatorController@showForgotPasswordForm')->name('ForgotPassword-Donator');
+Route::post('forgotpassword', 'DonatorController@forgotPassword')->name('ForgotPassword-Donator');
+Route::get('createpassword', 'DonatorController@showCreatePasswordForm')->name('CreatePassword-Donator');
+Route::post('createpassword', 'DonatorController@createPassword')->name('CreatePassword-Donator');
+        
 Route::group(['middleware' => ['auth:donator']], function () {
-    //Route::get('/', 'DonatorController@index');
     Route::get('donate', 'DonatorController@showDonateForm');
     Route::post('donate', 'DonatorController@donate')->name('Donate');
     Route::get('disabledates', 'DonatorController@disabledates');
     Route::get('donations', 'DonatorController@viewDonations')->name('viewDonations-Donator');
+    Route::get('profile', 'DonatorController@showProfile');
+    Route::get('changepassword', 'DonatorController@showChangePasswordForm')->name('ChangePassword-Donator');
+    Route::post('changepassword', 'DonatorController@updatePassword')->name('ChangePassword-Donator');
+            
     Route::get('logout', 'Auth\LogoutController@donatorLogout');
 });

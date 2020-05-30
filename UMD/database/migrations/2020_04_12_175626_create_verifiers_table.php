@@ -17,7 +17,7 @@ class CreateVerifiersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('token')->unique();
+            $table->string('token',20)->nullable();
             $table->string('password')->nullable();
             $table->string('profileimage');
             $table->integer('ngo_id')->unsigned();

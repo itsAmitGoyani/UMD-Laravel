@@ -6819,7 +6819,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 23, ../../01 cl html template/03_jun 2019/183_Charity_html/sass/_breadcrumb.scss */
 .breadcrumb .breadcrumb_iner {
-  height: 500px;
+  height: 300px;
   width: 100%;
   display: table;
 }
@@ -6833,7 +6833,7 @@ h1, h2, h3, h4, h5, h6 {
 /* line 32, ../../01 cl html template/03_jun 2019/183_Charity_html/sass/_breadcrumb.scss */
 .breadcrumb .breadcrumb_iner .breadcrumb_iner_item h2 {
   color: #fff;
-  font-size: 100px;
+  font-size: 60px;
   font-weight: 700;
   margin-bottom: 10px;
   text-transform: capitalize;

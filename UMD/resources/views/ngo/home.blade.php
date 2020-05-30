@@ -37,6 +37,9 @@
                                                 <button class="btn btn-primary btn-block">Pickupman Login</button>
                                             </a>
                                         </div>
+                                        <div class="text-center mt-3">
+                                            <a class="text-primary" href="{{ route('MedCharity') }}">Go to MedCharity</a>
+                                        </div>
                                     <!-- </form> -->
                                 </div>
                             </div>

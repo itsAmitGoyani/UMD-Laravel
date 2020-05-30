@@ -210,13 +210,15 @@ class RegisterController extends Controller
             ]);
             if ($manager) {
                 $data = array(
+                    'greeting' => 'Welcome',
                     'name' => $request->name,
                     'token' => $token,
-                    'body' => 'The above token is for Create Your Password!!'
+                    'body' => 'Here is the token for Create Your Password !'
                 );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
-                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
                     $message->to($request->email, $request->name);
+                    $message->subject('Token for create Password');
                 });
 
                 return redirect()->route('admin-registermanager')
@@ -271,13 +273,15 @@ class RegisterController extends Controller
             ]);
             if ($pickupman) {
                 $data = array(
+                    'greeting' => 'Welcome',
                     'name' => $request->name,
                     'token' => $token,
-                    'body' => 'The above token is for Create Your Password!!'
+                    'body' => 'Here is the token for Create Your Password !'
                 );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
-                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
                     $message->to($request->email, $request->name);
+                    $message->subject('Token for create Password');
                 });
 
                 return redirect()->route('DisplayPickupmen')
@@ -329,13 +333,15 @@ class RegisterController extends Controller
             ]);
             if ($verifier) {
                 $data = array(
+                    'greeting' => 'Welcome',
                     'name' => $request->name,
                     'token' => $token,
-                    'body' => 'The above token is for Create Your Password!!'
+                    'body' => 'Here is the token for Create Your Password !'
                 );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
-                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
                     $message->to($request->email, $request->name);
+                    $message->subject('Token for create Password');
                 });
 
                 return redirect()->route('DisplayVerifier')

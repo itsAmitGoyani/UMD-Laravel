@@ -17,6 +17,7 @@ use App\MedicineStockExpiration;
 use App\DonationMedicineExpiration;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,6 +63,43 @@ class VerifierController extends Controller
             }
         }else{
             return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('ngo.verifier.forgotPassword'); 
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ])->validate();
+        if($verifier = Verifier::where('email',$request->email)->first())
+        {
+            $token = Str::random(6);
+            if(Verifier::where('email',$request->email)->update(['token' => $token]))
+            {
+                $data = array(
+                    'greeting' => 'Hey',
+                    'name' => $verifier['name'],
+                    'token' => $token,
+                    'body' => 'Here is the token for create New Password !'
+                );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($verifier) {
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+                    $message->to($verifier['email'], $verifier['name']);
+                    $message->subject('Token for create New Password');
+                });
+
+                return redirect()->route('Verifier-CreatePassword')
+                    ->with('success', 'Token for create new password sent to your email. Create new password here.');
+            }else{
+                return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
+            }
+        }else{
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
         }
     }
 

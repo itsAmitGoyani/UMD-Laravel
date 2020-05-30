@@ -20,7 +20,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Manager Login</h4>
+                                    <h4 class="text-center mb-4">NGO Manager Login</h4>
                                     @include('partial.customerror')
                                     @include('partial.success')
                                     <form method="POST" action="{{ route('manager-login') }}">
@@ -52,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="{{ route('ForgotPassword-Manager') }}">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -61,6 +61,9 @@
                                     </form>
                                     <div class="new-account mt-3">
                                         <p>Don't have a password? <a class="text-primary" href="{{ route('Manager-CreatePassword') }}">Create Password</a></p>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <a class="text-primary" href="{{ route('NGOPanel') }}">Go to NGO Panel</a>
                                     </div>
                                 </div>
                             </div>

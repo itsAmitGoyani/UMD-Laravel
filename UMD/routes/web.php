@@ -49,31 +49,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
         Route::get('blockdonator/{id}', 'AdminController@blockDonator');
         Route::get('warndonator/{id}', 'AdminController@warnDonator');
+
+        Route::get('medicinestock', 'AdminController@viewMedicineStock');
+        Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');    
     });
     Route::get('login', 'Auth\LoginController@showAdminLoginForm')->name('admin-login');
     Route::post('login', 'Auth\LoginController@adminLogin')->name('admin-login');
-    Route::get('registerngo', 'NgosController@create');
-    Route::post('registerngo', 'NgosController@store')->name('admin-registerngo');
-    Route::get('displayngos', 'NgosController@index')->name('admin-displayngos');
-    Route::get('ngos/{ngo_id}/edit', 'NgosController@edit');
-    Route::put('ngos/{id}', 'NgosController@update');
-    Route::delete('ngos/{id}', 'NgosController@destroy');
-
-    Route::get('registermanager', 'Auth\RegisterController@showManagerRegisterForm');
-    Route::post('registermanager', 'Auth\RegisterController@createManager')->name('admin-registermanager');
-    Route::get('displaymanagers', 'ManagerController@index')->name('admin-displaymanagers');
-    Route::get('managers/{ngo_id}/edit', 'ManagerController@edit');
-    Route::put('managers/{id}', 'ManagerController@update');
-    Route::delete('managers/{id}', 'ManagerController@destroy');
-
-    Route::get('logout', 'Auth\LogoutController@adminLogout');
-
-    Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
-    Route::get('blockdonator/{id}', 'AdminController@blockDonator');
-    Route::get('warndonator/{id}', 'AdminController@warnDonator');
-
-    Route::get('medicinestock', 'AdminController@viewMedicineStock');
-    Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
 });
 
 

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from demo.themefisher.com/focus/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:06 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,9 +14,6 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-
 </head>
 
 <body>
@@ -131,30 +125,13 @@
                             <li><a href="/admin/displaymanagers">{{ __('Display All Manager') }}</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
-                    <li><a class="has-arrow" href="/admin/medicinestock" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
-                    <li class="nav-label">Apps</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="app-profile.html">Profile</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="email-compose.html">Compose</a></li>
-                                    <li><a href="email-inbox.html">Inbox</a></li>
-                                    <li><a href="email-read.html">Read</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="app-calender.html">Calendar</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/admin/medicinestock" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
                     <li><a href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
                     <li><a href="{{ route('Profile-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
                     <li><a href="{{ route('ChangePassword-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                 </ul>
             </div>
-
-
         </div>
         <!--**********************************
             Sidebar end
@@ -167,18 +144,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
-
-
-
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
 
     </div>
     <!--**********************************
@@ -225,16 +190,9 @@
     <script src="{{ asset('js/quixnav-init.js') }}"></script>
     <script src="{{ asset('js/custom.min.js') }}"></script> -->
 
-
-
     <!-- Datatable -->
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/plugins-init/datatables.init.js') }}"></script>
-
-
 </body>
-
-
-<!-- Mirrored from demo.themefisher.com/focus/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:32 GMT -->
 
 </html>

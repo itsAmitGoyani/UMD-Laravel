@@ -12,4 +12,14 @@ class MedicineStock extends Model
         'medicine_id',
         'qty',
     ];
+
+    public function ngo()
+    {
+        return $this->belongsTo('App\Ngo');
+    }
+
+    public function medicine()
+    {
+        return $this->belongsTo('App\Medicine');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ngo;
 use App\Manager;
 use App\Donation;
+use App\MedicineStock;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -87,6 +88,12 @@ class ManagerController extends Controller
         $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
         $all = Donation::orderby('datetime', 'desc')->get();
         return view('ngo.manager.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
+    }
+
+    public function viewMedicineStock()
+    {
+        $medicinestock = MedicineStock::where('ngo_id', Auth::user()->ngo_id)->get();
+        return view('ngo.manager.viewMedicineStock', ['medicinestocks' => $medicinestock]);
     }
     /**
      * Show the form for creating a new resource.

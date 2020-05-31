@@ -47,6 +47,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
     Route::get('blockdonator/{id}', 'AdminController@blockDonator');
     Route::get('warndonator/{id}', 'AdminController@warnDonator');
+
+    Route::get('medicinestock', 'AdminController@viewMedicineStock');
+    Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
 });
 
 
@@ -80,6 +83,8 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('editdpd', 'ManagerController@showDPDForm')->name('EditDPD-Manager');
             Route::post('updatedpd', 'ManagerController@updateDPD')->name('UpdateDPD-Manager');
             Route::get('donationhistory', 'ManagerController@viewDonationHistory')->name('ViewDonationHistory-Manager');
+
+            Route::get('medicinestock', 'ManagerController@viewMedicineStock')->name('ViewMedicineStock-Manager');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');

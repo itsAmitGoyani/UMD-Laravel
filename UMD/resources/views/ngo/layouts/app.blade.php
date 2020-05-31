@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.theme.default.min.css') }}">
     <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -211,6 +212,7 @@
                     </li>
                     <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a>
                     <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
+                    <li><a href="{{ route('ViewMedicineStock-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a>
                     <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a>
                         @endif
                         @if(Auth::guard('verifier')->check())
@@ -385,6 +387,16 @@
 
 
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+
+    <!-- <script src="{{ asset('vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('js/quixnav-init.js') }}"></script>
+    <script src="{{ asset('js/custom.min.js') }}"></script> -->
+
+
+
+    <!-- Datatable -->
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/plugins-init/datatables.init.js') }}"></script>
 
 </body>
 

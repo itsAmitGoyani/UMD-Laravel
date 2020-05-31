@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.theme.default.min.css') }}">
     <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -200,6 +201,7 @@
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
+                    <li><a class="has-arrow" href="/admin/medicinestock" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-app-store"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">
@@ -281,6 +283,19 @@
 
 
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+
+    <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+
+    <!-- <script src="{{ asset('vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('js/quixnav-init.js') }}"></script>
+    <script src="{{ asset('js/custom.min.js') }}"></script> -->
+
+
+
+    <!-- Datatable -->
+    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/plugins-init/datatables.init.js') }}"></script>
+
 
 </body>
 

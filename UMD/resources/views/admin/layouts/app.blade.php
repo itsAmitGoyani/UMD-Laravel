@@ -48,7 +48,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index-2.html" class="brand-logo">
+            <a href="/admin" class="brand-logo">
                 <img class="logo-abbr" src="{{ asset('images/logo.png')}}" alt="">
                 <img class="logo-compact" src="{{ asset('images/logo-text.png')}}" alt="">
                 <img class="brand-title" src="{{ asset('images/logo-text.png')}}" alt="">
@@ -85,84 +85,22 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <i class="mdi mdi-bell"></i>
-                                    <div class="pulse-css"></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                    <a class="all-notification" href="#">See all notifications <i class="ti-arrow-right"></i></a>
-                                </div>
+                            <li class="nav-item">
+                                <span>Welcome, {{Auth::user()->name}} ! </span>
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="app-profile.html" class="dropdown-item">
+                                    <a href="/admin/profile" class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
-                                    <a href="email-inbox.html" class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-
                                     <a href="/admin/logout" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout</span>
                                     </a>
-
                                 </div>
                             </li>
                         </ul>
@@ -181,13 +119,6 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="index-2.html">Dashboard 1</a></li>
-                            <li><a href="index2.html">Dashboard 2</a></li>
-                        </ul>
-                    </li> -->
-
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="/admin/registerngo">{{ __('Register NGO') }}</a></li>
@@ -216,6 +147,10 @@
                             <li><a href="app-calender.html">Calendar</a></li>
                         </ul>
                     </li>
+                    <li><a href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
+                    <li class="nav-label">User Menu</li>
+                    <li><a href="{{ route('Profile-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
+                    <li><a href="{{ route('ChangePassword-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                 </ul>
             </div>
 

@@ -17,7 +17,7 @@ class CreateManagersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('token')->unique();
+            $table->string('token',20)->nullable();
             $table->string('password')->nullable();
             $table->integer('ngo_id')->unsigned();
             $table->string('profileimage');

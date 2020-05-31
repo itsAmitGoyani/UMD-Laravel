@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Charity</title>
+    <title>MedCharity</title>
     <link rel="icon" href="/dpanel/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/dpanel/css/bootstrap.min.css">
@@ -49,53 +49,32 @@
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html">about</a>
+                                    <a class="nav-link" href="#">about</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Causes.html">Causes</a>
+                                    <a class="nav-link" href="#">Causes</a>
                                 </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pages
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="Event.html">Event</a>
-                                        <a class="dropdown-item" href="elements.html">Elements</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        blog
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="blog.html">blog</a>
-                                        <a class="dropdown-item" href="single-blog.html">Single blog</a>
-                                    </div>
-                                </li>
-
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Profile
-                                    </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        @if(Auth::guard('donator')->check())
-                                        <a class="dropdown-item" href="/logout">Logout</a>
-                                        @else
-                                        <a class="dropdown-item" href="/login">Login</a>
-                                        <a class="dropdown-item" href="/register">Register</a>
-                                        @endif
-                                    </div>
+                                    <a class="nav-link" href="#">Contact</a>
                                 </li>
                                 @if(Auth::guard('donator')->check())
-                                <li class="d-none d-lg-block">
-                                    <a class="btn_2" href="{{ route('viewDonations-Donator') }}">View Donations</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('viewDonations-Donator') }}">Donation History</a>
                                 </li>
-                                @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+                                @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register">Register</a>
+                                </li>
+                                @endif                                
                             </ul>
                         </div>
                     </nav>
@@ -105,141 +84,13 @@
     </header>
     <!-- Header part end-->
 
-    <!-- breadcrumb start-->
-    <!-- breadcrumb end-->
-
     @yield('content')
-
-    <!--::passion part start::-->
-    <!-- <section class="passion_part passion_section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-md-8">
-                    <div class="section_tittle">
-                        <h2>Our Causes</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna </p>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-lg-4 col-xl-4">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img src="/dpanel/img/passion/passion_1.png" class="card-img-top" alt="blog">
-                            <div class="card-body">
-
-                                <a href="#">
-                                    <h5 class="card-title">Fourth created forth fill
-                                        created subdue be </h5>
-                                </a>
-                                <ul>
-                                    <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn_2">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 col-xl-4">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img src="/dpanel/img/passion/passion_2.png" class="card-img-top" alt="blog">
-                            <div class="card-body">
-                                <a href="#">
-                                    <h5 class="card-title">Fourth created forth fill
-                                        created subdue be </h5>
-                                </a>
-                                <ul>
-                                    <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn_2">read more</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 col-xl-4">
-                    <div class="single-home-passion">
-                        <div class="card">
-                            <img src="/dpanel/img/passion/passion_3.png" class="card-img-top" alt="blog">
-                            <div class="card-body">
-                                <a href="#">
-                                    <h5 class="card-title">Fourth created forth fill
-                                        created subdue be </h5>
-                                </a>
-                                <ul>
-                                    <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                    <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                                </ul>
-                                <div class="skill">
-                                    <div class="skill-bar skill11 wow slideInLeft animated">
-                                        <span class="skill-count11">75%</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn_2">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!--::passion part end::-->
-
-    <!--::our client part start::-->
-    <!-- <section class="client_part padding_bottom">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6">
-                    <div class="section_tittle text-center">
-                        <h2>Who Donate us</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="client_logo owl-carousel">
-                        <div class="single_client_logo">
-                            <img src="/dpanel/img/client_logo/Logo_1.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="/dpanel/img/client_logo/Logo_2.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="/dpanel/img/client_logo/Logo_3.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="/dpanel/img/client_logo/Logo_4.png" alt="">
-                        </div>
-                        <div class="single_client_logo">
-                            <img src="/dpanel/img/client_logo/Logo_5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!--::our client part end::-->
 
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="container">
-            <div class="row justify-content-around">
-                <div class="col-sm-6 col-lg-3">
+            <div class="row justify-content-center">
+                <div class="col-sm-8 col-lg-4">
                     <div class="single_footer_part">
                         <img src="/dpanel/img/footer_logo.png" class="footer_logo" alt="">
                         <p>Heaven fruitful doesn't over lesser days appear creeping seasons so behold bearing days open
@@ -257,7 +108,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-2">
+                <div class="col-sm-4 col-lg-2">
+                    
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="single_footer_part">
+                        <h4>Useful Links</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
+                            <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part">
                         <h4>Causes</h4>
                         <ul class="list-unstyled">
@@ -269,7 +132,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <!-- <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part footer_3">
                         <h4> our Gallery</h4>
                         <div class="footer_img">
@@ -299,8 +162,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
+                </div> -->
+                <!-- <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part">
                         <h4>Newsletter</h4>
                         <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold bearing days
@@ -314,29 +177,17 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <hr>
-            <div class="row">
-                <div class="col-lg-6">
+            <div class="text-center">
+                <div class="col-lg-12">
                     <div class="copyright_text">
                         <P>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </script> All rights reserved
                         </P>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="footer_icon social_icon">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

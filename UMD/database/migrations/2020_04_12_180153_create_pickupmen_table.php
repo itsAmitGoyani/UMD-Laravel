@@ -17,7 +17,7 @@ class CreatePickupmenTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('token')->unique();
+            $table->string('token',20)->nullable();
             $table->string('password')->nullable();
             $table->string('contact',10)->unique();
             $table->integer('ngo_id')->unsigned();

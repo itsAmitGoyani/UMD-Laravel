@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb_iner">
                     <div class="breadcrumb_iner_item text-center">
-                        <h2>View Donations</h2>
+                        <h2>View Donation History</h2>
                     </div>
                 </div>
             </div>

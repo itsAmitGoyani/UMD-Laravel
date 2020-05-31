@@ -9,14 +9,18 @@ use App\Donation;
 use App\BadFeedback;
 use App\MedicineStock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        //$this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -26,6 +30,38 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.dashboard');
+    }
+
+    public function showProfile()
+    {
+        $admin = Admin::where('id',Auth::user()->id)->first();
+        return view('admin.profile',['admin' => $admin]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('admin.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:6',
+            'NewPassword' => 'required|string|min:6|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:6|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Admin::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('admin')->logout();
+                return redirect('/admin/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
     }
 
     public function showBlockDonatorsForm()
@@ -165,4 +201,63 @@ class AdminController extends Controller
     {
         //
     }
+
+    // public function showForgotPasswordForm()
+    // {
+    //     return view('admin.forgotPassword'); 
+    // }
+
+    // public function forgotPassword(Request $request)
+    // {
+    //     Validator::make($request->all(), [
+    //         'email' => ['required', 'string', 'email', 'max:255'],
+    //     ])->validate();
+    //     if($admin = Admin::where('email',$request->email)->first())
+    //     {
+    //         $token = Str::random(6);
+    //         if(Admin::where('email',$request->email)->update(['token' => $token]))
+    //         {
+    //             $data = array(
+    //                 'greeting' => 'Hey',
+    //                 'name' => $admin['name'],
+    //                 'token' => $token,
+    //                 'body' => 'Here is the token for create New Password !'
+    //             );
+    //             Mail::send('emailLayouts.createpassword', $data, function ($message) use ($admin) {
+    //                 $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+    //                 $message->to($admin['email'], $admin['name']);
+    //                 $message->subject('Token for create New Password');
+    //             });
+
+    //             return redirect()->route('CreatePassword-Admin')
+    //                 ->with('success', 'Token for create new password sent to your email. Create new password here.');
+    //         }else{
+    //             return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
+    //         }
+    //     }else{
+    //         return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
+    //     }
+    // }
+
+    // public function showCreatePasswordForm()
+    // {
+    //     return view('admin.createPassword');
+    // }
+
+    // public function createPassword(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'email' => 'required|email|exists:managers,email',
+    //         'token' => 'required|string|size:6',
+    //         'password' => 'required|min:8',
+    //         'confirmpassword' => 'required|min:8|same:password'
+    //     ]);
+    //     $admin = Admin::where(['email' => $request->email, 'token' => $request->token])
+    //         ->update(['password' => Hash::make($request->password)]);
+    //     if ($admin) {
+    //         return redirect()->route('admin-login')->with('success', 'Password created Successfully.');
+    //     }
+    //     return back()->withInput()->withErrors(['errmsg' => 'Invalid Email or Token.']);
+    // }
+
 }

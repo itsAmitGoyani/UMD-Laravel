@@ -15,7 +15,7 @@
                                         <h4 class="text-center mb-4">Add Medicine Category</h4>
                                         @include('partial.customerror')
                                         @include('partial.success')
-                                        <form method="POST" action="{{ route('AddMedicineCategory-Verifier') }}">
+                                        <form method="POST" action="{{ route('AddMCategory-Verifier') }}">
                                             @csrf
                                             <div class="form-group">
                                                 <label><strong>Medicine Category</strong></label>
@@ -27,7 +27,7 @@
                                                 @enderror
                                             </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                                <button type="submit" class="btn btn-primary btn-block">Add</button>
                                             </div>
                                         </form>
                                     </div>

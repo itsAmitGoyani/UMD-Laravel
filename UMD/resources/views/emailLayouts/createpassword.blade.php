@@ -1,22 +1,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Oxygen Invoice</title>
+  <title>Create Password</title>
 
   <style type="text/css">
     /* Take care of image borders and formatting, client hacks */
-    img { max-width: 600px; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;}
-    a img { border: none; }
-    table { border-collapse: collapse !important;}
-    #outlook a { padding:0; }
-    .ReadMsgBody { width: 100%; }
-    .ExternalClass { width: 100%; }
-    .backgroundTable { margin: 0 auto; padding: 0; width: 100% !important; }
-    table td { border-collapse: collapse; }
-    .ExternalClass * { line-height: 115%; }
-    .container-for-gmail-android { min-width: 600px; }
+    img {
+      max-width: 600px;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    a img {
+      border: none;
+    }
+
+    table {
+      border-collapse: collapse !important;
+    }
+
+    #outlook a {
+      padding: 0;
+    }
+
+    .ReadMsgBody {
+      width: 100%;
+    }
+
+    .ExternalClass {
+      width: 100%;
+    }
+
+    .backgroundTable {
+      margin: 0 auto;
+      padding: 0;
+      width: 100% !important;
+    }
+
+    table td {
+      border-collapse: collapse;
+    }
+
+    .ExternalClass * {
+      line-height: 115%;
+    }
+
+    .container-for-gmail-android {
+      min-width: 600px;
+    }
 
 
     /* General styling */
@@ -163,12 +198,11 @@
     }
 
     .force-width-gmail {
-      min-width:600px;
+      min-width: 600px;
       height: 0px !important;
       line-height: 1px !important;
       font-size: 1px !important;
     }
-
   </style>
 
   <style type="text/css" media="screen">
@@ -177,6 +211,7 @@
 
   <style type="text/css" media="screen">
     @media screen {
+
       /* Thanks Outlook 2013! */
       * {
         font-family: 'Oxygen', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
@@ -222,7 +257,7 @@
         padding: 5px 0 5px !important;
       }
 
-       td[class="button"] {
+      td[class="button"] {
         padding: 5px 5px 30px !important;
       }
 
@@ -266,33 +301,32 @@
 </head>
 
 <body bgcolor="#f7f7f7">
-<table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
-  <tr>
-    <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
-      <center>
-        <table cellspacing="0" cellpadding="0" width="600" class="w320">
-          <tr>
-            <td class="header-lg">
-                Welcome {{$name}} !
-            </td>
-          </tr>
-          <tr>
-            <td class="free-text" style="font-size:20px">
-                Here is your token for Create your Password.
-            </td>
-          </tr>
-          <tr>
-            <td class="button">
-              <div><!--[if mso]>
-                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:45px;v-text-anchor:middle;width:155px;" arcsize="15%" strokecolor="#ffffff" fillcolor="#ff6f6f">
-                  <w:anchorlock/>
-                  <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">My Account</center>
-                </v:roundrect>
-              <![endif]--><a href="#"
-              style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:'Cabin', Helvetica, Arial, sans-serif;font-size:24px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">{{$token}}</a></div>
-            </td>
-          </tr>
-</table>
-</div>
+  <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
+    <tr>
+      <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
+        <center>
+          <table cellspacing="0" cellpadding="0" width="600" class="w320">
+            <tr>
+              <td class="header-lg">
+                {{$greeting}} {{$name}} !
+              </td>
+            </tr>
+            <tr>
+              <td class="free-text" style="font-size:20px">
+                {{$body}}
+              </td>
+            </tr>
+            <tr>
+              <td class="button">
+                <div>
+                  <a href="#" style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:'Cabin', Helvetica, Arial, sans-serif;font-size:24px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">
+                    {{$token}}
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </table>
+          </div>
 </body>
+
 </html>

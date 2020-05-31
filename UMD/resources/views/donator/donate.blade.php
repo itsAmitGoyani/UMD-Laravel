@@ -8,9 +8,8 @@
     <title>Charity</title>
     <link rel="icon" href="/dpanel/img/favicon.png">
 
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/dpanel/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/dpanel/css/bootstrap.min.css"> -->
     <!-- animate CSS -->
     <link rel="stylesheet" href="/dpanel/css/animate.css">
     <!-- owl carousel CSS -->
@@ -30,9 +29,9 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="/dpanel/css/style.css">
 
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet" />
-
+    
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 </head>
@@ -60,46 +59,22 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="Causes.html">Causes</a>
                                 </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pages
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="Event.html">Event</a>
-                                        <a class="dropdown-item" href="elements.html">Elements</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        blog
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="blog.html">blog</a>
-                                        <a class="dropdown-item" href="single-blog.html">Single blog</a>
-                                    </div>
-                                </li>
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Contact</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Profile
-                                    </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        @if(Auth::guard('donator')->check())
-                                        <a class="dropdown-item" href="/logout">Logout</a>
-                                        @else
-                                        <a class="dropdown-item" href="/login">Login</a>
-                                        <a class="dropdown-item" href="/register">Register</a>
-                                        @endif
-                                    </div>
-                                </li>
                                 @if(Auth::guard('donator')->check())
-                                <li class="d-none d-lg-block">
-                                    <a class="btn_2" href="{{ route('viewDonations-Donator') }}">View Donations</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('viewDonations-Donator') }}">Donation History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+                                @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register">Register</a>
                                 </li>
                                 @endif
                             </ul>
@@ -111,8 +86,6 @@
     </header>
     <!-- Header part end-->
 
-    <!-- breadcrumb start-->
-    <!-- breadcrumb end-->
     <!-- breadcrumb start-->
     <section class="breadcrumb breadcrumb_bg">
         <div class="container">
@@ -128,12 +101,9 @@
         </div>
     </section>
     <!-- breadcrumb end-->
-    <!-- login part -->
-    <!-- <section class="padding_top"> -->
     <div class="container pt-5 pb-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-6">
-                <!-- <h4 class="widget_title">Newsletter</h4> -->
                 @include('partial.customerror')
                 @include('partial.success')
                 <form method="POST" action="{{ route('Donate') }}" id="dateform">
@@ -152,7 +122,7 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group pt-5">
                         <label><strong>Date</strong></label>
                         <div class="input-group date">
                             <input type="text" name="date" class="form-control  @error('date') is-invalid @enderror" id="datepicker" readonly required>
@@ -166,7 +136,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center pt-3">
                         <input type="submit" class="btn_3 " value="Submit">
                     </div>
                 </form>
@@ -178,8 +148,8 @@
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="container">
-            <div class="row justify-content-around">
-                <div class="col-sm-6 col-lg-3">
+            <div class="row justify-content-center">
+                <div class="col-sm-8 col-lg-4">
                     <div class="single_footer_part">
                         <img src="/dpanel/img/footer_logo.png" class="footer_logo" alt="">
                         <p>Heaven fruitful doesn't over lesser days appear creeping seasons so behold bearing days open
@@ -197,7 +167,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-2">
+                <div class="col-sm-4 col-lg-2">
+
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="single_footer_part">
+                        <h4>Useful Links</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
+                            <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part">
                         <h4>Causes</h4>
                         <ul class="list-unstyled">
@@ -209,74 +191,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_footer_part footer_3">
-                        <h4> our Gallery</h4>
-                        <div class="footer_img">
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_1.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_2.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_3.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_4.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_5.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_6.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_7.png" alt="">
-                            </div>
-                            <div class="single_footer_img">
-                                <img src="/dpanel/img/footer_img/footer_img_8.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="single_footer_part">
-                        <h4>Newsletter</h4>
-                        <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold bearing days
-                            open
-                        </p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" required>
-                                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '" required="" type="email">
-                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm"><i class="far fa-paper-plane"></i></button>
-                                <div class="mt-10 info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-lg-6">
+            <div class="text-center">
+                <div class="col-lg-12">
                     <div class="copyright_text">
                         <P>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </script> All rights reserved
                         </P>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="footer_icon social_icon">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -293,12 +217,12 @@
         var disabledates = [];
 
         $(document).ready(function() {
-            
+
             $("#ngo_id").change(function() {
                 var id = $(this).val();
-               // console.log("1:" + id);
+                // console.log("1:" + id);
                 var dataString = '{id:' + id + '}';
-               // console.log("2:" + dataString);
+                // console.log("2:" + dataString);
                 $.ajax({
                     type: "GET",
                     url: "{{url('/disabledates')}}",
@@ -308,7 +232,7 @@
                     cache: false,
                     success: function(data) {
                         disabledates = data;
-                      //  console.log("3: this is disable" + disabledates);
+                        //  console.log("3: this is disable" + disabledates);
                         $('#datepicker').datepicker('destroy');
                         var date = new Date();
                         var temp = date.getDate() + 1;
@@ -356,15 +280,6 @@
     <script src="/dpanel/js/contact.js"></script>
     <!-- custom js -->
     <script src="/dpanel/js/custom.js"></script>
-
-
-
-
 </body>
 
 </html>
-@section('content')
-
-
-
-@endsection

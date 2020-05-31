@@ -6,6 +6,8 @@ use App\Pickupman;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -17,11 +19,75 @@ class PickupmanController extends Controller
         return view('ngo.pickupman.dashboard');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function showProfile()
+    {
+        $pickupman = Pickupman::where('id',Auth::user()->id)->first();
+        return view('ngo.pickupman.profile',['pickupman' => $pickupman]);
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('ngo.pickupman.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+            'OldPassword' => 'required|string|min:8',
+            'NewPassword' => 'required|string|min:8|different:OldPassword',
+            'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
+        ]);
+        if(Hash::check($request->OldPassword, Auth::user()->password))
+        {
+            if(Pickupman::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
+            {
+                Auth::guard('pickupman')->logout();
+                return redirect('/ngo/pickupman/login')->with('success', 'Password changed Successfully.');
+            }else{
+                return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
+            }
+        }else{
+            return back()->withErrors(['errmsg' => 'Incorrect old password.']);
+        }
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('ngo.pickupman.forgotPassword'); 
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ])->validate();
+        if($pickupman = Pickupman::where('email',$request->email)->first())
+        {
+            $token = Str::random(6);
+            if(Pickupman::where('email',$request->email)->update(['token' => $token]))
+            {
+                $data = array(
+                    'greeting' => 'Hey',
+                    'name' => $pickupman['name'],
+                    'token' => $token,
+                    'body' => 'Here is the token for create New Password !'
+                );
+                Mail::send('emailLayouts.createpassword', $data, function ($message) use ($pickupman) {
+                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+                    $message->to($pickupman['email'], $pickupman['name']);
+                    $message->subject('Token for create New Password');
+                });
+
+                return redirect()->route('Pickupman-CreatePassword')
+                    ->with('success', 'Token for create new password sent to your email. Create new password here.');
+            }else{
+                return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
+            }
+        }else{
+            return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
+        }
+    }
+
     public function index()
     {
         $ngo_id = Auth::user()->ngo_id;

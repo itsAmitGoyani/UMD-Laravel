@@ -126,6 +126,7 @@
                             <li><a href="/admin/displaymanagers">{{ __('Display All Manager') }}</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ route('ViewDonationHistory-Admin') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
                     <li><a href="/admin/medicinestock" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
                     <li><a href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
                     <li class="nav-label">User Menu</li>

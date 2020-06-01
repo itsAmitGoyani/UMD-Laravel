@@ -31,8 +31,8 @@ class ManagerController extends Controller
 
     public function showProfile()
     {
-        $manager = Manager::where('id',Auth::user()->id)->first();
-        return view('ngo.manager.profile',['manager' => $manager]);
+        $manager = Manager::where('id', Auth::user()->id)->first();
+        return view('ngo.manager.profile', ['manager' => $manager]);
     }
 
     public function showChangePasswordForm()
@@ -47,23 +47,21 @@ class ManagerController extends Controller
             'NewPassword' => 'required|string|min:8|different:OldPassword',
             'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
         ]);
-        if(Hash::check($request->OldPassword, Auth::user()->password))
-        {
-            if(Manager::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
-            {
+        if (Hash::check($request->OldPassword, Auth::user()->password)) {
+            if (Manager::where('id', Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)])) {
                 Auth::guard('manager')->logout();
                 return redirect('/ngo/manager/login')->with('success', 'Password changed Successfully.');
-            }else{
+            } else {
                 return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
             }
-        }else{
+        } else {
             return back()->withErrors(['errmsg' => 'Incorrect old password.']);
         }
     }
 
     public function showForgotPasswordForm()
     {
-        return view('ngo.manager.forgotPassword'); 
+        return view('ngo.manager.forgotPassword');
     }
 
     public function forgotPassword(Request $request)
@@ -71,11 +69,9 @@ class ManagerController extends Controller
         Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'max:255'],
         ])->validate();
-        if($manager = Manager::where('email',$request->email)->first())
-        {
+        if ($manager = Manager::where('email', $request->email)->first()) {
             $token = Str::random(6);
-            if(Manager::where('email',$request->email)->update(['token' => $token]))
-            {
+            if (Manager::where('email', $request->email)->update(['token' => $token])) {
                 $data = array(
                     'greeting' => 'Hey',
                     'name' => $manager['name'],
@@ -90,10 +86,10 @@ class ManagerController extends Controller
 
                 return redirect()->route('Manager-CreatePassword')
                     ->with('success', 'Token for create new password sent to your email. Create new password here.');
-            }else{
+            } else {
                 return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
             }
-        }else{
+        } else {
             return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
         }
     }
@@ -145,12 +141,12 @@ class ManagerController extends Controller
 
     public function viewDonationHistory()
     {
-        $today = Donation::where('datetime', '>=', Carbon::today())->orderby('datetime', 'desc')->get();
-        $yesterday = Donation::where('datetime', '>=', Carbon::yesterday())->orderby('datetime', 'desc')->get();
-        $lastweek = Donation::whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $lastmonth = Donation::whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
-        $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
-        $all = Donation::orderby('datetime', 'desc')->get();
+        $today = Donation::where([['ngo_id', Auth::user()->ngo_id], ['datetime', '>=', Carbon::today()]])->orderby('datetime', 'desc')->get();
+        $yesterday = Donation::where([['ngo_id', Auth::user()->ngo_id], ['datetime', '>=', Carbon::yesterday()]])->orderby('datetime', 'desc')->get();
+        $lastweek = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lastmonth = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $lastyear = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+        $all = Donation::where('ngo_id', Auth::user()->ngo_id)->orderby('datetime', 'desc')->get();
         return view('ngo.manager.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
     }
 

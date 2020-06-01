@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.theme.default.min.css') }}">
     <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -185,10 +186,6 @@
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
 
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
-
-    <!-- <script src="{{ asset('vendor/global/global.min.js') }}"></script>
-    <script src="{{ asset('js/quixnav-init.js') }}"></script>
-    <script src="{{ asset('js/custom.min.js') }}"></script> -->
 
     <!-- Datatable -->
     <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>

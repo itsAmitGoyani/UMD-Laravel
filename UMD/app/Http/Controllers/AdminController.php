@@ -133,7 +133,8 @@ class AdminController extends Controller
     public function selectMedicineCategory(Request $request)
     {
         $medicinestock = MedicineStock::where('ngo_id', $request->ngo_id)->get();
-        return redirect()->back()->with(['medicinestocks' => $medicinestock]);
+        $ngo = Ngo::all();
+        return view('admin.viewMedicineStock', ['ngos' => $ngo , 'medicinestocks' => $medicinestock , 'ngoid' => $request->ngo_id]);
     }
     /**
      * Show the form for creating a new resource.

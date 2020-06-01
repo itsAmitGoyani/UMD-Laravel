@@ -8,8 +8,10 @@ use App\Donator;
 use App\Donation;
 use App\BadFeedback;
 use App\MedicineStock;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -34,8 +36,8 @@ class AdminController extends Controller
 
     public function showProfile()
     {
-        $admin = Admin::where('id',Auth::user()->id)->first();
-        return view('admin.profile',['admin' => $admin]);
+        $admin = Admin::where('id', Auth::user()->id)->first();
+        return view('admin.profile', ['admin' => $admin]);
     }
 
     public function showChangePasswordForm()
@@ -50,16 +52,14 @@ class AdminController extends Controller
             'NewPassword' => 'required|string|min:6|different:OldPassword',
             'ConfirmPassword' => 'required|string|min:6|same:NewPassword'
         ]);
-        if(Hash::check($request->OldPassword, Auth::user()->password))
-        {
-            if(Admin::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
-            {
+        if (Hash::check($request->OldPassword, Auth::user()->password)) {
+            if (Admin::where('id', Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)])) {
                 Auth::guard('admin')->logout();
                 return redirect('/admin/login')->with('success', 'Password changed Successfully.');
-            }else{
+            } else {
                 return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
             }
-        }else{
+        } else {
             return back()->withErrors(['errmsg' => 'Incorrect old password.']);
         }
     }
@@ -130,10 +130,22 @@ class AdminController extends Controller
         $ngo = Ngo::all();
         return view('admin.viewMedicineStock', ['ngos' => $ngo]);
     }
+
     public function selectMedicineCategory(Request $request)
     {
         $medicinestock = MedicineStock::where('ngo_id', $request->ngo_id)->get();
         return redirect()->back()->with(['medicinestocks' => $medicinestock]);
+    }
+
+    public function viewDonationHistory()
+    {
+        $today = Donation::where('datetime', '>=', Carbon::today())->orderby('datetime', 'desc')->get();
+        $yesterday = Donation::where('datetime', '>=', Carbon::yesterday())->orderby('datetime', 'desc')->get();
+        $lastweek = Donation::whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lastmonth = Donation::whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+        $all = Donation::orderby('datetime', 'desc')->get();
+        return view('admin.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
     }
     /**
      * Show the form for creating a new resource.

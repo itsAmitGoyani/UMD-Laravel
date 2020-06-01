@@ -45,13 +45,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('profile', 'AdminController@showProfile')->name('Profile-Admin');
         Route::get('changepassword', 'AdminController@showChangePasswordForm')->name('ChangePassword-Admin');
         Route::post('changepassword', 'AdminController@updatePassword')->name('ChangePassword-Admin');
-                
+
         Route::get('managedonators', 'AdminController@showBlockDonatorsForm');
         Route::get('blockdonator/{id}', 'AdminController@blockDonator');
         Route::get('warndonator/{id}', 'AdminController@warnDonator');
 
         Route::get('medicinestock', 'AdminController@viewMedicineStock');
-        Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');    
+        Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
+
+        Route::get('donationhistory', 'AdminController@viewDonationHistory')->name('ViewDonationHistory-Admin');
     });
     Route::get('login', 'Auth\LoginController@showAdminLoginForm')->name('admin-login');
     Route::post('login', 'Auth\LoginController@adminLogin')->name('admin-login');
@@ -70,7 +72,7 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('profile', 'ManagerController@showProfile')->name('Profile-Manager');
             Route::get('changepassword', 'ManagerController@showChangePasswordForm')->name('ChangePassword-Manager');
             Route::post('changepassword', 'ManagerController@updatePassword')->name('ChangePassword-Manager');
-            
+
             Route::get('registerpickupman', 'Auth\RegisterController@showPickupmanRegisterForm')->name('RegisterPickupman');
             Route::post('registerpickupman', 'Auth\RegisterController@createPickupman')->name('RegisterPickupman');
             Route::get('displaypickupmen', 'PickupmanController@index')->name('DisplayPickupmen');
@@ -110,7 +112,7 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('profile', 'PickupmanController@showProfile')->name('Profile-Pickupman');
             Route::get('changepassword', 'PickupmanController@showChangePasswordForm')->name('ChangePassword-Pickupman');
             Route::post('changepassword', 'PickupmanController@updatePassword')->name('ChangePassword-Pickupman');
-            
+
             Route::get('pendingdonations', 'PickupmanController@viewPendingDonations')->name('ViewPDs-Pickupman');
             Route::get('updatependingdonation/{id}', 'PickupmanController@updatePendingDonation');
             Route::get('handindonations', 'PickupmanController@viewTakenDonations')->name('ViewTDs-Pickupman');
@@ -161,7 +163,7 @@ Route::get('forgotpassword', 'DonatorController@showForgotPasswordForm')->name('
 Route::post('forgotpassword', 'DonatorController@forgotPassword')->name('ForgotPassword-Donator');
 Route::get('createpassword', 'DonatorController@showCreatePasswordForm')->name('CreatePassword-Donator');
 Route::post('createpassword', 'DonatorController@createPassword')->name('CreatePassword-Donator');
-        
+
 Route::group(['middleware' => ['auth:donator']], function () {
     Route::get('donate', 'DonatorController@showDonateForm');
     Route::post('donate', 'DonatorController@donate')->name('Donate');
@@ -170,6 +172,6 @@ Route::group(['middleware' => ['auth:donator']], function () {
     Route::get('profile', 'DonatorController@showProfile');
     Route::get('changepassword', 'DonatorController@showChangePasswordForm')->name('ChangePassword-Donator');
     Route::post('changepassword', 'DonatorController@updatePassword')->name('ChangePassword-Donator');
-            
+
     Route::get('logout', 'Auth\LogoutController@donatorLogout');
 });

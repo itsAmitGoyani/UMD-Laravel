@@ -163,7 +163,7 @@
                                     </tr>
                                     <tr>
                                         <td style="color:#ff3b3b; font-size: 30px; text-align:center; font-weight: bold;">
-                                            UMD
+                                            MedCharity
                                         </td>
                                     </tr>
                                     <tr>
@@ -182,7 +182,7 @@
                                                         You were Blocked
                                                         <br>
                                                         <p style="font-size:16px; font-weight: 500; color: #000000;">
-                                                            by admin to donate at UMD due to your last 3 consequent useless donations.
+                                                            by admin to donate at MedCharity due to your last 3 consequent useless donations.
                                                             <br><br>
                                                         </p>
                                                     </td>
@@ -227,7 +227,7 @@
                                     <tr>
                                         <td style="color:#f0f0f0; font-size: 12px; text-align:center; padding-bottom:4px;">
                                             <br>
-                                            © 2020 | UMD | All Rights Reserved
+                                            © 2020 | MedCharity | All Rights Reserved
                                         </td>
                                     </tr>
                                     <tr>

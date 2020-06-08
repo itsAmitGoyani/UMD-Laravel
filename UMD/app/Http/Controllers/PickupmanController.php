@@ -131,7 +131,7 @@ class PickupmanController extends Controller
                 'donator_name' => $record['donator']['name'],
             );
             Mail::send('emailLayouts.outForPickup', $data, function ($message) use ($record) {
-                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->from('goyaniamit111@gmail.com', 'MedCharity');
                 $message->to($record['donator']['email'], $record['donator']['name']);
                 $message->subject('Out for Pickup!');
             });
@@ -153,7 +153,7 @@ class PickupmanController extends Controller
                 'pickupman_name' => $record['pickupman']['name'],
             );
             Mail::send('emailLayouts.pickedUp', $data, function ($message) use ($record) {
-                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->from('goyaniamit111@gmail.com', 'MedCharity');
                 $message->to($record['donator']['email'], $record['donator']['name']);
                 $message->subject('Donation Picked Up!');
             });

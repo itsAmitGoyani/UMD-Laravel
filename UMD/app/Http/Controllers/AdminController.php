@@ -8,6 +8,7 @@ use App\Donator;
 use App\Donation;
 use App\BadFeedback;
 use App\MedicineStock;
+use App\PickupSchedule;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -31,7 +32,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $td = Donation::count();
+        $tpd = PickupSchedule::count();
+        $yd = Donation::where('datetime','=', Carbon::yesterday())->count();
+        $nngo = Ngo::count();
+        return view('admin.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'nngo'=>$nngo]);
     }
 
     public function showProfile()

@@ -26,6 +26,16 @@ class DonatorController extends Controller
         return view('donator.home');
     }
 
+    public function showAbout()
+    {
+        return view('donator.about');
+    }
+
+    public function showContact()
+    {
+        return view('donator.contact');
+    }
+
     public function showProfile()
     {
         if ($donator = Donator::where('id', Auth::user()->id)->first())
@@ -141,7 +151,7 @@ class DonatorController extends Controller
         foreach ($ngoids as $ngoid) {
             $data[] = $ngoid->ngo_id;
         }
-        $ngos = Ngo::select('id', 'name')->whereNotIn('id', $data)->get();
+        $ngos = Ngo::select('id', 'name')->where('city',Auth::user()->city)->whereNotIn('id', $data)->get();
         return view('donator.donate', ['ngos' => $ngos]);
     }
 

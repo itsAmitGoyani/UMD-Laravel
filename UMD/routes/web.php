@@ -163,6 +163,9 @@ Route::get('forgotpassword', 'DonatorController@showForgotPasswordForm')->name('
 Route::post('forgotpassword', 'DonatorController@forgotPassword')->name('ForgotPassword-Donator');
 Route::get('createpassword', 'DonatorController@showCreatePasswordForm')->name('CreatePassword-Donator');
 Route::post('createpassword', 'DonatorController@createPassword')->name('CreatePassword-Donator');
+Route::get('/about', 'DonatorController@showAbout')->name('About');
+Route::get('/contact', 'DonatorController@showContact')->name('Contact');
+
 
 Route::group(['middleware' => ['auth:donator']], function () {
     Route::get('donate', 'DonatorController@showDonateForm');

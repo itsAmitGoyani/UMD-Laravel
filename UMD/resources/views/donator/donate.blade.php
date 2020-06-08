@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Charity</title>
+    <title>MedCharity</title>
     <link rel="icon" href="/dpanel/img/favicon.png">
 
     <!-- Bootstrap CSS -->
@@ -31,7 +31,7 @@
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet" />
-    
+
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 </head>
@@ -54,17 +54,17 @@
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html">about</a>
+                                    <a class="nav-link" href="/about">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Causes.html">Causes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
+                                    <a class="nav-link" href="/contact">Contact</a>
                                 </li>
                                 @if(Auth::guard('donator')->check())
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('viewDonations-Donator') }}">Donation History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile">Profile</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Logout</a>
@@ -168,29 +168,72 @@
                     </div>
                 </div>
                 <div class="col-sm-4 col-lg-2">
-
+                    
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part">
                         <h4>Useful Links</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
-                            <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            @if(Auth::guard('donator')->check())
+                                <li><a href="{{ route('viewDonations-Donator') }}">Donation History</a></li>
+                                <li><a href="/profile">Profile</a></li>
+                            @else
+                                <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
+                                <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                            @endif         
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <div class="single_footer_part">
-                        <h4>Causes</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Boat Shippment</a></li>
-                            <li><a href="">Services</a></li>
-                            <li><a href="">Transport Planning</a></li>
-                            <li><a href="">Transportation</a></li>
-                            <li><a href="">Truck Delivery Checking</a></li>
-                        </ul>
+                    <div class="single_footer_part footer_3">
+                        <h4> our Gallery</h4>
+                        <div class="footer_img">
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_1.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_2.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_3.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_4.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_5.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_6.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_7.png" alt="">
+                            </div>
+                            <div class="single_footer_img">
+                                <img src="/dpanel/img/footer_img/footer_img_8.png" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- <div class="col-sm-6 col-lg-3">
+                    <div class="single_footer_part">
+                        <h4>Newsletter</h4>
+                        <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold bearing days
+                            open
+                        </p>
+                        <div id="mc_embed_signup">
+                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" required>
+                                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '" required="" type="email">
+                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm"><i class="far fa-paper-plane"></i></button>
+                                <div class="mt-10 info"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
             </div>
             <hr>
             <div class="text-center">
@@ -199,7 +242,7 @@
                         <P>
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved
+                            </script> MedCharity  All rights reserved
                         </P>
                     </div>
                 </div>

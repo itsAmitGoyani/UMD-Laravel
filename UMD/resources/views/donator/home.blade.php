@@ -85,9 +85,8 @@
     </div>
 </section>
 <!-- service part end-->
-
 <!-- about part end-->
-<section class="about_us">
+<section class="about_us padding_top">
     <div class="container">
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-6">
@@ -98,7 +97,7 @@
             <div class="col-lg-6">
                 <div class="about_us_text">
                     <h5>
-                        2000<br><span>since</span>
+                        2008<br><span>since</span>
                     </h5>
                     <h2>About Believe</h2>
                     <p>According to the research firm Frost & Sullivan, the estimated
@@ -108,19 +107,19 @@
                         have procured used test and measurement instruments.</p>
                     <div class="banner_item">
                         <div class="single_item">
-                            <h2> <span class="count">50</span>k</h2>
+                            <h2> <span class="count">10</span>k</h2>
                             <h5>Total
-                                Volunteer</h5>
+                                Donators</h5>
                         </div>
                         <div class="single_item">
-                            <h2><span class="count">25</span>k</h2>
+                            <h2><span class="count">8</span>k</h2>
                             <h5>Successed
                                 Mission</h5>
                         </div>
                         <div class="single_item">
-                            <h2><span class="count">100</span>k</h2>
+                            <h2><span class="count">20</span>k</h2>
                             <h5>Total
-                                Collection</h5>
+                                Donations</h5>
                         </div>
                     </div>
 

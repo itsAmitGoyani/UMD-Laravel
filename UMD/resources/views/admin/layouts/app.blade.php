@@ -13,7 +13,7 @@
     <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -146,7 +146,21 @@
         <!--**********************************
             Content body end
         ***********************************-->
-
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    <a href="#" target="_blank">MedCharity</a> All rights reserved</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
     </div>
     <!--**********************************
         Main wrapper end

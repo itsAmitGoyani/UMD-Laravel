@@ -28,8 +28,8 @@ class DonatorController extends Controller
 
     public function showProfile()
     {
-        if($donator = Donator::where('id',Auth::user()->id)->first())
-            return view('donator.profile',['donator' => $donator]);
+        if ($donator = Donator::where('id', Auth::user()->id)->first())
+            return view('donator.profile', ['donator' => $donator]);
         else
             return back()->withErrors(['errmsg' => 'Unknown error.']);
     }
@@ -46,23 +46,21 @@ class DonatorController extends Controller
             'NewPassword' => 'required|string|min:8|different:OldPassword',
             'ConfirmPassword' => 'required|string|min:8|same:NewPassword'
         ]);
-        if(Hash::check($request->OldPassword, Auth::user()->password))
-        {
-            if(Donator::where('id' , Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)]))
-            {
+        if (Hash::check($request->OldPassword, Auth::user()->password)) {
+            if (Donator::where('id', Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)])) {
                 Auth::guard('donator')->logout();
                 return redirect('/login')->with('success', 'Password changed Successfully.');
-            }else{
+            } else {
                 return back()->withErrors(['errmsg' => 'Sorry. Error while updating password.']);
             }
-        }else{
+        } else {
             return back()->withErrors(['errmsg' => 'Incorrect old password.']);
         }
     }
 
     public function showForgotPasswordForm()
     {
-        return view('donator.forgotPassword'); 
+        return view('donator.forgotPassword');
     }
 
     public function forgotPassword(Request $request)
@@ -70,11 +68,9 @@ class DonatorController extends Controller
         Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'max:255'],
         ])->validate();
-        if($donator = Donator::where('email',$request->email)->first())
-        {
+        if ($donator = Donator::where('email', $request->email)->first()) {
             $token = Str::random(6);
-            if(Donator::where('email',$request->email)->update(['token' => $token]))
-            {
+            if (Donator::where('email', $request->email)->update(['token' => $token])) {
                 $data = array(
                     'greeting' => 'Hey',
                     'name' => $donator['name'],
@@ -89,14 +85,14 @@ class DonatorController extends Controller
 
                 return redirect()->route('CreatePassword-Donator')
                     ->with('success', 'Token for create new password sent to your email. Create new password here.');
-            }else{
+            } else {
                 return back()->withInput()->withErrors(['errmsg' => 'Internal error occured.']);
             }
-        }else{
+        } else {
             return back()->withInput()->withErrors(['errmsg' => 'Invalid email.']);
         }
     }
-    
+
     public function showCreatePasswordForm()
     {
         return view('donator.createPassword');
@@ -141,11 +137,11 @@ class DonatorController extends Controller
         //     $disabledate[$i] = $disabledaterecord[$i]->date;
         // }
         $data = array();
-        $ngoids = PickupSchedule::where('donator_id',Auth::user()->id)->get('ngo_id');
+        $ngoids = PickupSchedule::where('donator_id', Auth::user()->id)->get('ngo_id');
         foreach ($ngoids as $ngoid) {
             $data[] = $ngoid->ngo_id;
         }
-        $ngos = Ngo::select('id', 'name')->whereNotIn('id',$data)->get();
+        $ngos = Ngo::select('id', 'name')->whereNotIn('id', $data)->get();
         return view('donator.donate', ['ngos' => $ngos]);
     }
 
@@ -167,9 +163,9 @@ class DonatorController extends Controller
 
     public function viewDonations()
     {
-        $pendingdonations = PickupSchedule::where('donator_id',Auth::user()->id)->get();
+        $pendingdonations = PickupSchedule::where('donator_id', Auth::user()->id)->get();
         $donations = Donation::where('donator_id', Auth::user()->id)->get();
-        return view('donator.viewDonations', ['donations' => $donations,'pendingdonations' => $pendingdonations]);
+        return view('donator.viewDonations', ['donations' => $donations, 'pendingdonations' => $pendingdonations]);
     }
 
     /**
@@ -210,9 +206,14 @@ class DonatorController extends Controller
      * @param  \App\Donator  $donator
      * @return \Illuminate\Http\Response
      */
-    public function edit(Donator $donator)
+    public function edit($id)
     {
         //
+        $donator = Donator::find($id);
+        if ($donator) {
+            return view('donator.edit', ['donator' => $donator]);
+        }
+        return back()->withErrors(['errmsg' => 'Unknown error']);
     }
 
     /**
@@ -222,9 +223,68 @@ class DonatorController extends Controller
      * @param  \App\Donator  $donator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Donator $donator)
+    public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',],
+            'contact' => ['required', 'numeric', 'digits:10',],
+            'address' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'in:Male,Female'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+            'pincode' => ['required', 'numeric', 'digits:6'],
+            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+        ])->validate();
+        //upload image
+        $image = $request->file('pimage');
+        if ($image != null) {
+            $name = $image->getClientOriginalName();
+            $nameimg = explode('.', $name);
+            $ext = $image->getClientOriginalExtension();
+            $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
+            $image->storeAs('/public' . __('custom.donatorpath'), $imagename);
+            //$destinationPath = url(__('custom.managerpath'));
+            //$image->move($destinationPath, $imagename);
+            //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
+
+            //delete old image
+            $donator = Donator::find($id);
+            $oldImageName = $donator->profileimage;
+            $filename = storage_path('app/public' . __('custom.donatorpath') . '/' . $oldImageName);
+            if (file_exists($filename)) {
+                unlink($filename);
+            }
+            $donatorUpdate = donator::where('id', $id)
+                ->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'gender' => $request['gender'],
+                    'contact' => $request['contact'],
+                    'address' => $request['address'],
+                    'city' => $request['city'],
+                    'state' => $request['state'],
+                    'pincode' => $request['pincode'],
+                    'profileimage' => $imagename,
+                ]);
+        } else {
+            $donatorUpdate = Donator::where('id', $id)
+                ->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'gender' => $request['gender'],
+                    'contact' => $request['contact'],
+                    'address' => $request['address'],
+                    'city' => $request['city'],
+                    'state' => $request['state'],
+                    'pincode' => $request['pincode'],
+                ]);
+        }
+        if ($donatorUpdate) {
+            return redirect('/profile')->with('success', 'Donator details Updated Successfully');
+        }
+
+        return back()->withInput()->withErrors(['errmsg' => 'Unknown Error']);
     }
 
     /**

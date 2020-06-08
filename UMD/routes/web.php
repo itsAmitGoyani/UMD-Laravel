@@ -172,6 +172,8 @@ Route::group(['middleware' => ['auth:donator']], function () {
     Route::get('profile', 'DonatorController@showProfile');
     Route::get('changepassword', 'DonatorController@showChangePasswordForm')->name('ChangePassword-Donator');
     Route::post('changepassword', 'DonatorController@updatePassword')->name('ChangePassword-Donator');
+    Route::get('{ngo_id}/edit', 'DonatorController@edit');
+    Route::put('{id}', 'DonatorController@update');
 
     Route::get('logout', 'Auth\LogoutController@donatorLogout');
 });

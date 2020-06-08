@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('warndonator/{id}', 'AdminController@warnDonator');
 
         Route::get('medicinestock', 'AdminController@viewMedicineStock');
-        Route::post('selectmedicinecategory', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
+        Route::post('medicinestock', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
 
         Route::get('donationhistory', 'AdminController@viewDonationHistory')->name('ViewDonationHistory-Admin');
     });

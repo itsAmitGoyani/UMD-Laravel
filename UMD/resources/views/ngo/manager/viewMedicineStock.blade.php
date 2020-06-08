@@ -19,8 +19,8 @@
                             <table id="example" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
+                                        <th>Index</th>
                                         <th>ID</th>
-                                        <th>NGO Name</th>
                                         <th>Medicine Name</th>
                                         <th>Category Name</th>
                                         <th>Brand</th>
@@ -28,15 +28,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; ?>
                                     @foreach($medicinestocks as $medicinestock)
-                                    <tr id="tr{{ $medicinestock->id }}">
-                                        <td>#{{ $medicinestock->id }}</td>
-                                        <td><span class="text-muted">{{ $medicinestock->ngo->name }}</span></td>
+                                    <tr>
+                                        <td>{{$i}}</td>
+                                        <td><span class="text-muted">#{{ $medicinestock->id }}</span></td>
                                         <td><span class="text-muted">{{ $medicinestock->medicine->name }}</span></td>
                                         <td><span class="text-muted">{{ $medicinestock->medicine->category->categoryname }}</span></td>
                                         <td><span class="text-muted">{{ $medicinestock->medicine->brand }}</span></td>
                                         <td><span class="text-muted">{{ $medicinestock->qty }}</span></td>
                                     </tr>
+                                    <?php $i++; ?>
                                     @endforeach
                                 </tbody>
                             </table>

@@ -49,10 +49,7 @@
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">about</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Causes</a>
+                                    <a class="nav-link" href="#">About</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Contact</a>
@@ -115,24 +112,21 @@
                     <div class="single_footer_part">
                         <h4>Useful Links</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
-                            <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            @if(Auth::guard('donator')->check())
+                                <li><a href="{{ route('viewDonations-Donator') }}">Donation History</a></li>
+                                <li><a href="/profile">Profile</a></li>
+                            @else
+                                <li><a href="{{route('admin-login')}}">Admin Panel</a></li>
+                                <li><a href="{{route('NGOPanel')}}">NGO Panel</a></li>
+                            @endif         
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <div class="single_footer_part">
-                        <h4>Causes</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="">Boat Shippment</a></li>
-                            <li><a href="">Services</a></li>
-                            <li><a href="">Transport Planning</a></li>
-                            <li><a href="">Transportation</a></li>
-                            <li><a href="">Truck Delivery Checking</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part footer_3">
                         <h4> our Gallery</h4>
                         <div class="footer_img">
@@ -162,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- <div class="col-sm-6 col-lg-3">
                     <div class="single_footer_part">
                         <h4>Newsletter</h4>
@@ -186,7 +180,7 @@
                         <P>
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved
+                            </script> MedCharity  All rights reserved
                         </P>
                     </div>
                 </div>

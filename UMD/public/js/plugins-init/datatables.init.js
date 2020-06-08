@@ -50,17 +50,17 @@ let dataSet = [
     });
       
     table.on('click', 'tbody tr', function() {
-    var $row = table.row(this).nodes().to$();
-    var hasClass = $row.hasClass('selected');
-    if (hasClass) {
-        $row.removeClass('selected')
-    } else {
-        $row.addClass('selected')
-    }
+        var $row = table.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
     })
     
     table.rows().every(function() {
-    this.nodes().to$().removeClass('selected')
+        this.nodes().to$().removeClass('selected')
     });
 
 
@@ -89,5 +89,132 @@ let dataSet = [
     table2.rows().every(function() {
         this.nodes().to$().removeClass('selected')
     });
-   
+
+
+    //DHTables 1
+    var dhtables1 = $('#dhtables1').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables1.on('click', 'tbody tr', function() {
+        var $row = dhtables1.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables1.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    //DHTables 2
+    var dhtables2 = $('#dhtables2').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables2.on('click', 'tbody tr', function() {
+        var $row = dhtables2.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables2.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    //DHTables 3
+    var dhtables3 = $('#dhtables3').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables3.on('click', 'tbody tr', function() {
+        var $row = dhtables3.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables3.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    //DHTables 4
+    var dhtables4 = $('#dhtables4').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables4.on('click', 'tbody tr', function() {
+        var $row = dhtables4.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables4.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    //DHTables 5
+    var dhtables5 = $('#dhtables5').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables5.on('click', 'tbody tr', function() {
+        var $row = dhtables5.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables5.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
+    //DHTables 6
+    var dhtables6 = $('#dhtables6').DataTable({
+        createdRow: function ( row, data, index ) {
+           $(row).addClass('selected')
+        } 
+    });
+      
+    dhtables6.on('click', 'tbody tr', function() {
+        var $row = dhtables6.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+    
+    dhtables6.rows().every(function() {
+        this.nodes().to$().removeClass('selected')
+    });
+
 })(jQuery);

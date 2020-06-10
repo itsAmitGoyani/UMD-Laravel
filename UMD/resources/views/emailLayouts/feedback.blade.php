@@ -163,7 +163,7 @@
                                     </tr>
                                     <tr>
                                         <td style="color:#27aa90; font-size: 30px; text-align:center; font-weight: bold;">
-                                            UMD
+                                            MedCharity
                                         </td>
                                     </tr>
                                     <tr>
@@ -229,7 +229,7 @@
                                     <tr>
                                         <td style="color:#f0f0f0; font-size: 12px; text-align:center; padding-bottom:4px;">
                                             <br>
-                                            © 2020 | UMD | All Rights Reserved
+                                            © 2020 | MedCharity | All Rights Reserved
                                         </td>
                                     </tr>
                                     <tr>

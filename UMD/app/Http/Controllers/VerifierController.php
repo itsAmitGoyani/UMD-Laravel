@@ -286,7 +286,7 @@ class VerifierController extends Controller
                     'fdescription' => $request->description,
                 );
                 Mail::send('emailLayouts.feedback', $data, function ($message) use ($Donatoremail, $Donatorname) {
-                    $message->from('goyaniamit111@gmail.com', 'UMD');
+                    $message->from('goyaniamit111@gmail.com', 'MedCharity');
                     $message->to($Donatoremail, $Donatorname);
                     $message->subject('Feedback for your Donation');
                 });

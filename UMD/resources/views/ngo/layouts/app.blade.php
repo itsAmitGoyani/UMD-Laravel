@@ -212,7 +212,15 @@
         <!--**********************************
            Support ticket button end
         ***********************************-->
-
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    <a href="#" target="_blank">MedCharity</a> All rights reserved</p>
+            </div>
+        </div>
 
     </div>
     <!--**********************************

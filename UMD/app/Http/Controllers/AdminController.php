@@ -91,9 +91,9 @@ class AdminController extends Controller
                 'fdescription' => $donation['feedback']['description'],
             );
             Mail::send('emailLayouts.blockDonatorWithFeedback', $data, function ($message) use ($donatoremail, $donatorname) {
-                $message->from('goyaniamit111@gmail.com', 'UMD');
+                $message->from('goyaniamit111@gmail.com', 'MedCharity');
                 $message->to($donatoremail, $donatorname);
-                $message->subject('You were Blocked to Donate at UMD');
+                $message->subject('You were Blocked to Donate at MedCharity');
             });
             if (BadFeedback::where('donator_id', $id)->delete()) {
                 return back()->with('success', 'Donator blocked successfully.');
@@ -120,9 +120,9 @@ class AdminController extends Controller
             'fdescription' => $donation['feedback']['description'],
         );
         Mail::send('emailLayouts.warnDonatorWithFeedback', $data, function ($message) use ($donatoremail, $donatorname) {
-            $message->from('goyaniamit111@gmail.com', 'UMD');
+            $message->from('goyaniamit111@gmail.com', 'MedCharity');
             $message->to($donatoremail, $donatorname);
-            $message->subject('You are Warned to Donate at UMD');
+            $message->subject('You are Warned to Donate at MedCharity');
         });
         if (BadFeedback::where('donator_id', $id)->delete()) {
             return back()->with('success', 'Warning mail sent to donator successfully.');

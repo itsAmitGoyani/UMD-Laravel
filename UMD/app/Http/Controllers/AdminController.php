@@ -34,9 +34,9 @@ class AdminController extends Controller
     {
         $td = Donation::count();
         $tpd = PickupSchedule::count();
-        $yd = Donation::where('datetime','=', Carbon::yesterday())->count();
+        $yd = Donation::where('datetime', '=', Carbon::yesterday())->count();
         $nngo = Ngo::count();
-        return view('admin.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'nngo'=>$nngo]);
+        return view('admin.dashboard', ['td' => $td, 'tpd' => $tpd, 'yd' => $yd, 'nngo' => $nngo]);
     }
 
     public function showProfile()
@@ -140,12 +140,12 @@ class AdminController extends Controller
     {
         $medicinestock = MedicineStock::where('ngo_id', $request->ngo_id)->get();
         $ngo = Ngo::all();
-        return view('admin.viewMedicineStock', ['ngos' => $ngo , 'medicinestocks' => $medicinestock , 'ngoid' => $request->ngo_id]);
+        return view('admin.viewMedicineStock', ['ngos' => $ngo, 'medicinestocks' => $medicinestock, 'ngoid' => $request->ngo_id]);
     }
 
     public function viewDonationHistory()
     {
-        $today = Donation::where('datetime', '=', Carbon::today())->orderby('datetime', 'desc')->get();
+        $today = Donation::where('datetime', '>=', Carbon::today())->orderby('datetime', 'desc')->get();
         $yesterday = Donation::where('datetime', '=', Carbon::yesterday())->orderby('datetime', 'desc')->get();
         $lastweek = Donation::whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $lastmonth = Donation::whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();

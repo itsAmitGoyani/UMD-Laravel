@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Donation;
 use App\Ngo;
 use App\Donator;
+use App\Message;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -157,7 +158,7 @@ class DonatorController extends Controller
         foreach ($ngoids as $ngoid) {
             $data[] = $ngoid->ngo_id;
         }
-        $ngos = Ngo::select('id', 'name')->where('city',Auth::user()->city)->whereNotIn('id', $data)->get();
+        $ngos = Ngo::select('id', 'name')->where('city', Auth::user()->city)->whereNotIn('id', $data)->get();
         return view('donator.donate', ['ngos' => $ngos]);
     }
 
@@ -182,6 +183,29 @@ class DonatorController extends Controller
         $pendingdonations = PickupSchedule::where('donator_id', Auth::user()->id)->get();
         $donations = Donation::where('donator_id', Auth::user()->id)->get();
         return view('donator.viewDonations', ['donations' => $donations, 'pendingdonations' => $pendingdonations]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        Validator::make($request->all(), [
+            'message' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+        ])->validate();
+
+        $messages = new Message();
+        $messages->message = $request->message;
+        $messages->name = $request->name;
+        $messages->email = $request->email;
+        $messages->subject = $request->subject;
+        $messages->save();
+
+        if ($messages) {
+            return back()->with('success', 'Message send Successfully');
+        } else {
+            return back()->withErrors(['errmsg' => 'Unknown error']);
+        }
     }
 
     /**

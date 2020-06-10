@@ -8,9 +8,11 @@ use App\Donator;
 use App\Donation;
 use App\BadFeedback;
 use App\MedicineStock;
+use App\Message;
 use App\PickupSchedule;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message as MailMessage;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +38,7 @@ class AdminController extends Controller
         $tpd = PickupSchedule::count();
         $yd = Donation::where('date','=', Carbon::yesterday())->count();
         $nngo = Ngo::count();
-        return view('admin.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'nngo'=>$nngo]);
+        return view('admin.dashboard', ['td' => $td, 'tpd' => $tpd, 'yd' => $yd, 'nngo' => $nngo]);
     }
 
     public function showProfile()
@@ -140,7 +142,7 @@ class AdminController extends Controller
     {
         $medicinestock = MedicineStock::where('ngo_id', $request->ngo_id)->get();
         $ngo = Ngo::all();
-        return view('admin.viewMedicineStock', ['ngos' => $ngo , 'medicinestocks' => $medicinestock , 'ngoid' => $request->ngo_id]);
+        return view('admin.viewMedicineStock', ['ngos' => $ngo, 'medicinestocks' => $medicinestock, 'ngoid' => $request->ngo_id]);
     }
 
     public function viewDonationHistory()
@@ -152,6 +154,20 @@ class AdminController extends Controller
         $lastyear = Donation::whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
         $all = Donation::orderby('date', 'desc')->get();
         return view('admin.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
+    }
+
+    public function showMessages()
+    {
+        $messages = Message::where('visibility', true)->get();
+        return view('admin.notificationmessage', ['messages' => $messages]);
+    }
+    public function doneMessages($id)
+    {
+        if (Message::where('id', $id)->update(['visibility' => false])) {
+            return back()->with('success', 'message done successfully.');
+        } else {
+            return back()->withErrors(['errmsg' => 'Sorry. Error.']);
+        }
     }
     /**
      * Show the form for creating a new resource.

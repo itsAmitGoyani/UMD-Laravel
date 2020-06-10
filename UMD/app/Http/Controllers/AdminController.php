@@ -8,9 +8,11 @@ use App\Donator;
 use App\Donation;
 use App\BadFeedback;
 use App\MedicineStock;
+use App\Message;
 use App\PickupSchedule;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message as MailMessage;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -152,6 +154,20 @@ class AdminController extends Controller
         $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
         $all = Donation::orderby('datetime', 'desc')->get();
         return view('admin.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
+    }
+
+    public function showMessages()
+    {
+        $messages = Message::where('visibility', true)->get();
+        return view('admin.notificationmessage', ['messages' => $messages]);
+    }
+    public function doneMessages($id)
+    {
+        if (Message::where('id', $id)->update(['visibility' => false])) {
+            return back()->with('success', 'message done successfully.');
+        } else {
+            return back()->withErrors(['errmsg' => 'Sorry. Error.']);
+        }
     }
     /**
      * Show the form for creating a new resource.

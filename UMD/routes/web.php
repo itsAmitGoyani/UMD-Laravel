@@ -54,6 +54,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('medicinestock', 'AdminController@selectMedicineCategory')->name('selectMedicineCategory');
 
         Route::get('donationhistory', 'AdminController@viewDonationHistory')->name('ViewDonationHistory-Admin');
+
+        Route::get('messages', 'AdminController@showMessages');
+        Route::get('messages/{id}', 'AdminController@doneMessages');
     });
     Route::get('login', 'Auth\LoginController@showAdminLoginForm')->name('admin-login');
     Route::post('login', 'Auth\LoginController@adminLogin')->name('admin-login');
@@ -165,6 +168,7 @@ Route::get('createpassword', 'DonatorController@showCreatePasswordForm')->name('
 Route::post('createpassword', 'DonatorController@createPassword')->name('CreatePassword-Donator');
 Route::get('/about', 'DonatorController@showAbout')->name('About');
 Route::get('/contact', 'DonatorController@showContact')->name('Contact');
+Route::post('contactmessage', 'DonatorController@sendMessage')->name('ContactMessage');
 
 
 Route::group(['middleware' => ['auth:donator']], function () {

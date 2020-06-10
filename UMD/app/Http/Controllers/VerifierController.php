@@ -15,6 +15,7 @@ use App\MedicineCategory;
 use Illuminate\Http\Request;
 use App\MedicineStockExpiration;
 use App\DonationMedicineExpiration;
+use App\PickupSchedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -31,7 +32,10 @@ class VerifierController extends Controller
 
     public function showDashboard()
     {
-        return view('ngo.verifier.dashboard');
+        $tpd = Donation::where([['ngo_id',Auth::user()->ngo_id],['status','Pending']])->count();
+        $pam = Donation::where([['ngo_id',Auth::user()->ngo_id],['verifier_id',Auth::user()->id],['status','Taken']])->count();
+        $pgf = Donation::where([['ngo_id',Auth::user()->ngo_id],['verifier_id',Auth::user()->id],['status','Verified']])->count();
+        return view('ngo.verifier.dashboard', ['tpd'=>$tpd , 'pam'=>$pam , 'pgf'=>$pgf]);
     }
 
     public function showProfile()
@@ -132,7 +136,7 @@ class VerifierController extends Controller
     public function viewPendingDonations()
     {
         $ngo_id = Auth::user()->ngo_id;
-        $donations = Donation::where([['ngo_id', $ngo_id], ['status', 'Pending']])->orderBy('datetime', 'asc')->get();
+        $donations = Donation::where([['ngo_id', $ngo_id], ['status', 'Pending']])->orderBy('date', 'asc')->get();
         return view('ngo.verifier.viewPendingDonations', ['donations' => $donations]);
     }
 
@@ -275,7 +279,7 @@ class VerifierController extends Controller
                 Donator::where('id', $Donation->donator_id)->update(['bfcount' => '0']);
                 $Donatoremail = $Donation->donator->email;
                 $Donatorname = $Donation->donator->name;
-                $ddate = $Donation->datetime;
+                $ddate = $Donation->date;
                 $dngo = $Donation->ngo->name;
                 $fcategoryname = $Donation->feedback->category->categoryname;
                 $data = array(

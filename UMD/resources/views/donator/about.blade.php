@@ -38,17 +38,17 @@
                         have procured used test and measurement instruments.</p>
                     <div class="banner_item">
                         <div class="single_item">
-                            <h2> <span class="count">10</span>k</h2>
+                            <h2> <span class="count">{{$tds}}</span>k</h2>
                             <h5>Total
                                 Donators</h5>
                         </div>
                         <div class="single_item">
-                            <h2><span class="count">8</span>k</h2>
-                            <h5>Successed
-                                Mission</h5>
+                            <h2><span class="count">{{$tn}}</span></h2>
+                            <h5>Total
+                                NGOs</h5>
                         </div>
                         <div class="single_item">
-                            <h2><span class="count">20</span>k</h2>
+                            <h2><span class="count">{{$td}}</span>k</h2>
                             <h5>Total
                                 Donations</h5>
                         </div>

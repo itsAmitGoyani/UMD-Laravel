@@ -117,8 +117,6 @@ class RegisterController extends Controller
 
     protected function createDonator(Request $request)
     {
-        //$this->validator($request->all())->validate();
-
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:donators,email'],
@@ -129,7 +127,7 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
             'pincode' => ['required', 'numeric', 'digits:6'],
-            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'pimage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
 
         $image = $request->file('pimage');

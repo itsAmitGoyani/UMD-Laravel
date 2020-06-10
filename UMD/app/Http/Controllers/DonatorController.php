@@ -23,12 +23,18 @@ class DonatorController extends Controller
      */
     public function index()
     {
-        return view('donator.home');
+        $td = Donation::count();
+        $tds = Donator::count();
+        $tn = Ngo::count();
+        return view('donator.home',['td'=>$td , 'tds'=>$tds , 'tn'=>$tn]);
     }
 
     public function showAbout()
     {
-        return view('donator.about');
+        $td = Donation::count();
+        $tds = Donator::count();
+        $tn = Ngo::count();
+        return view('donator.about',['td'=>$td , 'tds'=>$tds , 'tn'=>$tn]);
     }
 
     public function showContact()
@@ -237,14 +243,14 @@ class DonatorController extends Controller
     {
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255',],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donators,email,' . $id],
             'contact' => ['required', 'numeric', 'digits:10',],
             'address' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'in:Male,Female'],
             'city' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],
             'pincode' => ['required', 'numeric', 'digits:6'],
-            'pimage' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'pimage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();
         //upload image
         $image = $request->file('pimage');

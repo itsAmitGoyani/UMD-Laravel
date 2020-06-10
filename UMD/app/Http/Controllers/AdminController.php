@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         $td = Donation::count();
         $tpd = PickupSchedule::count();
-        $yd = Donation::where('datetime','=', Carbon::yesterday())->count();
+        $yd = Donation::where('date','=', Carbon::yesterday())->count();
         $nngo = Ngo::count();
         return view('admin.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'nngo'=>$nngo]);
     }
@@ -84,7 +84,7 @@ class AdminController extends Controller
             $donatoremail = $donation['donator']['email'];
             $donatorname = $donation['donator']['name'];
             $data = array(
-                'date' => $donation['datetime'],
+                'date' => $donation['date'],
                 'ngoname' => $donation['ngo']['name'],
                 'donatorname' => $donatorname,
                 'fcategoryname' => 'Bad',
@@ -113,7 +113,7 @@ class AdminController extends Controller
         $donatoremail = $donation['donator']['email'];
         $donatorname = $donation['donator']['name'];
         $data = array(
-            'date' => $donation['datetime'],
+            'date' => $donation['date'],
             'ngoname' => $donation['ngo']['name'],
             'donatorname' => $donatorname,
             'fcategoryname' => 'Bad',
@@ -145,12 +145,12 @@ class AdminController extends Controller
 
     public function viewDonationHistory()
     {
-        $today = Donation::where('datetime', '=', Carbon::today())->orderby('datetime', 'desc')->get();
-        $yesterday = Donation::where('datetime', '=', Carbon::yesterday())->orderby('datetime', 'desc')->get();
-        $lastweek = Donation::whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $lastmonth = Donation::whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
-        $lastyear = Donation::whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
-        $all = Donation::orderby('datetime', 'desc')->get();
+        $today = Donation::where('date', '=', Carbon::today())->orderby('date', 'desc')->get();
+        $yesterday = Donation::where('date', '=', Carbon::yesterday())->orderby('date', 'desc')->get();
+        $lastweek = Donation::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lastmonth = Donation::whereBetween('date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $lastyear = Donation::whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+        $all = Donation::orderby('date', 'desc')->get();
         return view('admin.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
     }
     /**

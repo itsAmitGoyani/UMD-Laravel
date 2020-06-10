@@ -35,7 +35,7 @@
                                     <tr>
                                         <th>DonationID</th>
                                         <th>Donator Name</th>
-                                        <th>DateTime</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -45,7 +45,7 @@
                                     <tr id="tr{{ $donation->id }}">
                                         <td>#{{ $donation->id }}</td>
                                         <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
-                                        <td><span class="text-muted">{{ $donation->datetime }}</span></td>
+                                        <td><span class="text-muted">{{ $donation->date }}</span></td>
                                         <td><span class="badge badge-rounded badge-outline-warning">{{ $donation->status }}</span></td>
                                         <td><a href="\ngo\verifier\takependingdonation\{{ $donation->id }}" name="takebtn"><span class="btn btn-primary btn-sm">Take</span></a></td>
                                     </tr>

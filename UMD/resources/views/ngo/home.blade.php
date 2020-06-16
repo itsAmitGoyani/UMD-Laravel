@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,26 +22,24 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">NGO Panel</h4>
-                                    <!-- <form action="http://demo.themefisher.com/focus/index.html"> -->
-                                        <div class="text-center">
-                                            <a href="/ngo/manager/login">
-                                                <button class="btn btn-primary btn-block">NGO Manager Login</button>
-                                            </a>
-                                        </div>
-                                        <div class="text-center mt-3 mb-3">
-                                            <a href="/ngo/verifier/login">
-                                                <button class="btn btn-primary btn-block">Verifier Login</button>
-                                            </a>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="/ngo/pickupman/login">
-                                                <button class="btn btn-primary btn-block">Pickupman Login</button>
-                                            </a>
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <a class="text-primary" href="{{ route('MedCharity') }}">Go to MedCharity</a>
-                                        </div>
-                                    <!-- </form> -->
+                                    <div class="text-center">
+                                        <a href="/ngo/manager/login">
+                                            <button class="btn btn-primary btn-block">NGO Manager Login</button>
+                                        </a>
+                                    </div>
+                                    <div class="text-center mt-3 mb-3">
+                                        <a href="/ngo/verifier/login">
+                                            <button class="btn btn-primary btn-block">Medicine Verifier Login</button>
+                                        </a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="/ngo/pickupman/login">
+                                            <button class="btn btn-primary btn-block">Pickupman Login</button>
+                                        </a>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <a class="text-primary" href="{{ route('MedCharity') }}">Go to MedCharity</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +48,6 @@
             </div>
         </div>
     </div>
-    <!-- #/ container-fluid -->
     <!-- Common JS -->
     <script src="vendor/global/global.min.js"></script>
     <!-- Custom script -->

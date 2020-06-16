@@ -16,13 +16,11 @@
         </div>
     </section>
     <!-- breadcrumb end-->
-<!-- login part -->
-<!-- <section class="padding_top"> -->
     <div class="container pt-5 pb-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-6">
-                <!-- <h4 class="widget_title">Newsletter</h4> -->
-
+                @include('partial.customerror')
+                @include('partial.success')
                 <form method="POST" action="{{ route('RegisterDonator') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -70,15 +68,16 @@
                     <div class="form-group">
                         <label><strong>Gender</strong></label><br>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="male" 
-                                    name="gender" value="Male">
+                            <input type="radio" class="custom-control-input @error('gender') is-invalid @enderror" id="male" 
+                                    name="gender" value="Male" @if(old('gender')=='Male') checked @endif >
                             <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="female" 
-                                    name="gender" value="Female">
+                            <input type="radio" class="custom-control-input @error('gender') is-invalid @enderror" id="female" 
+                                    name="gender" value="Female" @if(old('gender')=='Female') checked @endif >
                             <label class="custom-control-label" for="female">Female</label>
                         </div>
+                        
                     </div>
                     <div class="form-group">
                         <label><strong>Contact</strong></label>
@@ -122,20 +121,6 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label><strong>State</strong></label>
-                        <input type="text" name="state" id="state" 
-                                class="form-control @error('state') is-invalid @enderror" 
-                                onfocus="this.placeholder = ''" 
-                                onblur="this.placeholder = ''"   
-                                value="{{ old('state') }}"
-                                placeholder="" readonly required>
-                        @error('state')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label><strong>City</strong></label>
                         <input type="text" name="city" id="city" 
                                 class="form-control @error('city') is-invalid @enderror" 
@@ -144,6 +129,20 @@
                                 value="{{ old('city') }}"
                                 placeholder="" readonly required>
                         @error('city')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label><strong>State</strong></label>
+                        <input type="text" name="state" id="state" 
+                                class="form-control @error('state') is-invalid @enderror" 
+                                onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = ''"   
+                                value="{{ old('state') }}"
+                                placeholder="" readonly required>
+                        @error('state')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -171,7 +170,6 @@
             </div>
         </div>
     </div>
-<!-- </section> -->
 <script>
     $(document).ready(function() {
         $("#pincode").change(function() {
@@ -217,7 +215,5 @@
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>
-
-<!-- login part end -->
 
 @endsection

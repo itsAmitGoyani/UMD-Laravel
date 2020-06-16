@@ -61,7 +61,7 @@
                                                         <td><span class="text-muted">{{ $today->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $today->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $today->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $today->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $today->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach
@@ -95,7 +95,7 @@
                                                         <td><span class="text-muted">{{ $yesterday->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $yesterday->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $yesterday->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $yesterday->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $yesterday->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach
@@ -129,7 +129,7 @@
                                                         <td><span class="text-muted">{{ $lastweek->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastweek->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastweek->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $lastweek->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $lastweek->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach
@@ -163,7 +163,7 @@
                                                         <td><span class="text-muted">{{ $lastmonth->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastmonth->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastmonth->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $lastmonth->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $lastmonth->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach
@@ -197,7 +197,7 @@
                                                         <td><span class="text-muted">{{ $lastyear->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastyear->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $lastyear->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $lastyear->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $lastyear->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach
@@ -231,7 +231,7 @@
                                                         <td><span class="text-muted">{{ $all->ngo->name }}</span></td>
                                                         <td><span class="text-muted">{{ $all->pickupman->name }}</span></td>
                                                         <td><span class="text-muted">{{ $all->verifier->name ?? 'Not Verified' }}</span></td>
-                                                        <td><span class="text-muted">{{ $all->datetime }}</span></td>
+                                                        <td><span class="text-muted">{{ $all->date }}</span></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                     @endforeach

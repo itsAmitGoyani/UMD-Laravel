@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Pickupman;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,7 +18,10 @@ class PickupmanController extends Controller
 {
     public function showDashboard()
     {
-        return view('ngo.pickupman.dashboard');
+        $tpd = PickupSchedule::where([['ngo_id',Auth::user()->ngo_id],['status','Pending']])->count();
+        $pp = PickupSchedule::where([['ngo_id',Auth::user()->ngo_id],['pickupman_id',Auth::user()->id],['status','Taken']])->count();
+        $tspd = PickupSchedule::where([['ngo_id',Auth::user()->ngo_id],['date',Carbon::today()],['status','Pending']])->count();
+        return view('ngo.pickupman.dashboard', ['tpd'=>$tpd , 'pp'=>$pp , 'tspd'=>$tspd]);
     }
 
     public function showProfile()

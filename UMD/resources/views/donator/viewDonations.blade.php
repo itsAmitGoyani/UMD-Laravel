@@ -45,13 +45,13 @@
                     <div class="table-head">
                         <div class="serial">#</div>
                         <div class="country">NGO Name</div>
-                        <div class="visit">DateTime</div>
+                        <div class="visit">Date</div>
                     </div>
                     @foreach($donations as $donation)
                     <div class="table-row">
                         <div class="serial">#</div>
                         <div class="country">{{ $donation->ngo->name }}</div>
-                        <div class="visit">{{ $donation->datetime }}</div>
+                        <div class="visit">{{ $donation->date }}</div>
                     </div>
                     @endforeach
                 </div>

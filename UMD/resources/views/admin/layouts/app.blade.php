@@ -153,7 +153,7 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    <a href="#" target="_blank">MedCharity</a> All rights reserved</p>
+                    <a href="#">MedCharity</a> All rights reserved</p>
             </div>
         </div>
         <!--**********************************

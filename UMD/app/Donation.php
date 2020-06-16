@@ -11,7 +11,7 @@ class Donation extends Model
         'donator_id',
         'ngo_id',
         'pickupman_id',
-        'datetime',
+        'date',
         'status',
         'verifier_id',
     ];

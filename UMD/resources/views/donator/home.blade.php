@@ -18,7 +18,7 @@
                 <div class="banner_video">
                     <div class="banner_video_iner">
                         <img src="/dpanel/img/banner_video.png" alt="">
-                        
+
                     </div>
                 </div>
             </div>
@@ -29,197 +29,117 @@
 
 <!-- service part start-->
 <section class="service_part">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-4 col-sm-10">
-                <div class="service_text">
-                    <h2>We are CharityPress
-                        Funding Network
-                        Worldwide.</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        Lorem ipsum dolor sit amet consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna </p>
-                    <a href="service.html" class="btn_3">learn more</a>
-                </div>
-            </div>
-            <div class="col-lg-7 col-xl-6">
-                <div class="service_part_iner">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="single_service_text ">
-                                <i class="flaticon-money"></i>
-                                <h4>Donation</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur elit seiusmod tempor incididunt</p>
-                                <a href="#">donate now</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="single_service_text">
-                                <i class="flaticon-money"></i>
-                                <h4>Adopt A Child</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur elit seiusmod tempor incididunt</p>
-                                <a href="#">contact us</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="single_service_text">
-                                <i class="flaticon-money"></i>
-                                <h4>Become A Volunteer</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur elit seiusmod tempor incididunt</p>
-                                <a href="#">read more</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="single_service_text">
-                                <i class="flaticon-money"></i>
-                                <h4>Donation</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur elit seiusmod tempor incididunt</p>
-                                <a href="#">donate now</a>
-                            </div>
-                        </div>
+    <section class="about_us padding_top">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6">
+                    <div class="about_us_img">
+                        <img src="/dpanel/img/top_service.png" alt="">
                     </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about_us_text">
+                        <h5>
+                            2008<br><span>since</span>
+                        </h5>
+                        <h2>About Believe</h2>
+                        <p>According to the research firm Frost & Sullivan, the estimated
+                            size of the North American used test and measurement equipment
+                            market was $446.4 million in 2004 and is estimated to grow to
+                            $654.5 million by 2011. For over 50 years, companies and governments
+                            have procured used test and measurement instruments.</p>
+                        <div class="banner_item">
+                            <div class="single_item">
+                                <h2> <span class="count">{{$tds}}</span>k</h2>
+                                <h5>Total
+                                    Donators</h5>
+                            </div>
+                            <div class="single_item">
+                                <h2><span class="count">{{$tn}}</span></h2>
+                                <h5>Total
+                                    NGOs</h5>
+                            </div>
+                            <div class="single_item">
+                                <h2><span class="count">{{$td}}</span>k</h2>
+                                <h5>Total
+                                    Donations</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
 </section>
 <!-- service part end-->
-<!-- about part end-->
-<section class="about_us padding_top">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-6">
-                <div class="about_us_img">
-                    <img src="/dpanel/img/top_service.png" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="about_us_text">
-                    <h5>
-                        2008<br><span>since</span>
-                    </h5>
-                    <h2>About Believe</h2>
-                    <p>According to the research firm Frost & Sullivan, the estimated
-                        size of the North American used test and measurement equipment
-                        market was $446.4 million in 2004 and is estimated to grow to
-                        $654.5 million by 2011. For over 50 years, companies and governments
-                        have procured used test and measurement instruments.</p>
-                    <div class="banner_item">
-                        <div class="single_item">
-                            <h2> <span class="count">10</span>k</h2>
-                            <h5>Total
-                                Donators</h5>
-                        </div>
-                        <div class="single_item">
-                            <h2><span class="count">8</span>k</h2>
-                            <h5>Successed
-                                Mission</h5>
-                        </div>
-                        <div class="single_item">
-                            <h2><span class="count">20</span>k</h2>
-                            <h5>Total
-                                Donations</h5>
-                        </div>
-                    </div>
 
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-<!-- about part end-->
-
-<!--::passion part start::-->
-<section class="passion_part passion_section_padding">
+<!-- ================ contact section start ================= -->
+<section class="contact-section section_padding">
     <div class="container">
         <div class="row">
-            <div class="col-xl-5 col-md-8">
-                <div class="section_tittle">
-                    <h2>Our Causes</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna </p>
-
-                </div>
+            <div class="col-12">
+                <h2 class="contact-title">Get in Touch</h2>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-lg-4 col-xl-4">
-                <div class="single-home-passion">
-                    <div class="card">
-                        <img src="/dpanel/img/passion/passion_1.png" class="card-img-top" alt="blog">
-                        <div class="card-body">
+            <div class="col-lg-8">
+                <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
 
-                            <a href="#">
-                                <h5 class="card-title">Fourth created forth fill
-                                    created subdue be </h5>
-                            </a>
-                            <ul>
-                                <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                            </ul>
-                            <div class="skill">
-                                <div class="skill-bar skill11 wow slideInLeft animated">
-                                    <span class="skill-count11">75%</span>
-                                </div>
+                                <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder='Enter Message'></textarea>
                             </div>
-                            <a href="#" class="btn_2">read more</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder='Enter your name'>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder='Enter email address'>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder='Enter Subject'>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn_3">Send Message <i class="flaticon-right-arrow"></i> </button>
+                    </div>
+                </form>
             </div>
-            <div class="col-sm-6 col-lg-4 col-xl-4">
-                <div class="single-home-passion">
-                    <div class="card">
-                        <img src="/dpanel/img/passion/passion_2.png" class="card-img-top" alt="blog">
-                        <div class="card-body">
-                            <a href="#">
-                                <h5 class="card-title">Fourth created forth fill
-                                    created subdue be </h5>
-                            </a>
-                            <ul>
-                                <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                            </ul>
-                            <div class="skill">
-                                <div class="skill-bar skill11 wow slideInLeft animated">
-                                    <span class="skill-count11">75%</span>
-                                </div>
-                            </div>
-                            <a href="#" class="btn_2">read more</a>
-
-                        </div>
+            <div class="col-lg-4">
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-home"></i></span>
+                    <div class="media-body">
+                        <h3>Surat, Gujarat.</h3>
+                        <p>Silver Hub, 312</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-lg-4 col-xl-4">
-                <div class="single-home-passion">
-                    <div class="card">
-                        <img src="/dpanel/img/passion/passion_3.png" class="card-img-top" alt="blog">
-                        <div class="card-body">
-                            <a href="#">
-                                <h5 class="card-title">Fourth created forth fill
-                                    created subdue be </h5>
-                            </a>
-                            <ul>
-                                <li><img src="/dpanel/img/icon/passion_1.svg" alt=""> Goal: $2500</li>
-                                <li><img src="/dpanel/img/icon/passion_2.svg" alt=""> Raised: $1533</li>
-                            </ul>
-                            <div class="skill">
-                                <div class="skill-bar skill11 wow slideInLeft animated">
-                                    <span class="skill-count11">75%</span>
-                                </div>
-                            </div>
-                            <a href="#" class="btn_2">read more</a>
-                        </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                    <div class="media-body">
+                        <h3>00 (440) 9865 562</h3>
+                        <p>Mon to Fri 9am to 6pm</p>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-email"></i></span>
+                    <div class="media-body">
+                        <h3>support@medcharity.com</h3>
+                        <p>Send us your query anytime!</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--::passion part end::-->
+<!-- ================ contact section end ================= -->
 
 <!-- intro_video_bg start-->
 <section class="intro_video_bg">
@@ -231,7 +151,6 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore magna
                         aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                    <a href="#" class="btn_2">Become a Volunteer</a>
                 </div>
             </div>
         </div>

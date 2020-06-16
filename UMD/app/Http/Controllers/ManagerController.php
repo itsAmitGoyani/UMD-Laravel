@@ -23,7 +23,11 @@ class ManagerController extends Controller
 {
     public function showdashboard()
     {
-        return view('ngo.manager.dashboard');
+        $td = Donation::where('ngo_id',Auth::user()->ngo_id)->count();
+        $tpd = PickupSchedule::where('ngo_id',Auth::user()->ngo_id)->count();
+        $yd = Donation::where([['ngo_id',Auth::user()->ngo_id],['date','=', Carbon::yesterday()]])->count();
+        $pvd = Donation::where([['ngo_id',Auth::user()->ngo_id],['status','Pending']])->count();
+        return view('ngo.manager.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'pvd'=>$pvd]);
     }
 
     public function index()
@@ -113,12 +117,12 @@ class ManagerController extends Controller
     {
         $donation = PickupSchedule::where('id', $id)->first();
         if (PickupSchedule::where('id', $id)->delete()) {
-            $datetime = date('Y-m-d H:i:s');
+            $date = date('Y-m-d');
             $d = Donation::create([
                 'donator_id' => $donation->donator_id,
                 'ngo_id' => $donation->ngo_id,
                 'pickupman_id' => $donation->pickupman_id,
-                'datetime' => $datetime,
+                'date' => $date,
             ]);
             if ($d) {
                 return response()->json(["msg" => "Yes"]);
@@ -144,12 +148,12 @@ class ManagerController extends Controller
 
     public function viewDonationHistory()
     {
-        $today = Donation::where([['ngo_id', Auth::user()->ngo_id], ['datetime', '>=', Carbon::today()]])->orderby('datetime', 'desc')->get();
-        $yesterday = Donation::where([['ngo_id', Auth::user()->ngo_id], ['datetime', '=', Carbon::yesterday()]])->orderby('datetime', 'desc')->get();
-        $lastweek = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $lastmonth = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
-        $lastyear = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('datetime', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
-        $all = Donation::where('ngo_id', Auth::user()->ngo_id)->orderby('datetime', 'desc')->get();
+        $today = Donation::where([['ngo_id', Auth::user()->ngo_id], ['date', '=', Carbon::today()]])->orderby('date', 'desc')->get();
+        $yesterday = Donation::where([['ngo_id', Auth::user()->ngo_id], ['date', '=', Carbon::yesterday()]])->orderby('date', 'desc')->get();
+        $lastweek = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $lastmonth = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+        $lastyear = Donation::where('ngo_id', Auth::user()->ngo_id)->whereBetween('date', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+        $all = Donation::where('ngo_id', Auth::user()->ngo_id)->orderby('date', 'desc')->get();
         return view('ngo.manager.viewDonationHistory', ['today' => $today, 'yesterday' => $yesterday, 'lastweek' => $lastweek, 'lastmonth' => $lastmonth, 'lastyear' => $lastyear, 'all' => $all]);
     }
 

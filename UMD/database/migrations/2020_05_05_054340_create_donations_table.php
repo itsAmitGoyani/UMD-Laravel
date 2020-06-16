@@ -18,7 +18,7 @@ class CreateDonationsTable extends Migration
             $table->integer('donator_id')->unsigned();
             $table->integer('ngo_id')->unsigned();
             $table->integer('pickupman_id')->unsigned();
-            $table->dateTime('datetime');
+            $table->date('date');
             $table->string('status')->default('Pending');
             $table->integer('verifier_id')->unsigned()->nullable();
             

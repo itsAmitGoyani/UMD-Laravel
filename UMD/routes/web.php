@@ -98,6 +98,8 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('donationhistory', 'ManagerController@viewDonationHistory')->name('ViewDonationHistory-Manager');
 
             Route::get('medicinestock', 'ManagerController@viewMedicineStock')->name('ViewMedicineStock-Manager');
+
+            Route::get('expiremedicine','ManagerController@viewExpireMedicine')->name('ViewExpire-Medicine');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');

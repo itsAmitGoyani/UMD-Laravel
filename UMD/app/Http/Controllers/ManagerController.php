@@ -7,12 +7,15 @@ use App\Manager;
 use App\Donation;
 use App\MedicineStock;
 use App\PickupSchedule;
+use Carbon\Traits\Date;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -154,6 +157,12 @@ class ManagerController extends Controller
     {
         $medicinestock = MedicineStock::where('ngo_id', Auth::user()->ngo_id)->get();
         return view('ngo.manager.viewMedicineStock', ['medicinestocks' => $medicinestock]);
+    }
+
+    public function viewExpireMedicine()
+    {
+        $date = new DateTime();
+        return $date;
     }
     /**
      * Show the form for creating a new resource.

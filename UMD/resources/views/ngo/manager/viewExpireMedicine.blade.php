@@ -5,16 +5,6 @@
     <div class="container-fluid">
         @include('partial.customerror')
         @include('partial.success')
-        <!-- Success Alert -->
-        <div class="alert alert-success alert-dismissible fade show" id="successdiv">
-            <strong>Success!</strong> Donation recevied successfully.
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-        <!-- Error Alert -->
-        <div class="alert alert-danger alert-dismissible fade show" id="errordiv">
-            <strong>Error!</strong> A problem has been occurred while updating donation status.
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
@@ -30,26 +20,31 @@
                             <table class="table header-border table-responsive-sm">
                                 <thead>
                                     <tr>
-                                        <th>OrderID</th>
-                                        <th>Donator Name</th>
-                                        <th>Address</th>
-                                        <th>City,State</th>
-                                        <th>Pickupman Name</th>
+                                        <th>ID</th>
+                                        <th>Medicine Name</th>
+                                        <th>Category</th>
+                                        <th>Brand</th>
+                                        <th>Qty</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($donations as $donation)
+                                    @foreach($expiremedicines as $expiremedicine)
                                     <tr>
-                                        <td>#{{ $donation->id }}</td>
-                                        <td><span class="text-muted">{{ $donation->donator->name }}</span></td>
-                                        <td><span class="text-muted">{{ $donation->donator->address }}</span></td>
-                                        <td><span class="text-muted">{{ $donation->donator->city }},{{ $donation->donator->state }}</span></td>
-                                        <td><span class="text-muted">{{ $donation->pickupman->name }}</span></td>
+                                        <td>#{{ $expiremedicine->medicine_stock_id }}</td>
+                                        <td><span class="text-muted">{{ $expiremedicine->medicine->name }}</span></td>
+                                        <td><span class="text-muted">{{ $expiremedicine->medicine->category->categoryname }}</span></td>
+                                        <td><span class="text-muted">{{ $expiremedicine->medicine->brand }}</span></td>
+                                        <td><span class="text-muted">{{ $expiremedicine->qty }}</span></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <div class="card-footer d-sm-flex justify-content-center">
+                    <div class="card-footer-link mb-4 mb-sm-0">
+                        <a href="/ngo/manager/removemedicine" class="btn btn-primary mr-2">Remove</a>
                     </div>
                 </div>
             </div>

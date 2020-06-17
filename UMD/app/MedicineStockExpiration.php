@@ -12,4 +12,9 @@ class MedicineStockExpiration extends Model
         'expirydate',
         'qty',
     ];
+
+    public function medicinestock()
+    {
+        return $this->belongsTo('App\MedicineStock');
+    }
 }

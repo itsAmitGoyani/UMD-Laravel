@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\MedicineCategory;
-use App\MedicineStockExpiration;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -211,10 +210,6 @@ class ManagerController extends Controller
         $expiremedicine = MedicineStock::join('medicine_stock_expirations', 'medicine_stocks.id', '=', 'medicine_stock_expirations.medicine_stock_id')
             ->where('ngo_id', Auth::user()->ngo_id)
             ->where('expirydate', '<=', Carbon::today())->orderby('expirydate', 'desc')->get();
-        // $expiremedicine = MedicineStockExpiration::with(['medicinestock' => function ($q) {
-        //     $q->where('ngo_id', Auth::user()->ngo_id);
-        // }])->where('expirydate', '<=', Carbon::today())->orderby('expirydate', 'desc')->get();
-        // $expiremedicine = MedicineStockExpiration::find(2)->medicinestock()->where([['ngo_id', Auth::user()->ngo_id], ['expirydate', '=', Carbon::today()]])->orderby('expirydate', 'desc')->get();
         return view('ngo.manager.viewExpireMedicine', ['expiremedicines' => $expiremedicine]);
     }
 
@@ -229,7 +224,6 @@ class ManagerController extends Controller
             if ($removemedicine) {
                 $stockqty = MedicineStock::select('qty')->where('id', $expiremedicines->medicine_stock_id)->first();
                 $newqty = $stockqty->qty - $expiremedicines->qty;
-                echo $newqty;
                 if ($newqty > 0) {
                     $medicinestock = MedicineStock::where('id', $expiremedicines->medicine_stock_id)->update(['qty' => $newqty]);
                 } else {
@@ -238,7 +232,7 @@ class ManagerController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Removed Expire Medicines Successfully ');
+        return redirect()->back()->with('success', 'Expired medicines removed from stock Successfully.');
     }
 
     /**

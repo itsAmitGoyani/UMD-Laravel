@@ -60,6 +60,8 @@
                                     <ul id="todo_list">
                                         <li><label><input type="checkbox"><i></i><span>View Pickedup Donations</span><a href='#' class="ti-trash"></a></label></li>
                                         <li><label><input type="checkbox"><i></i><span>View Donation History</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>Manage Medicine Stock</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>View Expired Medicines</span><a href='#' class="ti-trash"></a></label></li>
                                     </ul>
                                 </div>
                                 <div class="px-4">

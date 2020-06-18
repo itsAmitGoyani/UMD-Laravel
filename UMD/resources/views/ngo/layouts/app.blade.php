@@ -53,21 +53,21 @@
         <div class="nav-header">
             @if(Auth::guard('manager')->check())
             <a href="/ngo/manager" class="brand-logo">
-            @elseif(Auth::guard('verifier')->check())
-            <a href="/ngo/verifier" class="brand-logo">
-            @elseif(Auth::guard('pickupman')->check())
-            <a href="/ngo/pickupman" class="brand-logo">
-            @endif
-                <img class="logo-abbr" src="{{ asset('images/logo.png')}}" alt="">
-                <img class="logo-compact" src="{{ asset('images/logo-text.png')}}" alt="">
-                <img class="brand-title" src="{{ asset('images/logo-text.png')}}" alt="">
-            </a>
+                @elseif(Auth::guard('verifier')->check())
+                <a href="/ngo/verifier" class="brand-logo">
+                    @elseif(Auth::guard('pickupman')->check())
+                    <a href="/ngo/pickupman" class="brand-logo">
+                        @endif
+                        <img class="logo-abbr" src="{{ asset('images/logo.png')}}" alt="">
+                        <img class="logo-compact" src="{{ asset('images/logo-text.png')}}" alt="">
+                        <img class="brand-title" src="{{ asset('images/logo-text.png')}}" alt="">
+                    </a>
 
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
+                    <div class="nav-control">
+                        <div class="hamburger">
+                            <span class="line"></span><span class="line"></span><span class="line"></span>
+                        </div>
+                    </div>
         </div>
         <!--**********************************
             Nav header end
@@ -102,7 +102,7 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    
+
                                     @if(Auth::guard('manager')->check())
                                     <a href="/ngo/manager/profile" class="dropdown-item">
                                         <i class="icon-user"></i>
@@ -165,8 +165,9 @@
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Medicine Stock') }}</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('ManageMedicineStock-Manager') }}">{{ __('Manage Medicine Stock') }}</a></li>
                             <li><a href="{{ route('ViewMedicineStock-Manager') }}">{{ __('View Medicine Stock') }}</a></li>
+                            <li><a href="{{ route('ManageMedicineStock-Manager') }}">{{ __('Manage Medicine Stock') }}</a></li>
+                            <li><a href="{{ route('ViewExpire-Medicine') }}">{{ __('View Expired Medicines') }}</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a></li>

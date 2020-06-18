@@ -8,12 +8,15 @@ use App\Donation;
 use App\MedicineStock;
 use App\MedicineStockExpiration;
 use App\PickupSchedule;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use App\MedicineCategory;
+use App\MedicineStockExpiration;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,11 +24,11 @@ class ManagerController extends Controller
 {
     public function showdashboard()
     {
-        $td = Donation::where('ngo_id',Auth::user()->ngo_id)->count();
-        $tpd = PickupSchedule::where('ngo_id',Auth::user()->ngo_id)->count();
-        $yd = Donation::where([['ngo_id',Auth::user()->ngo_id],['date','=', Carbon::yesterday()]])->count();
-        $pvd = Donation::where([['ngo_id',Auth::user()->ngo_id],['status','Pending']])->count();
-        return view('ngo.manager.dashboard', ['td'=>$td , 'tpd'=>$tpd , 'yd'=>$yd , 'pvd'=>$pvd]);
+        $td = Donation::where('ngo_id', Auth::user()->ngo_id)->count();
+        $tpd = PickupSchedule::where('ngo_id', Auth::user()->ngo_id)->count();
+        $yd = Donation::where([['ngo_id', Auth::user()->ngo_id], ['date', '=', Carbon::yesterday()]])->count();
+        $pvd = Donation::where([['ngo_id', Auth::user()->ngo_id], ['status', 'Pending']])->count();
+        return view('ngo.manager.dashboard', ['td' => $td, 'tpd' => $tpd, 'yd' => $yd, 'pvd' => $pvd]);
     }
 
     public function index()
@@ -203,6 +206,41 @@ class ManagerController extends Controller
         }
         return response()->json(["msg"=>"No"]);        
     }
+    public function viewExpireMedicine()
+    {
+        $expiremedicine = MedicineStock::join('medicine_stock_expirations', 'medicine_stocks.id', '=', 'medicine_stock_expirations.medicine_stock_id')
+            ->where('ngo_id', Auth::user()->ngo_id)
+            ->where('expirydate', '<=', Carbon::today())->orderby('expirydate', 'desc')->get();
+        // $expiremedicine = MedicineStockExpiration::with(['medicinestock' => function ($q) {
+        //     $q->where('ngo_id', Auth::user()->ngo_id);
+        // }])->where('expirydate', '<=', Carbon::today())->orderby('expirydate', 'desc')->get();
+        // $expiremedicine = MedicineStockExpiration::find(2)->medicinestock()->where([['ngo_id', Auth::user()->ngo_id], ['expirydate', '=', Carbon::today()]])->orderby('expirydate', 'desc')->get();
+        return view('ngo.manager.viewExpireMedicine', ['expiremedicines' => $expiremedicine]);
+    }
+
+    public function removeExpireMedicine()
+    {
+        $expiremedicine = MedicineStock::join('medicine_stock_expirations', 'medicine_stocks.id', '=', 'medicine_stock_expirations.medicine_stock_id')
+            ->where('ngo_id', Auth::user()->ngo_id)
+            ->where('expirydate', '<=', Carbon::today())->orderby('expirydate', 'desc')->get();
+
+        foreach ($expiremedicine as $expiremedicines) {
+            $removemedicine = MedicineStockExpiration::where('id', $expiremedicines->id)->delete();
+            if ($removemedicine) {
+                $stockqty = MedicineStock::select('qty')->where('id', $expiremedicines->medicine_stock_id)->first();
+                $newqty = $stockqty->qty - $expiremedicines->qty;
+                echo $newqty;
+                if ($newqty > 0) {
+                    $medicinestock = MedicineStock::where('id', $expiremedicines->medicine_stock_id)->update(['qty' => $newqty]);
+                } else {
+                    $medicinestock = MedicineStock::where('id', $expiremedicines->medicine_stock_id)->delete();
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Removed Expire Medicines Successfully ');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

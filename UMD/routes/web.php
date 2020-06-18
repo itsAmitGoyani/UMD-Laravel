@@ -101,6 +101,9 @@ Route::group(['prefix' => 'ngo'], function () {
             Route::get('managemedicinestock', 'ManagerController@manageMedicineStock')->name('ManageMedicineStock-Manager');
             Route::get('managemedicinestock/{id}', 'ManagerController@fetchQty');
             Route::get('removemedicinestock/{id}/{qtyr}', 'ManagerController@removeMedicineStock');
+
+            Route::get('expiremedicine', 'ManagerController@viewExpireMedicine')->name('ViewExpire-Medicine');
+            Route::get('removemedicine', 'ManagerController@removeExpireMedicine');
         });
         Route::get('login', 'Auth\LoginController@showManagerLoginForm')->name('manager-login');
         Route::post('login', 'Auth\LoginController@managerLogin')->name('manager-login');

@@ -163,10 +163,15 @@
                             <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a>
-                    <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
-                    <li><a href="{{ route('ViewMedicineStock-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a>
-                    <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Medicine Stock') }}</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('ManageMedicineStock-Manager') }}">{{ __('Manage Medicine Stock') }}</a></li>
+                            <li><a href="{{ route('ViewMedicineStock-Manager') }}">{{ __('View Medicine Stock') }}</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a></li>
+                    <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
                     <li><a href="{{ route('Profile-Manager') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
                     <li><a href="{{ route('ChangePassword-Manager') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>

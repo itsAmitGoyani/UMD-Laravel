@@ -6,6 +6,7 @@ use App\Ngo;
 use App\Manager;
 use App\Donation;
 use App\MedicineStock;
+use App\MedicineStockExpiration;
 use App\PickupSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -158,6 +159,49 @@ class ManagerController extends Controller
     {
         $medicinestock = MedicineStock::where('ngo_id', Auth::user()->ngo_id)->get();
         return view('ngo.manager.viewMedicineStock', ['medicinestocks' => $medicinestock]);
+    }
+
+    public function manageMedicineStock()
+    {
+        $mids = MedicineStock::where('ngo_id', Auth::user()->ngo_id)->get('medicine_id');
+        return view('ngo.manager.manageMedicineStock', ['mids' => $mids]);
+    }
+
+    public function fetchQty($id)
+    {
+        $rec = MedicineStock::where([['ngo_id', Auth::user()->ngo_id],['medicine_id', $id]])->first();
+        $mc = $rec->medicine->category->categoryname;
+        $mn = $rec->medicine->name;
+        $qty = $rec['qty'];
+        $brand = $rec->medicine->brand;
+        $id = $rec['id'];
+        return response()->json(["mc" => $mc , "mn"=>$mn , "qty"=>$qty , "brand"=>$brand , "id"=>$id ]);
+    }
+
+    public function removeMedicineStock($id,$qtyr)
+    {
+        if($recs = MedicineStockExpiration::where([['medicine_stock_id',$id],['expirydate','>',Carbon::yesterday()]])->orderby('expirydate','asc')->get()) {
+            foreach($recs as $rec)
+            {
+                if($rec['qty']>$qtyr) {
+                    MedicineStockExpiration::find($rec['id'])->decrement('qty',$qtyr);
+                    MedicineStock::find($id)->decrement('qty',$qtyr);
+                    return response()->json(["msg"=>"Yes"]);
+                } else {
+                    MedicineStockExpiration::find($rec['id'])->delete();
+                    MedicineStock::find($id)->decrement('qty',$rec['qty']);
+                    $qtyr-=$rec['qty'];
+                    if($qtyr==0) {
+                        $remainQty = MedicineStock::where('id',$id)->first('qty');
+                        if($remainQty['qty']==0) {
+                            MedicineStock::find($id)->delete();
+                        }
+                        return response()->json(["msg"=>"Yes"]);
+                    }
+                }
+            }
+        }
+        return response()->json(["msg"=>"No"]);        
     }
     /**
      * Show the form for creating a new resource.

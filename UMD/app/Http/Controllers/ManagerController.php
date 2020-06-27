@@ -297,7 +297,6 @@ class ManagerController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:managers,email,' . $id],
-            'password' => ['required', 'string', 'min:8'],
             'ngo_id' => ['required', 'numeric'],
             'pimage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ])->validate();

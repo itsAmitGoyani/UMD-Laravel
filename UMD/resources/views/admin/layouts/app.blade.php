@@ -87,11 +87,11 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="/admin/profile" class="dropdown-item">
-                                        <i class="icon-user"></i>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="/admin/logout" class="dropdown-item">
-                                        <i class="icon-key"></i>
+                                        <i class="fa fa-key" aria-hidden="true"></i>
                                         <span class="ml-2">Logout</span>
                                     </a>
                                 </div>
@@ -112,24 +112,24 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-building-o" aria-hidden="true"></i><span class="nav-text">{{ __('NGO') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="/admin/registerngo">{{ __('Register NGO') }}</a></li>
                             <li><a href="/admin/displayngos">{{ __('Display All NGOs') }}</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('NGO Manager') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="nav-text">{{ __('NGO Manager') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="/admin/registermanager">{{ __('Register NGO Manager') }}</a></li>
                             <li><a href="/admin/displaymanagers">{{ __('Display All Manager') }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('ViewDonationHistory-Admin') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
-                    <li><a href="/admin/medicinestock" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
-                    <li><a href="/admin/managedonators" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
+                    <li><a href="{{ route('ViewDonationHistory-Admin') }}"><i class="fa fa-history" aria-hidden="true"></i><span class="nav-text">{{ __('View Donation History') }}</span></a>
+                    <li><a href="/admin/medicinestock" aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span class="nav-text">{{ __('View Medicine Stock') }}</span></a></li>
+                    <li><a href="/admin/managedonators" aria-expanded="false"><i class="fa fa-user-times" aria-hidden="true"></i><span class="nav-text">{{ __('Manage Donators') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
-                    <li><a href="{{ route('Profile-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
-                    <li><a href="{{ route('ChangePassword-Admin') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
+                    <li><a href="{{ route('Profile-Admin') }}" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
+                    <li><a href="{{ route('ChangePassword-Admin') }}" aria-expanded="false"><i class="fa fa-key" aria-hidden="true"></i></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                 </ul>
             </div>
         </div>

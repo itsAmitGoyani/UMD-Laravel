@@ -15,7 +15,7 @@
                                         <h4 class="text-center mb-4">Edit NGO Manager</h4>
                                         @include('partial.customerror')
                                         @include('partial.success')
-                                        <form method="POST" action="/admin-managers/{{$manager->id}}" enctype="multipart/form-data">
+                                        <form method="POST" action="/admin/managers/{{$manager->id}}" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
@@ -33,16 +33,6 @@
                                                 <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" 
                                                         value="{{ $manager->email }}" required autocomplete="email">
                                                 @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label><strong>Password</strong></label>
-                                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" 
-                                                        value="" required autocomplete="password">
-                                                @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

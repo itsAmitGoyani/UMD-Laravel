@@ -196,11 +196,6 @@
                         document.getElementById("state").value = state;
                         document.getElementById("city").value = district;
                     }
-
-
-
-                    // console.log(data[0]["PostOffice"][0]["Circle"]);
-                    // console.log(data[0]["PostOffice"][0]["District"]);
                 },
             });
         });

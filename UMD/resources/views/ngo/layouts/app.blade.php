@@ -123,11 +123,11 @@
                                     </a>
                                     @elseif(Auth::guard('pickupman')->check())
                                     <a href="/ngo/pickupman/profile" class="dropdown-item">
-                                        <i class="icon-user"></i>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="/ngo/pickupman/logout" class="dropdown-item">
-                                        <i class="icon-key"></i>
+                                        <i class="fa fa-key" aria-hidden="true"></i>
                                         <span class="ml-2">Logout</span>
                                     </a>
                                     @endif
@@ -150,48 +150,48 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
                     @if(Auth::guard('manager')->check())
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="nav-text">{{ __('Verifier') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterVerifier') }}">{{ __('Register Verifier') }}</a></li>
                             <li><a href="{{ route('DisplayVerifier') }}">{{ __('Display All Verifier') }}</a></li>
 
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Pickupman') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="nav-text">{{ __('Pickupman') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('RegisterPickupman') }}">{{ __('Register Pickupman') }}</a></li>
                             <li><a href="{{ route('DisplayPickupmen') }}">{{ __('Display All Pickupmen') }}</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Medicine Stock') }}</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span class="nav-text">{{ __('Medicine Stock') }}</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('ViewMedicineStock-Manager') }}">{{ __('View Medicine Stock') }}</a></li>
                             <li><a href="{{ route('ManageMedicineStock-Manager') }}">{{ __('Manage Medicine Stock') }}</a></li>
                             <li><a href="{{ route('ViewExpire-Medicine') }}">{{ __('View Expired Medicines') }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a></li>
-                    <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Donation History') }}</span></a></li>
-                    <li><a href="{{ route('EditDPD-Manager') }}"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a></li>
+                    <li><a href="{{ route('ViewPickedUpDs-Manager') }}"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="nav-text">{{ __('View Picked Up Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewDonationHistory-Manager') }}"><i class="fa fa-history" aria-hidden="true"></i><span class="nav-text">{{ __('View Donation History') }}</span></a></li>
+                    <li><a href="{{ route('EditDPD-Manager') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="nav-text">{{ __('Edit DPD') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
-                    <li><a href="{{ route('Profile-Manager') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
-                    <li><a href="{{ route('ChangePassword-Manager') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
+                    <li><a href="{{ route('Profile-Manager') }}" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
+                    <li><a href="{{ route('ChangePassword-Manager') }}" aria-expanded="false"><i class="fa fa-key" aria-hidden="true"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                     @endif
                     @if(Auth::guard('verifier')->check())
-                    <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
-                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
-                    <li><a href="{{ route('GiveFeedback-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Give Feedback') }}</span></a></li>
-                    <li><a href="{{ route('AddMCategory-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Add Medicine Category') }}</span></a></li>
+                    <li><a href="{{ route('ViewPDs-Verifier') }}" aria-expanded="false"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewTD-Verifier') }}" aria-expanded="false"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="nav-text">{{ __('View Taken Donation') }}</span></a></li>
+                    <li><a href="{{ route('GiveFeedback-Verifier') }}" aria-expanded="false"><i class="fa fa-commenting-o" aria-hidden="true"></i><span class="nav-text">{{ __('Give Feedback') }}</span></a></li>
+                    <li><a href="{{ route('AddMCategory-Verifier') }}" aria-expanded="false"><i class="fa fa-plus-square-o" aria-hidden="true"></i><span class="nav-text">{{ __('Add Medicine Category') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
-                    <li><a href="{{ route('Profile-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
-                    <li><a href="{{ route('ChangePassword-Verifier') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
+                    <li><a href="{{ route('Profile-Verifier') }}" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
+                    <li><a href="{{ route('ChangePassword-Verifier') }}" aria-expanded="false"><i class="fa fa-key" aria-hidden="true"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                     @endif
                     @if(Auth::guard('pickupman')->check())
-                    <li><a href="{{ route('ViewPDs-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
-                    <li><a href="{{ route('ViewTDs-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('View Taken Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewPDs-Pickupman') }}" aria-expanded="false"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="nav-text">{{ __('View Pending Donations') }}</span></a></li>
+                    <li><a href="{{ route('ViewTDs-Pickupman') }}" aria-expanded="false"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="nav-text">{{ __('View Taken Donations') }}</span></a></li>
                     <li class="nav-label">User Menu</li>
-                    <li><a href="{{ route('Profile-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
-                    <li><a href="{{ route('ChangePassword-Pickupman') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
+                    <li><a href="{{ route('Profile-Pickupman') }}" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><span class="nav-text">{{ __('Profile') }}</span></a></li>
+                    <li><a href="{{ route('ChangePassword-Pickupman') }}" aria-expanded="false"><i class="fa fa-key" aria-hidden="true"></i><span class="nav-text">{{ __('Change Password') }}</span></a></li>
                     @endif
                 </ul>
             </div>

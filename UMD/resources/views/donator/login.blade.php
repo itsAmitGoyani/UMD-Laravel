@@ -16,11 +16,9 @@
 </section>
 <!-- breadcrumb end-->
 <!-- login part -->
-<!-- <section class="padding_top"> -->
 <div class="container pt-5 pb-5">
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-6">
-            <!-- <h4 class="widget_title">Newsletter</h4> -->
             @include('partial.customerror')
             @include('partial.success')
             <form method="POST" action="{{ route('LoginDonator') }}">
@@ -60,8 +58,6 @@
         </div>
     </div>
 </div>
-<!-- </section> -->
-
 <!-- login part end -->
 
 @endsection

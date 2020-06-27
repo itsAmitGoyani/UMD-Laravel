@@ -16,11 +16,9 @@
 </section>
 <!-- breadcrumb end-->
 <!-- login part -->
-<!-- <section class="padding_top"> -->
 <div class="container pt-5 pb-5">
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-12">
-            <!-- <h4 class="widget_title">Newsletter</h4> -->
             @include('partial.customerror')
             @include('partial.success')
             <div class="row justify-content-center">
@@ -79,8 +77,6 @@
         </div>
     </div>
 </div>
-<!-- </section> -->
-
 <!-- login part end -->
 
 @endsection

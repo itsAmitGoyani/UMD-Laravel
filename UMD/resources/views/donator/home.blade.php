@@ -141,7 +141,6 @@
 </section>
 <!-- ================ contact section end ================= -->
 
-<!-- intro_video_bg start-->
 <section class="intro_video_bg">
     <div class="container">
         <div class="row justify-content-center">
@@ -156,5 +155,4 @@
         </div>
     </div>
 </section>
-<!-- intro_video_bg part start-->
 @endsection

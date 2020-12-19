@@ -54,11 +54,11 @@ class AdminController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $this->validate($request, [
-            'OldPassword' => 'required|string|min:6',
-            'NewPassword' => 'required|string|min:6|different:OldPassword',
-            'ConfirmPassword' => 'required|string|min:6|same:NewPassword'
-        ]);
+        Validator::make($request->all(), [
+            'OldPassword' => ['required','string','min:6'],
+            'NewPassword' => ['required','string','min:6','different:OldPassword'],
+            'ConfirmPassword' => ['required','string','min:6','same:NewPassword'],
+        ])->validate();
         if (Hash::check($request->OldPassword, Auth::user()->password)) {
             if (Admin::where('id', Auth::user()->id)->update(['password' => Hash::make($request->NewPassword)])) {
                 Auth::guard('admin')->logout();

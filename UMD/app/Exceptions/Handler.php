@@ -71,8 +71,8 @@ class Handler extends ExceptionHandler
             return redirect()->guest('/ngo/verifier/login');
         }
         if ($request->is('donate') || $request->is('donate/*')) {
-            return redirect()->guest('login');
+            return redirect()->guest('/login');
         }
-        return redirect()->guest('login');
+        return redirect()->guest('/login');
     }
 }

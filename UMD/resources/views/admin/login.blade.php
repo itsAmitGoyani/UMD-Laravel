@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
-
-<!-- Mirrored from demo.themefisher.com/focus/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:51 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,8 +76,5 @@
     <script src="{{ asset('js/quixnav-init.js') }}"></script>
     <script src="{{ asset('js/custom.min.js') }}"></script>
 </body>
-
-
-<!-- Mirrored from demo.themefisher.com/focus/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 08:42:51 GMT -->
 
 </html>

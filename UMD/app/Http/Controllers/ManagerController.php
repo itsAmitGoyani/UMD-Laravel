@@ -307,15 +307,15 @@ class ManagerController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.managerpath'), $imagename);
+            $image->storeAs('/' . __('custom.managerpath'), $imagename, ['disk' => 'amit']);
             //$destinationPath = url(__('custom.managerpath'));
             //$image->move($destinationPath, $imagename);
             //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
 
             //delete old image
             $manager = Manager::find($id);
-            $oldImageName = $manager->profile_image_url;
-            $filename = storage_path('app/public' . __('custom.managerpath') . '/' . $oldImageName);
+            $oldImageName = $manager->profileimage;
+            $filename = public_path()."/storage". __('custom.managerpath').'/'.$oldImageName;
             if (file_exists($filename)) {
                 unlink($filename);
             }
@@ -353,8 +353,8 @@ class ManagerController extends Controller
     {
         $findmanager = Manager::find($id);
         if ($findmanager) {
-            $imagename = $findmanager->profile_image_url;
-            $filename = storage_path('app/public' . __('custom.managerpath') . '/' . $imagename);
+            $imagename = $findmanager->profileimage;
+            $filename = public_path()."/storage". __('custom.managerpath') . '/' . $imagename;
             if (file_exists($filename)) {
                 unlink($filename);
             }

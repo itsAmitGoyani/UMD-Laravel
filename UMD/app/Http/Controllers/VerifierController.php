@@ -387,12 +387,12 @@ class VerifierController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.verifierpath'), $imagename);
+            $image->storeAs('/' . __('custom.verifierpath'), $imagename, ['disk' => 'amit']);
 
             //delete old image
             $verifier = Verifier::find($id);
             $oldImageName = $verifier->profileimage;
-            $filename = storage_path('app/public' . __('custom.verifierpath') . '/' . $oldImageName);
+            $filename = public_path()."/storage". __('custom.verifierpath') . '/' . $oldImageName;
             if (file_exists($filename)) {
                 unlink($filename);
             }
@@ -428,7 +428,7 @@ class VerifierController extends Controller
         $verifier = Verifier::find($id);
         if ($verifier) {
             $imagename = $verifier->profileimage;
-            $filename = storage_path('app/public' . __('custom.verifierpath') . '/' . $imagename);
+            $filename = public_path()."/storage" . __('custom.verifierpath') . '/' . $imagename;
             if (file_exists($filename)) {
                 unlink($filename);
             }

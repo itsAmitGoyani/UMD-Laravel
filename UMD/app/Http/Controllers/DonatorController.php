@@ -283,7 +283,7 @@ class DonatorController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.donatorpath'), $imagename);
+            $image->storeAs('/' . __('custom.donatorpath'), $imagename, ['disk' => 'amit']);
             //$destinationPath = url(__('custom.managerpath'));
             //$image->move($destinationPath, $imagename);
             //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
@@ -291,7 +291,7 @@ class DonatorController extends Controller
             //delete old image
             $donator = Donator::find($id);
             $oldImageName = $donator->profileimage;
-            $filename = storage_path('app/public' . __('custom.donatorpath') . '/' . $oldImageName);
+            $filename = public_path()."/storage". __('custom.donatorpath') . '/' . $oldImageName;
             if (file_exists($filename)) {
                 unlink($filename);
             }

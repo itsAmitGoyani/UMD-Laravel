@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Ngo;
-use App\User;
 use App\Donator;
 use App\Manager;
 use App\Verifier;
@@ -76,14 +75,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+    
 
     //This is admin register functionality
 
@@ -136,7 +128,7 @@ class RegisterController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.donatorpath'), $imagename);
+            $image->storeAs('/' . __('custom.donatorpath'), $imagename, ['disk' => 'amit']);
 
             $donator = Donator::create([
                 'name' => $request['name'],
@@ -191,7 +183,7 @@ class RegisterController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.managerpath'), $imagename);
+            $image->storeAs('/' . __('custom.managerpath'), $imagename, ['disk' => 'amit']);
             //$destinationPath = url(__('custom.managerpath'));
             //$image->move($destinationPath, $imagename);
             //$profileimgurl = url('/') . '/images/manager/' . $imagepath;
@@ -214,7 +206,7 @@ class RegisterController extends Controller
                     'body' => 'Here is the token for Create Your Password !'
                 );
                 Mail::send('emailLayouts.createpassword', $data, function ($message) use ($request) {
-                    $message->from('kachhadiya123viral@gmail.com', 'MedCharity');
+                    $message->from('medcharity.webapp@gmail.com', 'MedCharity');
                     $message->to($request->email, $request->name);
                     $message->subject('Token for create Password');
                 });
@@ -257,7 +249,7 @@ class RegisterController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
+            $image->storeAs('/' . __('custom.pickupmanpath'), $imagename, ['disk' => 'amit']);
 
             $token = Str::random(6);
             $pickupman = Pickupman::create([
@@ -318,7 +310,7 @@ class RegisterController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.verifierpath'), $imagename);
+            $image->storeAs('/' . __('custom.verifierpath'), $imagename, ['disk' => 'amit']);
 
             $token = Str::random(6);
             $verifier = Verifier::create([

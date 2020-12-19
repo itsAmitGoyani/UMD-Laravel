@@ -237,12 +237,12 @@ class PickupmanController extends Controller
             $nameimg = explode('.', $name);
             $ext = $image->getClientOriginalExtension();
             $imagename = 'IMG_' . time() . '_' . $nameimg[0] . '.' . $ext;
-            $image->storeAs('/public' . __('custom.pickupmanpath'), $imagename);
+            $image->storeAs('/' . __('custom.pickupmanpath'), $imagename, ['disk' => 'amit']);
 
             //delete old image
             $pickupman = Pickupman::find($id);
             $oldImageName = $pickupman->profileimage;
-            $filename = storage_path('app/public' . __('custom.pickupmanpath') . '/' . $oldImageName);
+            $filename = public_path()."/storage" . __('custom.pickupmanpath') . '/' . $oldImageName;
             if (file_exists($filename)) {
                 unlink($filename);
             }
@@ -279,7 +279,7 @@ class PickupmanController extends Controller
         $pickupman = Pickupman::find($id);
         if ($pickupman) {
             $imagename = $pickupman->profileimage;
-            $filename = storage_path('app/public' . __('custom.pickupmanpath') . '/' . $imagename);
+            $filename = public_path()."/storage". __('custom.pickupmanpath') . '/' . $imagename;
             if (file_exists($filename)) {
                 unlink($filename);
             }

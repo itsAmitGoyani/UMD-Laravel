@@ -23,13 +23,13 @@
                                     <a class="nav-link" data-toggle="tab" href="#yesterday">Yesterday</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#lastweek">Last Week</a>
+                                    <a class="nav-link" data-toggle="tab" href="#lastweek">Current Week</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#lastmonth">Last Month</a>
+                                    <a class="nav-link" data-toggle="tab" href="#lastmonth">Current Month</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#lastyear">Last Year</a>
+                                    <a class="nav-link" data-toggle="tab" href="#lastyear">Current Year</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#all">All</a>

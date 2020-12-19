@@ -27,10 +27,10 @@ class Authenticate extends Middleware
             return redirect()->guest('/ngo/verifier/login');
         }
         if ($request->is('donate') || $request->is('donate/*')) {
-            return redirect()->guest('login');
+            return redirect()->guest('/login');
         }
         if (! $request->expectsJson()) {
-            return route('login');
+            return redirect()->guest('/login');
         }
     }
 }
